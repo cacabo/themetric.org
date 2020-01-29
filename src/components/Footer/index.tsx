@@ -9,6 +9,7 @@ import {
   minWidth,
   PHONE,
   MARGIN,
+  maxWidth,
 } from '../../constants/measurements'
 
 const logoPath = require('../../images/svg/logo-white.svg') as string // tslint:disable-line
@@ -43,8 +44,13 @@ const InternalLink = styled(Link)<{}>`
 
 const SectionHeader = styled(H4)<{}>`
   opacity: 0.8;
+
   ${minWidth(PHONE)} {
     margin-top: calc(2.5rem - 12.2px);
+  }
+
+  ${maxWidth(PHONE)} {
+    margin-top: 2rem;
   }
 `
 

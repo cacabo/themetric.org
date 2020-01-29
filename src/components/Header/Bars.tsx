@@ -1,8 +1,12 @@
 import React from 'react'
 import s from 'styled-components'
 
-import { minWidth, PHONE } from '../../constants/measurements'
-import { DARK_GRAY } from '../../constants/colors'
+import {
+  minWidth,
+  PHONE,
+  SHORT_ANIMATION_DURATION,
+} from '../../constants/measurements'
+import { WHITE } from '../../constants/colors'
 
 const Wrapper = s.div<{}>`
   padding: 10px 1rem;
@@ -10,6 +14,8 @@ const Wrapper = s.div<{}>`
   position: absolute;
   right: 0;
   top: 0.5rem;
+  opacity: 0.8;
+  transition: opacity ${SHORT_ANIMATION_DURATION}ms ease;
 
   &:hover {
     opacity: 0.5;
@@ -25,7 +31,7 @@ const Bar = s.span<{}>`
   height: 2px;
   margin-bottom: 3px;
   display: block;
-  background: ${DARK_GRAY};
+  background: ${WHITE};
 `
 
 export const Bars = ({ handleClick }): React.ReactElement => (

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { DARK_GRAY, WHITE } from '../constants/colors'
+import { WHITE, DARK } from '../constants/colors'
 
 interface ITextProps {
   white?: boolean
@@ -13,7 +13,7 @@ interface ITextProps {
 
 export const P = styled.p<ITextProps>(
   ({ white, color, opacity, mb0, sm, lg }) => css`
-    color: ${white ? WHITE : color || DARK_GRAY};
+    color: ${white ? WHITE : color || DARK};
     opacity: ${opacity || 1.0};
     ${mb0 && 'margin-bottom: 0;'}
     ${lg && 'font-size: 120%; line-height: 1.375;'}
@@ -51,3 +51,9 @@ export const H6 = ({ children, ...rest }) => (
     {children}
   </P>
 )
+
+export const BR = styled.br`
+  display: block;
+  height: 1.5rem;
+  width: 100%;
+`
