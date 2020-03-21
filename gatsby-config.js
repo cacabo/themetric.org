@@ -27,6 +27,14 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-source-ghost`,
+      options: {
+        apiUrl: `	https://ghost.themetric.org`,
+        contentApiKey: `517e08f593f38240905105721c`,
+        version: `v3`, // Ghost API version, optional, defaults to "v3".
+      },
+    },
     `gatsby-plugin-typescript`,
     `gatsby-plugin-tslint`,
     `gatsby-plugin-styled-components`,

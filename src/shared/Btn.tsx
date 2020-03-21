@@ -90,7 +90,6 @@ const Btn = ({
   fullWidth,
   kind,
 }: IBtnProps) => css`
-  font-family: ${DISPLAY_FONT};
   border: none;
   border-radius: ${BORDER_RADIUS};
   padding: ${

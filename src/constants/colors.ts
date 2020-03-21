@@ -26,13 +26,24 @@ export const LIGHT_BLUE = '#c7e3ff'
 export const SKY = '#e6f2ff'
 export const SNOW = '#f0f2f5'
 export const YELLOW = '#ffd400'
-export const TRANSLUCENT_BLUE = 'rgba(65, 143, 222, 0.1)'
+export const TRANSLUCENT_BLUE = 'rgba(65, 143, 222, 0.15)'
 
 // Neutrals
 export const BLACK = '#000'
+
+export const DARK_GRAY_1 = '#182026'
+export const DARK_GRAY_2 = '#202B33'
+export const DARK_GRAY_3 = '#293742'
+export const DARK_GRAY_4 = '#30404D'
+export const DARK_GRAY_5 = '#394B59'
+
+export const GRAY_1 = '#5C7080'
+export const GRAY_2 = '#738694'
+export const GRAY_3 = '#8A9BA8'
+export const GRAY_4 = '#A7B6C2'
+export const GRAY_5 = '#BFCCD6'
+
 export const BLACK_ALPHA = (alpha: number) => `rgba(0, 0, 0, ${alpha})`
-export const DARK_GRAY = '#888'
-export const GRAY = '#eee'
 export const LIGHT_GRAY = '#efefef'
 export const LIGHT_GRAY_ALPHA = 'rgba(239, 239, 239, 0.75)'
 export const SHADE = 'rgba(0, 0, 0, 0.1)'

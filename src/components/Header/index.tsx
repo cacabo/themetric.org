@@ -13,7 +13,7 @@ import {
   HEADER_Z_INDEX,
   MOBILE_HEADER_HEIGHT,
 } from '../../constants/measurements'
-import { BLACK_ALPHA, DARK } from '../../constants/colors'
+import { BLACK_ALPHA, BLACK } from '../../constants/colors'
 
 const StyledNav = styled.nav<{ active: boolean }>`
   padding-top: 1rem;
@@ -23,7 +23,8 @@ const StyledNav = styled.nav<{ active: boolean }>`
   z-index: ${HEADER_Z_INDEX};
   width: 100%;
   min-height: ${HEADER_HEIGHT};
-  background: ${DARK};
+  background: ${BLACK};
+  box-shadow: 0 1px 4px ${BLACK_ALPHA(0.2)};
 
   ${maxWidth(PHONE)} {
     padding-top: 0.5rem;

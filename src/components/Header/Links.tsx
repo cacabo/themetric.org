@@ -11,6 +11,7 @@ import {
 } from '../../constants/measurements'
 import { WHITE } from '../../constants/colors'
 import { DISPLAY_FONT } from '../../constants/fonts'
+import { HOME_ROUTE, ABOUT_ROUTE, ARTICLES_ROUTE } from '../../constants/routes'
 
 // TODO facebook, linkedin, search, articles dropdown
 
@@ -79,14 +80,18 @@ const StyledLink = styled(Link)<{}>`
   }
 `
 
-const links: string[] = ['Home', 'About', 'Articles', 'Contact Us']
+const links: string[][] = [
+  ['Home', HOME_ROUTE],
+  ['About', ABOUT_ROUTE],
+  ['Articles', ARTICLES_ROUTE],
+]
 
 export const Links = ({ active }: ILinksProps): React.ReactElement => (
   <LinksWrapper active={active}>
     <Spacer />
-    {links.map((link: string) => (
-      <StyledLink to={`/${link.toLowerCase()}`} key={link}>
-        {link}
+    {links.map(([text, link]) => (
+      <StyledLink to={`/${link}`} key={link}>
+        {text}
       </StyledLink>
     ))}
   </LinksWrapper>

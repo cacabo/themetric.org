@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Row, Col, P, Container, H4 } from '../../shared'
-import { DARK, WHITE } from '../../constants/colors'
+import { BLACK, WHITE } from '../../constants/colors'
 import { Link } from 'gatsby'
 import {
   MARGIN_LG,
@@ -11,12 +11,18 @@ import {
   MARGIN,
   maxWidth,
 } from '../../constants/measurements'
+import {
+  FACEBOOK_LINK,
+  HOME_ROUTE,
+  ABOUT_ROUTE,
+  ARTICLES_ROUTE,
+} from '../../constants/routes'
 
 const logoPath = require('../../images/svg/logo-white.svg') as string // tslint:disable-line
 
 const FooterTag = styled.footer<{}>`
   width: 100%;
-  background: ${DARK};
+  background: ${BLACK};
   color: ${WHITE};
   padding: calc(1rem + 1.25vh) 0;
 `
@@ -42,8 +48,9 @@ const InternalLink = styled(Link)<{}>`
   }
 `
 
-const SectionHeader = styled(H4)<{}>`
+const SectionHeader = styled(P)<{}>`
   opacity: 0.8;
+  font-weight: bold;
 
   ${minWidth(PHONE)} {
     margin-top: calc(2.5rem - 12.2px);
@@ -57,7 +64,11 @@ const SectionHeader = styled(H4)<{}>`
 // TODO icons
 // TODO mailing list
 
-const links = ['Home', 'About', 'Articles', 'Contact us']
+const links: string[][] = [
+  ['Home', HOME_ROUTE],
+  ['About', ABOUT_ROUTE],
+  ['Articles', ARTICLES_ROUTE],
+]
 
 export const Footer = () => (
   <FooterTag>
@@ -78,20 +89,21 @@ export const Footer = () => (
           </P>
         </Col>
         <Col sm={12} md={12} offsetLg={1} lg={3} margin={MARGIN_LG}>
-          <SectionHeader white>Navigation</SectionHeader>
-          {links.map(link => (
-            <P key={link} style={{ marginBottom: MARGIN }}>
-              <InternalLink to="TODO">{link}</InternalLink>
+          <SectionHeader white mb2>
+            Navigation
+          </SectionHeader>
+          {links.map(([text, link]) => (
+            <P key={link} style={{ marginBottom: MARGIN }} mb2>
+              <InternalLink to={link}>{text}</InternalLink>
             </P>
           ))}
         </Col>
         <Col sm={12} md={12} lg={3} margin={MARGIN_LG}>
-          <SectionHeader white>Keep in Touch</SectionHeader>
-          <P mb0 style={{ marginBottom: MARGIN }}>
-            <InternalLink to="TODO">Facebook</InternalLink>
-          </P>
-          <P mb0 style={{ marginBottom: MARGIN }}>
-            <InternalLink to="TODO">LinkedIn</InternalLink>
+          <SectionHeader white mb2>
+            Keep in Touch
+          </SectionHeader>
+          <P mb0>
+            <InternalLink to={FACEBOOK_LINK}>Facebook</InternalLink>
           </P>
         </Col>
       </Row>

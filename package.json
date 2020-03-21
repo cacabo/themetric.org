@@ -7,6 +7,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "gatsby": "^2.18.12",
+    "gatsby-background-image": "^0.10.2",
     "gatsby-image": "^2.2.34",
     "gatsby-plugin-manifest": "^2.2.31",
     "gatsby-plugin-offline": "^3.0.27",
@@ -15,6 +16,7 @@
     "gatsby-plugin-styled-components": "^3.1.17",
     "gatsby-plugin-typescript": "^2.1.26",
     "gatsby-source-filesystem": "^2.1.40",
+    "gatsby-source-ghost": "^4.0.4",
     "gatsby-transformer-sharp": "^2.3.7",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",

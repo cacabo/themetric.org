@@ -1,7 +1,16 @@
 import React, { ReactElement, ReactNode } from 'react'
-import s from 'styled-components'
+import s, { css } from 'styled-components'
 
-import { minWidth, maxWidth, PHONE, TABLET } from '../constants/measurements'
+import {
+  minWidth,
+  maxWidth,
+  PHONE,
+  TABLET,
+  M1,
+  M2,
+  M3,
+  M4,
+} from '../constants/measurements'
 
 const percent = (numCols: number): string => (numCols / 12) * 100 + '%'
 
@@ -34,20 +43,37 @@ export const Container = s.div<IContainerTagProps>`
 
 interface ISpacerProps {
   hiddenOnMobile?: boolean
+  xs?: boolean
+  sm?: boolean
+  md?: boolean
+  lg?: boolean
+  xl?: boolean
 }
 
-export const Spacer = s.div<ISpacerProps>`
-  display: block;
-  width: 100%;
-  height: 1rem;
-  ${({ hiddenOnMobile }) =>
-    hiddenOnMobile &&
-    `
+export const Spacer = s.div<ISpacerProps>(
+  ({ hiddenOnMobile, xs, sm, md, lg, xl }) => css`
+    display: block;
+    width: 100%;
+    height: ${xs
+      ? '0.4rem'
+      : sm
+      ? '0.8rem'
+      : md
+      ? '1.6rem'
+      : lg
+      ? '2.4rem'
+      : xl
+      ? '3.2rem'
+      : '1.6rem'};
+
+    ${hiddenOnMobile &&
+      `
     ${maxWidth(PHONE)} {
       display: none;
     }
   `}
-`
+  `,
+)
 
 export const Flex = s.div`
   width: 100%;
@@ -57,24 +83,36 @@ export const Flex = s.div`
 interface IRowProps {
   margin?: string
   alwaysFlex?: boolean
+  mb0?: boolean
+  mb1?: boolean
+  mb2?: boolean
+  mb3?: boolean
+  mb4?: boolean
 }
 
-export const Row = s.div<IRowProps>`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  flex-wrap: wrap;
+export const Row = s.div<IRowProps>(
+  ({ margin, alwaysFlex, mb0, mb1, mb2, mb3, mb4 }) => css`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
 
-  ${({ alwaysFlex }) => !alwaysFlex && `${maxWidth(PHONE)} { display: block; }`}
+    ${!alwaysFlex && `${maxWidth(PHONE)} { display: block; }`}
 
-  ${({ margin }) =>
-    margin &&
-    `
+    ${margin &&
+      `
     margin-left: -${margin};
     margin-right: -${margin};
     width: calc(100% + ${margin} + ${margin});
   `}
-`
+
+  ${mb0 && `margin-bottom: 0;`}
+  ${mb1 && `margin-bottom: ${M1};`}
+  ${mb2 && `margin-bottom: ${M2};`}
+  ${mb3 && `margin-bottom: ${M3};`}
+  ${mb4 && `margin-bottom: ${M4};`}
+  `,
+)
 
 export interface IColProps {
   width?: string
@@ -97,19 +135,20 @@ const ColWrapper = s.div<IColProps>`
   overflow-y: ${({ overflowY }) => overflowY || 'visible'};
   overflow-x: visible;
 
-  ${maxWidth(PHONE)} {
-    ${({ sm }) => sm && `width: ${percent(sm)}; flex: none;`}
-    ${({ offsetSm }) => offsetSm && `margin-left: ${percent(offsetSm)};`}
-  }
+  ${({ sm }) => sm && `width: ${percent(sm)}; flex: none;`}
+  ${({ offsetSm }) =>
+    (offsetSm || offsetSm === 0) && `margin-left: ${percent(offsetSm)};`}
 
   ${minWidth(PHONE)} {
     ${({ md }) => md && `width: ${percent(md)}; flex: none;`}
-    ${({ offsetMd }) => offsetMd && `margin-left: ${percent(offsetMd)};`}
+    ${({ offsetMd }) =>
+      (offsetMd || offsetMd === 0) && `margin-left: ${percent(offsetMd)};`}
   }
 
   ${minWidth(TABLET)} {
     ${({ lg }) => lg && `width: ${percent(lg)}; flex: none;`}
-    ${({ offsetLg }) => offsetLg && `margin-left: ${percent(offsetLg)};`}
+    ${({ offsetLg }) =>
+      (offsetLg || offsetLg === 0) && `margin-left: ${percent(offsetLg)};`}
   }
 
   ${({ flex }) => flex && `display: flex;`}
@@ -159,6 +198,19 @@ interface IContainerProps {
   foreground?: string
 }
 
+export const WideContainer = ({
+  children,
+  ...props
+}: IContainerProps): ReactElement => (
+  <Container {...props}>
+    <Row>
+      <Col sm={12} md={10} offsetMd={1} lg={8} offsetLg={2}>
+        {children}
+      </Col>
+    </Row>
+  </Container>
+)
+
 export const MediumContainer = ({
   children,
   ...props
@@ -184,3 +236,15 @@ export const ThinContainer = ({
     </Row>
   </Container>
 )
+
+export const Hero = s.div`
+  padding: 12.5vh 0;
+  width: 100%;
+  display: block;
+`
+
+export const Center = s.div`
+  text-align: center;
+  display: block;
+  width: 100%;
+`
