@@ -170,7 +170,8 @@ export const TextList = ({ children }: ITextListProps): React.ReactElement => (
     {children.map((child, idx) => (
       <React.Fragment key={child.key}>
         {child}
-        {idx < children.length - 1 && ', '}
+        {idx < children.length - 2 && ', '}
+        {idx === children.length - 2 && ' and '}
       </React.Fragment>
     ))}
   </>

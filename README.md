@@ -2,16 +2,21 @@
 
 - [ ] Dropdowns in navbar
 - [ ] About page
-- [ ] Button component
 - [ ] Hide navbar on scroll down, show on scroll up
-- [ ] Topic page
+- [ ] Topic page (regions, other topics)
 - [ ] Region page
 - [ ] Contact page
+- [ ] Article page
 - [ ] Search
-- [ ] Favicon
 - [ ] Pagination
 - [ ] TODO stubs in code
 - [ ] Next post and previous post
+- [ ] Homepage, featured posts
+- [ ] Remote images to Gatsby image
+- [ ] Figure out issue with showing users with no posts
+- [ ] Titles for authors
+- [x] Favicon
 - [x] Connect with Ghost
 - [x] 404 page
 - [x] Style links
+- [x] Author page

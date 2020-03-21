@@ -1,3 +1,14 @@
+export interface IAuthor {
+  bio?: string
+  facebook?: string
+  location?: string
+  name: string
+  postCount: number
+  profile_image?: string
+  twitter?: string
+  website?: string
+}
+
 export interface IAuthorPreview {
   id: string
   slug: string

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const MenuIcon = (props): React.ReactElement => (
+export const AlignJustifyIcon = (props): React.ReactElement => (
   <svg
     width={24}
     height={24}
@@ -12,6 +12,6 @@ export const MenuIcon = (props): React.ReactElement => (
     strokeLinejoin="round"
     {...props}
   >
-    <path d="M3 12h18M3 6h18M3 18h18" />
+    <path d="M21 10H3M21 6H3M21 14H3M21 18H3" />
   </svg>
 )

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const MenuIcon = (props): React.ReactElement => (
+export const ArchiveIcon = (props): React.ReactElement => (
   <svg
     width={24}
     height={24}
@@ -10,8 +10,9 @@ export const MenuIcon = (props): React.ReactElement => (
     strokeWidth={2}
     strokeLinecap="round"
     strokeLinejoin="round"
+    className="prefix__feather prefix__feather-archive"
     {...props}
   >
-    <path d="M3 12h18M3 6h18M3 18h18" />
+    <path d="M21 8v13H3V8M1 3h22v5H1zM10 12h4" />
   </svg>
 )

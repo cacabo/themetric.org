@@ -75,6 +75,31 @@ export const Spacer = s.div<ISpacerProps>(
   `,
 )
 
+export const ResponsiveSpacer = s.div<ISpacerProps>(
+  ({ hiddenOnMobile, xs, sm, md, lg, xl }) => css`
+    display: block;
+    width: 100%;
+    height: ${xs
+      ? '2vh'
+      : sm
+      ? '4vh'
+      : md
+      ? '8vh'
+      : lg
+      ? '12vh'
+      : xl
+      ? '16vh'
+      : '8vh'};
+
+    ${hiddenOnMobile &&
+      `
+    ${maxWidth(PHONE)} {
+      display: none;
+    }
+  `}
+  `,
+)
+
 export const Flex = s.div`
   width: 100%;
   display: flex;

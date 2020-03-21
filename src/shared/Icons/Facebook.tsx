@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const MenuIcon = (props): React.ReactElement => (
+export const FacebookIcon = (props): React.ReactElement => (
   <svg
     width={24}
     height={24}
@@ -12,6 +12,6 @@ export const MenuIcon = (props): React.ReactElement => (
     strokeLinejoin="round"
     {...props}
   >
-    <path d="M3 12h18M3 6h18M3 18h18" />
+    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
   </svg>
 )

@@ -11,7 +11,6 @@ export const ChevronRight = props => {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="prefix__feather prefix__feather-chevron-right"
       {...props}
     >
       <path d="M9 18l6-6-6-6" />

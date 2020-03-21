@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 import { Layout } from '../components/Layout'
 import { Meta } from '../components/Meta'
 import { ArticlePreviews } from '../components/Article/ArticlePreviews'
-import { H1, Hero, WideContainer } from '../shared'
+import { WideContainer, Spacer } from '../shared'
 
 // TODO pagination
 
@@ -16,27 +16,7 @@ const ArticlesPage = (): React.ReactElement => {
       allGhostPost(sort: { order: DESC, fields: [published_at] }) {
         edges {
           node {
-            id
-            slug
-            title
-            excerpt
-            published_at(formatString: "MMM DD, YYYY")
-            reading_time
-            tags {
-              id
-              slug
-              name
-            }
-            primary_tag {
-              id
-              slug
-            }
-            authors {
-              id
-              slug
-              name
-            }
-            feature_image
+            ...ArticlePreview
           }
         }
       }
@@ -48,10 +28,8 @@ const ArticlesPage = (): React.ReactElement => {
   return (
     <Layout>
       <Meta title="Articles" />
+      <Spacer />
       <WideContainer>
-        <Hero>
-          <H1 center>Articles</H1>
-        </Hero>
         <ArticlePreviews articles={articles} />
       </WideContainer>
     </Layout>
