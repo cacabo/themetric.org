@@ -35,6 +35,20 @@ module.exports = {
         version: `v3`, // Ghost API version, optional, defaults to "v3".
       },
     },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'GhostAuthor',
+        imagePath: 'profile_image',
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'GhostPost',
+        imagePath: 'feature_image',
+      },
+    },
     `gatsby-plugin-typescript`,
     `gatsby-plugin-tslint`,
     `gatsby-plugin-styled-components`,

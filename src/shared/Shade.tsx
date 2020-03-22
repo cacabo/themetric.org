@@ -44,7 +44,7 @@ export const Shade = ({ show, ...rest }: IShadeProps): React.ReactElement => {
   useEffect(() => {
     if (!isNewlyMounted) return
     if (show) setIsNewlyMounted(false)
-  }, [show])
+  }, [show, isNewlyMounted])
 
   return <StyledShade show={show} isNewlyMounted={isNewlyMounted} {...rest} />
 }

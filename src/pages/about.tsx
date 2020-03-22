@@ -4,14 +4,29 @@ import BackgroundImage from 'gatsby-background-image'
 
 import { Layout } from '../components/Layout'
 import { Meta } from '../components/Meta'
-import { P, H1, MediumContainer, H3, Hero, Spacer } from '../shared'
+import {
+  P,
+  H1,
+  MediumContainer,
+  H3,
+  Hero,
+  Spacer,
+  Row,
+  Col,
+  WideContainer,
+  ResponsiveSpacer,
+} from '../shared'
 import { FACEBOOK_LINK } from '../constants/routes'
+import { M2 } from '../constants/measurements'
+import { AuthorPreview } from '../components/Article/AuthorPreview'
+import { IAuthorPreview } from '../types'
 
 const AboutPage = (): React.ReactElement => {
   const {
     earth: {
       childImageSharp: { fluid },
     },
+    allGhostAuthor: { nodes: authors },
   } = useStaticQuery(graphql`
     query {
       earth: file(relativePath: { eq: "earth.jpeg" }) {
@@ -19,6 +34,11 @@ const AboutPage = (): React.ReactElement => {
           fluid(maxWidth: 2000) {
             ...GatsbyImageSharpFluid
           }
+        }
+      }
+      allGhostAuthor(sort: { order: DESC, fields: name }) {
+        nodes {
+          ...AuthorPreview
         }
       }
     }
@@ -32,7 +52,8 @@ const AboutPage = (): React.ReactElement => {
         <MediumContainer>
           <Hero>
             <H1 center white>
-              Measuring What's Happening Around the World through Your Voice
+              Measuring What&apos;s Happening Around the World through Your
+              Voice
             </H1>
           </Hero>
         </MediumContainer>
@@ -77,15 +98,28 @@ const AboutPage = (): React.ReactElement => {
       </MediumContainer>
 
       <Spacer xl />
+      <ResponsiveSpacer hiddenOnMobile />
 
       <MediumContainer>
         <H3 center>Meet the Team</H3>
-        <P>
-          We're a driven group of students from around the world who are
+        <P mb0>
+          We&apos;re a driven group of students from around the world who are
           passionate for progress and political awareness.
         </P>
-        <P>TODO</P>
       </MediumContainer>
+      <Spacer />
+      <WideContainer>
+        <Row margin={M2}>
+          {authors.map(
+            (a: IAuthorPreview): React.ReactElement => (
+              <Col key={a.slug} margin={M2} sm={12} md={6} flex>
+                <AuthorPreview {...a} />
+              </Col>
+            ),
+          )}
+        </Row>
+        <Spacer />
+      </WideContainer>
     </Layout>
   )
 }

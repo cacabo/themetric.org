@@ -8,6 +8,7 @@ const Image = styled.img<{}>`
   height: 2rem;
   width: auto;
   margin-bottom: 0;
+  user-select: none;
 `
 
 export const Logo = (): React.ReactElement => (

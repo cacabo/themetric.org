@@ -85,7 +85,7 @@ export const ArticlePreview = ({
         <P sm lighter mb1>
           <TextList>
             {authors.map(({ name, slug: authorSlug }) => (
-              <Link to={AUTHOR_ROUTE(authorSlug)} id={`author-${authorSlug}`}>
+              <Link to={AUTHOR_ROUTE(authorSlug)} key={`author-${authorSlug}`}>
                 {name}
               </Link>
             ))}
@@ -93,7 +93,9 @@ export const ArticlePreview = ({
           {authors && authors.length && tags && tags.length && ' in '}
           <TextList>
             {tags.map(({ name, slug: tagSlug }) => (
-              <Link to={TAG_ROUTE(tagSlug)}>{name}</Link>
+              <Link to={TAG_ROUTE(tagSlug)} key={`tag-${tagSlug}`}>
+                {name}
+              </Link>
             ))}
           </TextList>
         </P>

@@ -28,7 +28,7 @@ export const Container = s.div<IContainerTagProps>`
   padding-left: 1rem;
   width: 100%;
   display: block;
-  background: ${({ background }) => background || 'transparent'};
+  background: ${({ background }): string => background || 'transparent'};
 
   ${minWidth(PHONE)} {
     padding-right: calc(1rem + 2.5%);
@@ -43,6 +43,7 @@ export const Container = s.div<IContainerTagProps>`
 
 interface ISpacerProps {
   hiddenOnMobile?: boolean
+  onlyOnMobile?: boolean
   xs?: boolean
   sm?: boolean
   md?: boolean
@@ -51,7 +52,7 @@ interface ISpacerProps {
 }
 
 export const Spacer = s.div<ISpacerProps>(
-  ({ hiddenOnMobile, xs, sm, md, lg, xl }) => css`
+  ({ hiddenOnMobile, onlyOnMobile, xs, sm, md, lg, xl }) => css`
     display: block;
     width: 100%;
     height: ${xs
@@ -66,17 +67,13 @@ export const Spacer = s.div<ISpacerProps>(
       ? '3.2rem'
       : '1.6rem'};
 
-    ${hiddenOnMobile &&
-      `
-    ${maxWidth(PHONE)} {
-      display: none;
-    }
-  `}
+    ${onlyOnMobile && `${minWidth(PHONE)} { display: none; }`}
+    ${hiddenOnMobile && `${maxWidth(PHONE)} { display: none; }`}
   `,
 )
 
 export const ResponsiveSpacer = s.div<ISpacerProps>(
-  ({ hiddenOnMobile, xs, sm, md, lg, xl }) => css`
+  ({ onlyOnMobile, hiddenOnMobile, xs, sm, md, lg, xl }) => css`
     display: block;
     width: 100%;
     height: ${xs
@@ -91,12 +88,8 @@ export const ResponsiveSpacer = s.div<ISpacerProps>(
       ? '16vh'
       : '8vh'};
 
-    ${hiddenOnMobile &&
-      `
-    ${maxWidth(PHONE)} {
-      display: none;
-    }
-  `}
+    ${onlyOnMobile && `${minWidth(PHONE)} { display: none; }`}
+    ${hiddenOnMobile && `${maxWidth(PHONE)} { display: none; }`}
   `,
 )
 
@@ -131,7 +124,7 @@ export const Row = s.div<IRowProps>(
     width: calc(100% + ${margin} + ${margin});
   `}
 
-  ${mb0 && `margin-bottom: 0;`}
+  ${mb0 && 'margin-bottom: 0;'}
   ${mb1 && `margin-bottom: ${M1};`}
   ${mb2 && `margin-bottom: ${M2};`}
   ${mb3 && `margin-bottom: ${M3};`}
@@ -155,38 +148,38 @@ export interface IColProps {
 }
 
 const ColWrapper = s.div<IColProps>`
-  flex: ${({ width }) => (width ? 'none' : 1)};
-  width: ${({ width }) => width || 'auto'};
-  overflow-y: ${({ overflowY }) => overflowY || 'visible'};
+  flex: ${({ width }): string => (width ? 'none' : '1')};
+  width: ${({ width }): string => width || 'auto'};
+  overflow-y: ${({ overflowY }): string => overflowY || 'visible'};
   overflow-x: visible;
 
-  ${({ sm }) => sm && `width: ${percent(sm)}; flex: none;`}
-  ${({ offsetSm }) =>
-    (offsetSm || offsetSm === 0) && `margin-left: ${percent(offsetSm)};`}
+  ${({ sm }): string => (sm ? `width: ${percent(sm)}; flex: none;` : '')}
+  ${({ offsetSm }): string =>
+    offsetSm || offsetSm === 0 ? `margin-left: ${percent(offsetSm)};` : ''}
 
   ${minWidth(PHONE)} {
-    ${({ md }) => md && `width: ${percent(md)}; flex: none;`}
-    ${({ offsetMd }) =>
-      (offsetMd || offsetMd === 0) && `margin-left: ${percent(offsetMd)};`}
+     ${({ md }): string => (md ? `width: ${percent(md)}; flex: none;` : '')}
+    ${({ offsetMd }): string =>
+      offsetMd || offsetMd === 0 ? `margin-left: ${percent(offsetMd)};` : ''}
   }
 
   ${minWidth(TABLET)} {
-    ${({ lg }) => lg && `width: ${percent(lg)}; flex: none;`}
-    ${({ offsetLg }) =>
-      (offsetLg || offsetLg === 0) && `margin-left: ${percent(offsetLg)};`}
+    ${({ lg }): string => (lg ? `width: ${percent(lg)}; flex: none;` : '')}
+    ${({ offsetLg }): string =>
+      offsetLg || offsetLg === 0 ? `margin-left: ${percent(offsetLg)};` : ''}
   }
 
-  ${({ flex }) => flex && `display: flex;`}
+  ${({ flex }): string => (flex ? 'display: flex;' : '')}
 `
 
 const ColContainer = s.div<IColProps>`
-  background: ${({ background }) => background || 'transparent'};
+  background: ${({ background }): string => background || 'transparent'};
   overflow-x: visible;
   position: relative;
 
-  ${({ flex }) => flex && `display: flex; flex: 1;`}
+  ${({ flex }): string => (flex ? 'display: flex; flex: 1;' : '')}
 
-  ${({ margin }) =>
+  ${({ margin }): string =>
     margin && `margin-left: ${margin}; margin-right: ${margin};`}
 `
 
@@ -196,7 +189,7 @@ export const Col = ({
   background,
   flex,
   ...other
-}: IColProps) => (
+}: IColProps): React.ReactElement => (
   <ColWrapper flex={flex} {...other}>
     <ColContainer flex={flex} margin={margin} background={background}>
       {children}
@@ -210,7 +203,7 @@ export interface IColSpaceProps {
 
 export const ColSpace = s(Col)<IColSpaceProps>`
   flex: none;
-  width: ${({ width }) => width || '1rem'};
+  width: ${({ width }): string => width || '1rem'};
 
   ${maxWidth(PHONE)} {
     display: none;

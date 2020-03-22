@@ -1,20 +1,24 @@
 ### Todo
 
 - [ ] Dropdowns in navbar
-- [ ] About page
 - [ ] Hide navbar on scroll down, show on scroll up
 - [ ] Topic page (regions, other topics)
 - [ ] Region page
-- [ ] Contact page
-- [ ] Article page
 - [ ] Search
 - [ ] Pagination
 - [ ] TODO stubs in code
-- [ ] Next post and previous post
 - [ ] Homepage, featured posts
 - [ ] Remote images to Gatsby image
-- [ ] Figure out issue with showing users with no posts
-- [ ] Titles for authors
+- [ ] Show users who have no posts
+- [ ] Google Analytics
+- [ ] Hosting on Netlify
+- [ ] Figure out how to store roles on author objects
+- [ ] Webhook for rebuilding website in response to changes
+- [x] Port from tslint to eslint
+- [x] Contact page
+- [x] About page
+- [x] Article page
+- [x] Next post and previous post
 - [x] Favicon
 - [x] Connect with Ghost
 - [x] 404 page

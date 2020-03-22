@@ -30,8 +30,8 @@ const LinksWrapper = styled.div<ILinksProps>`
     overflow: hidden;
     transition: max-height ${SHORT_ANIMATION_DURATION}ms ease,
       opacity ${SHORT_ANIMATION_DURATION}ms ease;
-    max-height: ${({ active }) => (active ? '100vh' : '0')};
-    opacity: ${({ active }) => (active ? '1' : '0')};
+    max-height: ${({ active }): string => (active ? '100vh' : '0')};
+    opacity: ${({ active }): string => (active ? '1' : '0')};
   }
 `
 

@@ -25,7 +25,7 @@ import { ABOUT_ROUTE } from '../constants/routes'
 import { M2, TABLET, minWidth } from '../constants/measurements'
 
 const ProfileImage = s.div<{ src: string }>`
-  background-image: url(${({ src }) => src});
+  background-image: url(${({ src }): string => src});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -6,6 +6,7 @@ const IMAGE = 'TODO'
 const URL = 'themetric.org'
 
 // TODO contact email
+// TODO IMAGES
 
 type Meta =
   | { name: string; content: any; property?: undefined }
@@ -46,66 +47,66 @@ export const Meta = ({
         lang,
       }}
       title={title}
-      titleTemplate={`%s | The Metric`}
+      titleTemplate={'%s | The Metric'}
       meta={[
         {
-          name: `description`,
+          name: 'description',
           content: metaDescription,
         },
         {
-          name: `author`,
+          name: 'author',
           content: `The Metric <contact@${URL}>`,
         },
         {
-          property: `og:title`,
+          property: 'og:title',
           content: title,
         },
         {
-          property: `og:description`,
+          property: 'og:description',
           content: metaDescription,
         },
         {
-          property: `og:type`,
-          content: `website`,
+          property: 'og:type',
+          content: 'website',
         },
         {
-          property: `og:url`,
+          property: 'og:url',
           content: URL,
         },
         {
-          property: `og:image`,
+          property: 'og:image',
           content: IMAGE,
         },
         {
-          property: `og:image-alt`,
+          property: 'og:image-alt',
           content: 'The Metric Logo',
         },
         {
-          name: `twitter:site`,
+          name: 'twitter:site',
           content: URL,
         },
         {
-          name: `twitter:card`,
-          content: `summary`,
+          name: 'twitter:card',
+          content: 'summary',
         },
         {
-          name: `twitter:creator`,
+          name: 'twitter:creator',
           content: site.siteMetadata.author,
         },
         {
-          name: `twitter:title`,
+          name: 'twitter:title',
           content: title,
         },
         {
-          name: `twitter:description`,
+          name: 'twitter:description',
           content: metaDescription,
         },
         {
-          name: `twitter:image`,
+          name: 'twitter:image',
           content: IMAGE,
         },
         {
-          name: `twitter:image-alt`,
+          name: 'twitter:image-alt',
           content: 'The Metric logo',
         },
       ].concat(meta)}

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import s, { css } from 'styled-components'
+import s, { css, FlattenSimpleInterpolation } from 'styled-components'
 import { Link } from 'gatsby'
 
 import {
@@ -17,7 +17,6 @@ import {
   BORDER_RADIUS,
   SHORT_ANIMATION_DURATION,
 } from '../constants/measurements'
-import { DISPLAY_FONT } from '../constants/fonts'
 
 export enum EBtnKind {
   Primary,
@@ -89,7 +88,7 @@ const Btn = ({
   disabled,
   fullWidth,
   kind,
-}: IBtnProps) => css`
+}: IBtnProps): FlattenSimpleInterpolation => css`
   border: none;
   border-radius: ${BORDER_RADIUS};
   padding: ${
@@ -132,8 +131,8 @@ const Btn = ({
     padding: 0.5rem 0.75rem;
   }
 
-  ${disabled && `opacity: 0.5; cursor: not-allowed; user-select: none;`}
-  ${fullWidth && `width: 100%; text-align: center;`}
+  ${disabled && 'opacity: 0.5; cursor: not-allowed; user-select: none;'}
+  ${fullWidth && 'width: 100%; text-align: center;'}
 
   ${getKindStyles(kind, disabled)}
 `
@@ -162,7 +161,11 @@ const BtnLinkLink = s(Link)`
 
 // Structure the link differently so that styling props are not passed
 // to the DOM where they might cause rendering errors
-export const BtnLink = ({ to, fullWidth, ...rest }: IBtnLinkProps) => (
+export const BtnLink = ({
+  to,
+  fullWidth,
+  ...rest
+}: IBtnLinkProps): React.ReactElement => (
   <BtnLinkLink to={to}>
     <BtnBtn fullWidth={fullWidth} {...rest} tabIndex={-1} />
   </BtnLinkLink>
@@ -178,6 +181,9 @@ type IBtnInputProps = IBtnProps & IInputProps
 
 const BtnInputTag = s.input<IBtnInputProps>(Btn)
 
-export const BtnInput = ({ style, ...rest }: IBtnInputProps) => (
+export const BtnInput = ({
+  style,
+  ...rest
+}: IBtnInputProps): React.ReactElement => (
   <BtnInputTag style={{ ...style, marginBottom: 0 }} {...rest} />
 )

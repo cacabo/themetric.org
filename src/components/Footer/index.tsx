@@ -1,14 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Row, Col, P, Container, H4 } from '../../shared'
+import { Row, Col, P, Container } from '../../shared'
 import { BLACK, WHITE } from '../../constants/colors'
 import { Link } from 'gatsby'
 import {
   MARGIN_LG,
   minWidth,
   PHONE,
-  MARGIN,
   maxWidth,
 } from '../../constants/measurements'
 import {
@@ -16,6 +15,7 @@ import {
   HOME_ROUTE,
   ABOUT_ROUTE,
   ARTICLES_ROUTE,
+  CONTACT_ROUTE,
 } from '../../constants/routes'
 
 const logoPath = require('../../images/svg/logo-white.svg') as string // tslint:disable-line
@@ -30,6 +30,7 @@ const FooterTag = styled.footer<{}>`
 const Logo = styled.img<{}>`
   height: 2.5rem;
   width: auto;
+  user-select: none;
 `
 
 const StyledLink = styled.a<{}>`
@@ -47,6 +48,12 @@ const InternalLink = styled(Link)<{}>`
     opacity: 0.8;
   }
 `
+
+const ExternalLink = ({ children, ...props }): React.ReactElement => (
+  <InternalLink {...props} as="a">
+    {children}
+  </InternalLink>
+)
 
 const SectionHeader = styled(P)<{}>`
   opacity: 0.8;
@@ -70,14 +77,14 @@ const links: string[][] = [
   ['Articles', ARTICLES_ROUTE],
 ]
 
-export const Footer = () => (
+export const Footer = (): React.ReactElement => (
   <FooterTag>
     <Container>
       <Row margin={MARGIN_LG}>
         <Col sm={12} md={12} lg={4} margin={MARGIN_LG}>
           <Logo src={logoPath} alt="The Metric logo" />
           <P white opacity={0.8}>
-            Measuring what's happening around the world through your voice
+            Measuring what&apos;s happening around the world through your voice
           </P>
           <P white sm opacity={0.64}>
             Website by{' '}
@@ -93,7 +100,7 @@ export const Footer = () => (
             Navigation
           </SectionHeader>
           {links.map(([text, link]) => (
-            <P key={link} style={{ marginBottom: MARGIN }} mb2>
+            <P key={link} mb1>
               <InternalLink to={link}>{text}</InternalLink>
             </P>
           ))}
@@ -102,8 +109,17 @@ export const Footer = () => (
           <SectionHeader white mb2>
             Keep in Touch
           </SectionHeader>
+          <P mb1>
+            <ExternalLink
+              href={FACEBOOK_LINK}
+              target="_BLANK"
+              rel="noopener noreferrer"
+            >
+              Facebook
+            </ExternalLink>
+          </P>
           <P mb0>
-            <InternalLink to={FACEBOOK_LINK}>Facebook</InternalLink>
+            <InternalLink to={CONTACT_ROUTE}>Contact Us</InternalLink>
           </P>
         </Col>
       </Row>

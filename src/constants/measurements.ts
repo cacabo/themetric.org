@@ -9,10 +9,6 @@ export const M2 = '0.8rem'
 export const M3 = '1.2rem'
 export const M4 = '1.6rem'
 
-// TODO remove these eventually
-export const MARGIN = '0.4rem'
-export const MARGIN_LG = '0.8rem'
-
 export const BORDER_RADIUS = '3px'
 export const BORDER_RADIUS_LG = '9px'
 

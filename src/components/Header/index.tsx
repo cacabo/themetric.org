@@ -30,10 +30,9 @@ const StyledNav = styled.nav<{ active: boolean }>`
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     min-height: 0;
-    max-height: ${props => {
+    max-height: ${(props): string =>
       // Kinda kills the close transition, but it's a hack to get the height right
-      return props.active ? '100vh' : MOBILE_HEADER_HEIGHT
-    }};
+      props.active ? '100vh' : MOBILE_HEADER_HEIGHT};
     overflow: hidden;
     box-shadow: 0 1px 8px ${BLACK_ALPHA(0.2)};
   }
@@ -65,7 +64,7 @@ export const Header = (): React.ReactElement => {
       <StyledNav active={active}>
         <StyledContainer>
           <Logo />
-          <Bars handleClick={() => setActive(!active)} />
+          <Bars handleClick={(): void => setActive(!active)} />
           <Links active={active} />
         </StyledContainer>
       </StyledNav>
@@ -74,7 +73,7 @@ export const Header = (): React.ReactElement => {
         tabIndex={-1}
         zIndex={HEADER_Z_INDEX - 1}
         show={active}
-        onClick={() => setActive(!active)}
+        onClick={(): void => setActive(!active)}
       />
     </>
   )

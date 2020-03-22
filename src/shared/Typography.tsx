@@ -1,14 +1,7 @@
 import React from 'react'
 import s, { css, FlattenSimpleInterpolation } from 'styled-components'
 import { M0, M1, M2, M3, M4 } from '../constants/measurements'
-import {
-  BORDER,
-  WHITE,
-  DARK_GRAY_2,
-  DARK_GRAY_4,
-  GRAY_1,
-  GRAY_3,
-} from '../constants/colors'
+import { BORDER, WHITE, DARK_GRAY_4, GRAY_1, GRAY_3 } from '../constants/colors'
 
 export interface ITextProps {
   center?: boolean

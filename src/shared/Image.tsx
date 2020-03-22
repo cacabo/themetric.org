@@ -9,5 +9,5 @@ export const BackgroundImage = s.div<IBackgroundImage>`
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
-  ${({ src }) => `background-image: url(${src});`}
+  ${({ src }): string => `background-image: url(${src});`}
 `

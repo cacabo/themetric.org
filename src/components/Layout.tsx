@@ -545,7 +545,7 @@ const Main = styled.main<{}>`
   }
 `
 
-export const Layout = ({ children }) => (
+export const Layout = ({ children }): React.ReactElement => (
   <>
     <GlobalStyle />
     <Header />

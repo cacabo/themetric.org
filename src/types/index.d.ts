@@ -1,4 +1,6 @@
 export interface IAuthor {
+  id: string
+  slug: string
   bio?: string
   facebook?: string
   location?: string
@@ -13,6 +15,8 @@ export interface IAuthorPreview {
   id: string
   slug: string
   name: string
+  location?: string
+  profile_image?: string
 }
 
 export interface ITag {
