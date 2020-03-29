@@ -34,7 +34,8 @@ export const Card = styled.div<ICardProps>(
   box-shadow: 0 0 0 ${BLACK_ALPHA(0)};
   ${bordered && `border: 1px solid ${BORDER};`}
   ${shaded && `box-shadow: 0 1px 6px ${BLACK_ALPHA(0.125)};`}
-  ${clickable &&
+  ${
+    clickable &&
     `
     cursor: pointer;
     transform: translateY(0);
@@ -45,8 +46,10 @@ export const Card = styled.div<ICardProps>(
     :focus {
       transform: translateY(-2px);
     }
-  `}
-  ${hoverable &&
+  `
+  }
+  ${
+    hoverable &&
     `
     transition: all ${SHORT_ANIMATION_DURATION}ms ease;
 
@@ -55,6 +58,7 @@ export const Card = styled.div<ICardProps>(
     :focus {
       box-shadow: 0 2px 12px ${BLACK_ALPHA(0.25)};
     }
-  `}
+  `
+  }
 `,
 )

@@ -4,12 +4,7 @@ import styled from 'styled-components'
 import { Row, Col, P, Container } from '../../shared'
 import { BLACK, WHITE } from '../../constants/colors'
 import { Link } from 'gatsby'
-import {
-  MARGIN_LG,
-  minWidth,
-  PHONE,
-  maxWidth,
-} from '../../constants/measurements'
+import { M2, minWidth, PHONE, maxWidth } from '../../constants/measurements'
 import {
   FACEBOOK_LINK,
   HOME_ROUTE,
@@ -49,7 +44,14 @@ const InternalLink = styled(Link)<{}>`
   }
 `
 
-const ExternalLink = ({ children, ...props }): React.ReactElement => (
+interface IExternalLinkProps {
+  children: React.ReactNode
+}
+
+const ExternalLink = ({
+  children,
+  ...props
+}: IExternalLinkProps): React.ReactElement => (
   <InternalLink {...props} as="a">
     {children}
   </InternalLink>
@@ -80,8 +82,8 @@ const links: string[][] = [
 export const Footer = (): React.ReactElement => (
   <FooterTag>
     <Container>
-      <Row margin={MARGIN_LG}>
-        <Col sm={12} md={12} lg={4} margin={MARGIN_LG}>
+      <Row margin={M2}>
+        <Col sm={12} md={12} lg={4} margin={M2}>
           <Logo src={logoPath} alt="The Metric logo" />
           <P white opacity={0.8}>
             Measuring what&apos;s happening around the world through your voice
@@ -95,7 +97,7 @@ export const Footer = (): React.ReactElement => (
             &hearts; in Philadelphia and around the world.
           </P>
         </Col>
-        <Col sm={12} md={12} offsetLg={1} lg={3} margin={MARGIN_LG}>
+        <Col sm={12} md={12} offsetLg={1} lg={3} margin={M2}>
           <SectionHeader white mb2>
             Navigation
           </SectionHeader>
@@ -105,7 +107,7 @@ export const Footer = (): React.ReactElement => (
             </P>
           ))}
         </Col>
-        <Col sm={12} md={12} lg={3} margin={MARGIN_LG}>
+        <Col sm={12} md={12} lg={3} margin={M2}>
           <SectionHeader white mb2>
             Keep in Touch
           </SectionHeader>

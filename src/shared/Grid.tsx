@@ -117,12 +117,14 @@ export const Row = s.div<IRowProps>(
 
     ${!alwaysFlex && `${maxWidth(PHONE)} { display: block; }`}
 
-    ${margin &&
+    ${
+      margin &&
       `
     margin-left: -${margin};
     margin-right: -${margin};
     width: calc(100% + ${margin} + ${margin});
-  `}
+  `
+    }
 
   ${mb0 && 'margin-bottom: 0;'}
   ${mb1 && `margin-bottom: ${M1};`}

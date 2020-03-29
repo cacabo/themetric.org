@@ -36,3 +36,21 @@ export interface IArticlePreview {
   authors: IAuthorPreview[]
   tags: ITag[]
 }
+
+export interface IArticle {
+  title: string
+  feature_image?: string
+  localImage: {
+    childImageSharp: {
+      fluid: IFluidObject
+    }
+  }
+  html: string
+  codeinjection_head: string
+  codeinjection_foot: string
+  excerpt: string
+  reading_time: number
+  published_at: string
+  tags: ITag[]
+  authors: IAuthorPreview[]
+}

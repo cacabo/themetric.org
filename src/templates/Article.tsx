@@ -20,10 +20,27 @@ import { ArticlePreview } from '../components/Article/ArticlePreview'
 
 import './article.css'
 import { AuthorPreview } from '../components/Article/AuthorPreview'
-import { IAuthorPreview } from '../types'
+import { IAuthorPreview, IArticle, IArticlePreview } from '../types'
 import { M4 } from '../constants/measurements'
 
-const ArticleTemplate = ({ data, pageContext }): React.ReactElement => {
+interface IArticleTemplateProps {
+  data: {
+    ghostPost: IArticle
+  }
+  pageContext: {
+    next?: {
+      node?: IArticlePreview
+    }
+    prev?: {
+      node?: IArticlePreview
+    }
+  }
+}
+
+const ArticleTemplate = ({
+  data,
+  pageContext,
+}: IArticleTemplateProps): React.ReactElement => {
   const {
     ghostPost: {
       title,

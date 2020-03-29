@@ -10,8 +10,10 @@ export const ArticlePreviews = ({
   articles,
 }: IArticlePreviewsProps): React.ReactElement => (
   <>
-    {articles.map(a => (
-      <ArticlePreview {...a} key={a.id} />
-    ))}
+    {articles.map(
+      (a: IArticlePreview): React.ReactElement => (
+        <ArticlePreview {...a} key={a.id} />
+      ),
+    )}
   </>
 )
