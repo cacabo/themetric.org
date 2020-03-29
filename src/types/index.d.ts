@@ -1,3 +1,7 @@
+/**
+ * Authors
+ */
+
 export interface IAuthor {
   id: string
   slug: string
@@ -19,11 +23,19 @@ export interface IAuthorPreview {
   profile_image?: string
 }
 
+/**
+ * Tags
+ */
+
 export interface ITag {
   id: string
   slug: string
   name: string
 }
+
+/**
+ * Articles
+ */
 
 export interface IArticlePreview {
   id: string

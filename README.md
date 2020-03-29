@@ -17,6 +17,8 @@
 - [ ] Comments via Disqus
 - [ ] Tags section on homepage
 - [ ] 3-4 secondary features on homepage
+- [ ] Mailing list?
+- [ ] RSS feed?
 - [x] Port from tslint to eslint
 - [x] Contact page
 - [x] About page

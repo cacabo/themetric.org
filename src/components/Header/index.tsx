@@ -9,26 +9,27 @@ import { Logo } from './Logo'
 import {
   maxWidth,
   PHONE,
-  HEADER_HEIGHT,
+  HEADER_CONTENT_HEIGHT,
+  HEADER_PADDING,
   HEADER_Z_INDEX,
   MOBILE_HEADER_HEIGHT,
 } from '../../constants/measurements'
 import { BLACK_ALPHA, BLACK } from '../../constants/colors'
 
 const StyledNav = styled.nav<{ active: boolean }>`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  position: fixed;
+  padding-top: ${HEADER_PADDING};
+  padding-bottom: ${HEADER_PADDING};
+  position: relative;
   top: 0;
   z-index: ${HEADER_Z_INDEX};
   width: 100%;
-  min-height: ${HEADER_HEIGHT};
+  min-height: calc(
+    ${HEADER_CONTENT_HEIGHT} + ${HEADER_PADDING} + ${HEADER_PADDING}
+  );
   background: ${BLACK};
   box-shadow: 0 1px 4px ${BLACK_ALPHA(0.2)};
 
   ${maxWidth(PHONE)} {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
     min-height: 0;
     max-height: ${(props): string =>
       // Kinda kills the close transition, but it's a hack to get the height right
@@ -47,18 +48,9 @@ const StyledContainer = styled(Container)<{}>`
   }
 `
 
-const NavSpace = styled.div<{}>`
-  height: ${HEADER_HEIGHT};
-  width: 100%;
-  display: block;
-
-  ${maxWidth(PHONE)} {
-    height: ${MOBILE_HEADER_HEIGHT};
-  }
-`
-
 export const Header = (): React.ReactElement => {
   const [active, setActive] = useState<boolean>(false)
+
   return (
     <>
       <StyledNav active={active}>
@@ -68,7 +60,6 @@ export const Header = (): React.ReactElement => {
           <Links active={active} />
         </StyledContainer>
       </StyledNav>
-      <NavSpace />
       <Shade
         tabIndex={-1}
         zIndex={HEADER_Z_INDEX - 1}

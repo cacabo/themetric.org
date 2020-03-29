@@ -545,7 +545,11 @@ const Main = styled.main<{}>`
   }
 `
 
-export const Layout = ({ children }): React.ReactElement => (
+interface ILayoutProps {
+  children: React.ReactNode | React.ReactNodeArray
+}
+
+export const Layout = ({ children }: ILayoutProps): React.ReactElement => (
   <>
     <GlobalStyle />
     <Header />

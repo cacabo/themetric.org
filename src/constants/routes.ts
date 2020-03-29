@@ -9,3 +9,4 @@ export const ARTICLE_ROUTE = (slug: string): string => `/articles/${slug}`
 
 // External
 export const FACEBOOK_LINK = 'https://www.facebook.com/TheMetricGlobal/'
+export const CAMERON_LINK = 'https://www.cameroncabo.com'

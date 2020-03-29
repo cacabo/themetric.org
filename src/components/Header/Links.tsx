@@ -8,6 +8,7 @@ import {
   PHONE,
   DESKTOP,
   SHORT_ANIMATION_DURATION,
+  HEADER_CONTENT_HEIGHT,
 } from '../../constants/measurements'
 import { WHITE } from '../../constants/colors'
 import { DISPLAY_FONT } from '../../constants/fonts'
@@ -21,11 +22,14 @@ interface ILinksProps {
 
 const LinksWrapper = styled.div<ILinksProps>`
   flex: 1;
-  text-align: right;
+  height: ${HEADER_CONTENT_HEIGHT};
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
 
   ${maxWidth(PHONE)} {
+    height: auto;
     flex: none;
-    text-align: left;
     display: block;
     overflow: hidden;
     transition: max-height ${SHORT_ANIMATION_DURATION}ms ease,
@@ -46,25 +50,19 @@ const Spacer = styled.div<{}>`
 `
 
 const StyledLink = styled(Link)<{}>`
-  height: 2rem;
-  line-height: 2rem;
+  line-height: 1;
+  display: inline-block;
   margin-left: 1rem;
-  color: ${WHITE};
+  color: ${WHITE} !important;
   opacity: 0.64;
-  text-decoration: none;
+  text-decoration: none !important;
   cursor: pointer;
   transition: opacity ${SHORT_ANIMATION_DURATION}ms ease;
   font-family: ${DISPLAY_FONT};
 
-  &:visited {
-    color: ${WHITE};
-  }
-
   &:hover,
   &:active {
-    color: ${WHITE};
     opacity: 1;
-    text-decoration: none;
   }
 
   ${minWidth(DESKTOP)} {
@@ -76,6 +74,7 @@ const StyledLink = styled(Link)<{}>`
     text-align: center;
     display: block;
     margin: 0.5rem 0;
+    line-height: 2rem;
     font-size: 1.2rem;
   }
 `

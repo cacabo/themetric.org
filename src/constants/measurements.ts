@@ -1,7 +1,8 @@
-export const HEADER_HEIGHT = '72px'
+export const HEADER_CONTENT_HEIGHT = '2rem'
+export const HEADER_PADDING = '0.5rem'
+export const HEADER_HEIGHT = `calc(${HEADER_CONTENT_HEIGHT} + ${HEADER_PADDING} + ${HEADER_PADDING})`
 export const HEADER_Z_INDEX = 1000
 export const MOBILE_HEADER_HEIGHT = '52px'
-export const FOOTER_HEIGHT = '72px'
 
 export const M0 = '0'
 export const M1 = '0.4rem'

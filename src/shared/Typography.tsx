@@ -23,6 +23,7 @@ export interface ITextProps {
   light?: boolean
   lighter?: boolean
   lightest?: boolean
+  condensedLineHeight?: boolean
 }
 
 /**
@@ -64,8 +65,9 @@ export const Text = s.p<ITextProps>(
     light,
     lighter,
     lightest,
+    condensedLineHeight,
   }): FlattenSimpleInterpolation => css`
-    line-height: 1.45;
+    line-height: ${condensedLineHeight ? 1.25 : 1.45};
     color: ${color || 'inherit'};
     text-align: ${center ? 'center' : 'left'};
     font-size: ${fontSize || getFontSize({ xs, sm, lg, normal: 1.2 })};
@@ -90,9 +92,15 @@ export const H1 = ({
   sm,
   lg,
   children,
+  style = {},
   ...rest
 }: ITextProps): React.ReactElement => (
-  <P as="h1" fontSize={getFontSize({ xs, sm, lg, normal: 2 })} {...rest}>
+  <P
+    as="h1"
+    style={{ lineHeight: '1.1', ...style }}
+    fontSize={getFontSize({ xs, sm, lg, normal: 2 })}
+    {...rest}
+  >
     {children}
   </P>
 )
@@ -100,10 +108,16 @@ export const H2 = ({
   xs,
   sm,
   lg,
+  style = {},
   children,
   ...rest
 }: ITextProps): React.ReactElement => (
-  <P as="h2" fontSize={getFontSize({ xs, sm, lg, normal: 1.8 })} {...rest}>
+  <P
+    as="h2"
+    style={{ lineHeight: '1.1', ...style }}
+    fontSize={getFontSize({ xs, sm, lg, normal: 1.8 })}
+    {...rest}
+  >
     {children}
   </P>
 )
@@ -111,10 +125,16 @@ export const H3 = ({
   xs,
   sm,
   lg,
+  style = {},
   children,
   ...rest
 }: ITextProps): React.ReactElement => (
-  <P as="h3" fontSize={getFontSize({ xs, sm, lg, normal: 1.6 })} {...rest}>
+  <P
+    as="h3"
+    style={{ lineHeight: '1.1', ...style }}
+    fontSize={getFontSize({ xs, sm, lg, normal: 1.6 })}
+    {...rest}
+  >
     {children}
   </P>
 )
@@ -161,7 +181,7 @@ interface ITextListProps {
 export const TextList = ({ children }: ITextListProps): React.ReactElement => (
   <>
     {children.map((child, idx) => (
-      <React.Fragment key={child.key}>
+      <React.Fragment key={child.key as string}>
         {child}
         {idx < children.length - 2 && ', '}
         {idx === children.length - 2 && ' and '}

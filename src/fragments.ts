@@ -1,5 +1,30 @@
 import { graphql } from 'gatsby'
 
+export const AuthorPreviewFragment = graphql`
+  fragment AuthorPreview on GhostAuthor {
+    id
+    slug
+    name
+    location
+    profile_image
+  }
+`
+
+export const AuthorFragment = graphql`
+  fragment Author on GhostAuthor {
+    id
+    slug
+    bio
+    facebook
+    location
+    name
+    postCount
+    profile_image
+    twitter
+    website
+  }
+`
+
 export const ArticleFragment = graphql`
   fragment Article on GhostPost {
     slug
@@ -52,30 +77,5 @@ export const ArticlePreviewFragment = graphql`
       name
     }
     feature_image
-  }
-`
-
-export const AuthorPreviewFragment = graphql`
-  fragment AuthorPreview on GhostAuthor {
-    id
-    slug
-    name
-    location
-    profile_image
-  }
-`
-
-export const AuthorFragment = graphql`
-  fragment Author on GhostAuthor {
-    id
-    slug
-    bio
-    facebook
-    location
-    name
-    postCount
-    profile_image
-    twitter
-    website
   }
 `

@@ -11,6 +11,7 @@ import {
   ABOUT_ROUTE,
   ARTICLES_ROUTE,
   CONTACT_ROUTE,
+  CAMERON_LINK,
 } from '../../constants/routes'
 
 const logoPath = require('../../images/svg/logo-white.svg') as string // tslint:disable-line
@@ -46,6 +47,9 @@ const InternalLink = styled(Link)<{}>`
 
 interface IExternalLinkProps {
   children: React.ReactNode
+  href: string
+  target?: '_BLANK'
+  rel?: 'noopener noreferrer'
 }
 
 const ExternalLink = ({
@@ -70,8 +74,7 @@ const SectionHeader = styled(P)<{}>`
   }
 `
 
-// TODO icons
-// TODO mailing list
+// TODO icons?
 
 const links: string[][] = [
   ['Home', HOME_ROUTE],
@@ -90,7 +93,11 @@ export const Footer = (): React.ReactElement => (
           </P>
           <P white sm opacity={0.64}>
             Website by{' '}
-            <StyledLink href="https://www.cameroncabo.com">
+            <StyledLink
+              href={CAMERON_LINK}
+              target="_BLANK"
+              rel="noopener noreferrer"
+            >
               Cameron Cabo
             </StyledLink>{' '}
             &copy; {new Date().getFullYear()}, all rights reserved. Made with

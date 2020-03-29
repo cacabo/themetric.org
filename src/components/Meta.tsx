@@ -2,20 +2,18 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
-const IMAGE = 'TODO'
+const IMAGE = 'https://ccabo.s3-us-west-1.amazonaws.com/metric.png'
 const URL = 'themetric.org'
-
-// TODO contact email
-// TODO IMAGES
 
 type Meta =
   | { name: string; content: any; property?: undefined }
   | { property: string; content: any; name?: undefined }
 
-export interface ISEOProps {
+export interface IMetaProps {
   description?: string
   lang?: string
   meta?: Meta[]
+  image?: string
   title?: string
 }
 
@@ -23,8 +21,9 @@ export const Meta = ({
   description = '',
   lang = 'en',
   meta = [],
+  image,
   title = '',
-}: ISEOProps): React.ReactElement => {
+}: IMetaProps): React.ReactElement => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -39,7 +38,12 @@ export const Meta = ({
     `,
   )
 
-  const metaDescription = description || site.siteMetadata.description
+  const metaDescription =
+    description ||
+    site.siteMetadata.description ||
+    "Measuring what's happening around the world through your voice"
+
+  const metaImage = image || IMAGE
 
   return (
     <Helmet
@@ -75,7 +79,7 @@ export const Meta = ({
         },
         {
           property: 'og:image',
-          content: IMAGE,
+          content: metaImage,
         },
         {
           property: 'og:image-alt',

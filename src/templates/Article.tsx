@@ -65,7 +65,7 @@ const ArticleTemplate = ({
 
   return (
     <Layout>
-      <Meta title={title} description={excerpt} />
+      <Meta title={title} description={excerpt} image={feature_image} />
 
       <article>
         <header style={{ width: '100%' }}>
@@ -73,7 +73,7 @@ const ArticleTemplate = ({
           <Spacer onlyOnMobile />
           <MediumContainer>
             <H1 mb2>{title}</H1>
-            <P lg light>
+            <P lg light condensedLineHeight>
               {excerpt}
             </P>
             {tags && tags.length && (
