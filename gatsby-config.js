@@ -32,8 +32,8 @@ module.exports = {
       resolve: `gatsby-source-ghost`,
       options: {
         apiUrl: `	https://ghost.themetric.org`,
-        contentApiKey: `517e08f593f38240905105721c`,
-        version: `v3`, // Ghost API version, optional, defaults to "v3".
+        contentApiKey: process.env.GHOST_API_KEY,
+        version: `v3`,
       },
     },
     {
@@ -71,10 +71,21 @@ module.exports = {
           {
             serialize: ({ query: { site, allGhostPost } }) =>
               allGhostPost.edges.map(
-                ({ node: { slug, title, published_at, excerpt, html } }) => {
+                ({
+                  node: {
+                    slug,
+                    title,
+                    published_at,
+                    excerpt,
+                    html,
+                    tags,
+                    authors,
+                  },
+                }) => {
                   const url = site.siteMetadata.siteUrl + '/articles/' + slug
-                  // categories string[] for tags
-                  // author string for author(s)
+                  const categories = tags.map(({ name }) => name)
+                  const author = authors.map(({ name }) => name).join(', ')
+
                   return Object.assign(
                     {},
                     {
@@ -84,6 +95,8 @@ module.exports = {
                       url,
                       guid: url,
                       custom_elements: [{ 'content:encoded': html }],
+                      author,
+                      categories,
                     },
                   )
                 },
@@ -98,6 +111,12 @@ module.exports = {
                       published_at
                       excerpt
                       html
+                      tags {
+                        name
+                      }
+                      authors {
+                        name
+                      }
                     }
                   }
                 }

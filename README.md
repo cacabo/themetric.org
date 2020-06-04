@@ -20,8 +20,8 @@
 - [ ] 3-4 secondary features on homepage
 - [ ] Styled-system
 - [ ] Shadow on navbar
-- [ ] Make Ghost API key be in env
 - [ ] Port over all content to ghost
+- [x] Make Ghost API key be in env
 - [x] RSS feed
 - [x] Social icons in navbar
 - [x] Links to share on article show page
