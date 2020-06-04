@@ -59,6 +59,7 @@ const StyledLink = styled(Link)<{}>`
   cursor: pointer;
   transition: opacity ${SHORT_ANIMATION_DURATION}ms ease;
   font-family: ${DISPLAY_FONT};
+  margin-bottom: 2px;
 
   &:hover,
   &:active {
@@ -70,6 +71,7 @@ const StyledLink = styled(Link)<{}>`
   }
 
   ${maxWidth(PHONE)} {
+    margin-bottom: 0;
     width: 100%;
     text-align: center;
     display: block;
@@ -89,7 +91,7 @@ export const Links = ({ active }: ILinksProps): React.ReactElement => (
   <LinksWrapper active={active}>
     <Spacer />
     {links.map(([text, link]) => (
-      <StyledLink to={`/${link}`} key={link}>
+      <StyledLink to={link} key={link}>
         {text}
       </StyledLink>
     ))}

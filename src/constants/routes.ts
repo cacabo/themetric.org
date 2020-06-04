@@ -9,4 +9,6 @@ export const ARTICLE_ROUTE = (slug: string): string => `/articles/${slug}`
 
 // External
 export const FACEBOOK_LINK = 'https://www.facebook.com/TheMetricGlobal/'
+export const TWITTER_LINK = 'https://twitter.com/TheMetric_'
+export const LINKEDIN_LINK = 'https://www.linkedin.com/company/themetrichq/'
 export const CAMERON_LINK = 'https://www.cameroncabo.com'

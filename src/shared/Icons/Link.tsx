@@ -1,6 +1,7 @@
 import * as React from 'react'
+import { IIconProps } from './types'
 
-export const LinkIcon = (props): React.ReactElement => (
+export const LinkIcon = (props: IIconProps): React.ReactElement => (
   <svg
     width={24}
     height={24}

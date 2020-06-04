@@ -14,7 +14,7 @@ import {
   ResponsiveSpacer,
   Spacer,
 } from '../shared'
-import { HOME_ROUTE, FACEBOOK_LINK } from '../constants/routes'
+import { HOME_ROUTE, FACEBOOK_LINK, CAMERON_LINK } from '../constants/routes'
 
 const ContactPage = (): React.ReactElement => (
   <Layout>
@@ -27,6 +27,7 @@ const ContactPage = (): React.ReactElement => (
           <HandIcon style={{ width: '100%' }} />
         </Col>
       </Row>
+      <Spacer hiddenOnMobile />
       <H1 center>Contact Us</H1>
       <P center>
         The best way to reach our team is via our{' '}
@@ -34,11 +35,7 @@ const ContactPage = (): React.ReactElement => (
           Facebook account.
         </a>{' '}
         If you have a technical question, please reach out to{' '}
-        <a
-          href="https://www.cameroncabo.com"
-          target="_BLANK"
-          rel="noopener noreferrer"
-        >
+        <a href={CAMERON_LINK} target="_BLANK" rel="noopener noreferrer">
           Cameron Cabo.
         </a>
       </P>

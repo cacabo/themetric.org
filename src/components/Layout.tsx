@@ -553,6 +553,7 @@ export const Layout = ({ children }: ILayoutProps): React.ReactElement => (
   <>
     <GlobalStyle />
     <Header />
+    <Header fixed />
     <Main>{children}</Main>
     <Footer />
   </>

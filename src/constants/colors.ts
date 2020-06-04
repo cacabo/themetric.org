@@ -52,3 +52,8 @@ export const WHITE = '#FFFFFF'
 export const WHITE_ALPHA = (alpha: number): string =>
   `rgba(255, 255, 255, ${alpha})`
 export const DARK = '#232323'
+
+export const FACEBOOK_COLOR = '#3b5998'
+export const LINKEDIN_COLOR = '#2867B2'
+export const TWITTER_COLOR = '#1DA1F2'
+export const MAIL_COLOR = '#3de0c0'

@@ -1,6 +1,7 @@
 import React from 'react'
+import { IIconProps } from './types'
 
-export const ChevronRight = (props): React.ReactElement => (
+export const ChevronRight = (props: IIconProps): React.ReactElement => (
   <svg
     width={24}
     height={24}
@@ -12,11 +13,12 @@ export const ChevronRight = (props): React.ReactElement => (
     strokeLinejoin="round"
     {...props}
   >
+    <title>Chevron right</title>
     <path d="M9 18l6-6-6-6" />
   </svg>
 )
 
-export const LinkChevronRight = (props): React.ReactElement => (
+export const LinkChevronRight = (props: IIconProps): React.ReactElement => (
   <ChevronRight
     style={{
       marginTop: '-6px',

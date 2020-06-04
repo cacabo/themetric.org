@@ -22,6 +22,7 @@ import './article.css'
 import { AuthorPreview } from '../components/Article/AuthorPreview'
 import { IAuthorPreview, IArticle, IArticlePreview } from '../types'
 import { M4 } from '../constants/measurements'
+import { ShareArticle } from '../components/Article/ShareArticle'
 
 interface IArticleTemplateProps {
   data: {
@@ -103,7 +104,7 @@ const ArticleTemplate = ({
         </header>
 
         <MediumContainer>
-          <div className={'post-full-content content'}>
+          <div className="post-full-content content">
             <section
               className="post-content"
               dangerouslySetInnerHTML={{
@@ -111,17 +112,23 @@ const ArticleTemplate = ({
               }}
             />
           </div>
+          <ShareArticle title={title} />
         </MediumContainer>
       </article>
       <WideContainer>
         <footer>
           <HR />
-          <P lighter>Authors</P>
-          {authors.map((a: IAuthorPreview) => (
-            <div key={a.slug} style={{ marginBottom: M4 }}>
-              <AuthorPreview {...a} />
-            </div>
-          ))}
+          <P lighter>
+            {authors && authors.length === 1 ? 'Author' : 'Authors'}
+          </P>
+          {authors.map(
+            (a: IAuthorPreview): React.ReactElement => (
+              <div key={a.slug} style={{ marginBottom: M4 }}>
+                <AuthorPreview {...a} />
+              </div>
+            ),
+          )}
+
           <HR />
           <P lighter>More reading</P>
           {prev && prev.node && <ArticlePreview {...prev.node} />}

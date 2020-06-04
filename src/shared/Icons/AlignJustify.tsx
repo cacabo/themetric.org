@@ -1,6 +1,7 @@
 import * as React from 'react'
+import { IIconProps } from './types'
 
-export const AlignJustifyIcon = (props): React.ReactElement => (
+export const AlignJustifyIcon = (props: IIconProps): React.ReactElement => (
   <svg
     width={24}
     height={24}
@@ -12,6 +13,7 @@ export const AlignJustifyIcon = (props): React.ReactElement => (
     strokeLinejoin="round"
     {...props}
   >
+    <title>Align Justify</title>
     <path d="M21 10H3M21 6H3M21 14H3M21 18H3" />
   </svg>
 )

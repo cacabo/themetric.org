@@ -12,6 +12,8 @@ import {
   ARTICLES_ROUTE,
   CONTACT_ROUTE,
   CAMERON_LINK,
+  TWITTER_LINK,
+  LINKEDIN_LINK,
 } from '../../constants/routes'
 
 const logoPath = require('../../images/svg/logo-white.svg') as string // tslint:disable-line
@@ -127,8 +129,26 @@ export const Footer = (): React.ReactElement => (
               Facebook
             </ExternalLink>
           </P>
+          <P mb1>
+            <ExternalLink
+              href={TWITTER_LINK}
+              target="_BLANK"
+              rel="noopener noreferrer"
+            >
+              Twitter
+            </ExternalLink>
+          </P>
+          <P mb1>
+            <ExternalLink
+              href={LINKEDIN_LINK}
+              target="_BLANK"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </ExternalLink>
+          </P>
           <P mb0>
-            <InternalLink to={CONTACT_ROUTE}>Contact Us</InternalLink>
+            <InternalLink to={CONTACT_ROUTE}>Contact us</InternalLink>
           </P>
         </Col>
       </Row>

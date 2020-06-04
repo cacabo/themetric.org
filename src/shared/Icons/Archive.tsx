@@ -1,6 +1,7 @@
 import * as React from 'react'
+import { IIconProps } from './types'
 
-export const ArchiveIcon = (props): React.ReactElement => (
+export const ArchiveIcon = (props: IIconProps): React.ReactElement => (
   <svg
     width={24}
     height={24}
@@ -13,6 +14,7 @@ export const ArchiveIcon = (props): React.ReactElement => (
     className="prefix__feather prefix__feather-archive"
     {...props}
   >
+    <title>Archive</title>
     <path d="M21 8v13H3V8M1 3h22v5H1zM10 12h4" />
   </svg>
 )

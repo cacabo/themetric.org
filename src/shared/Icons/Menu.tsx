@@ -1,6 +1,7 @@
 import * as React from 'react'
+import { IIconProps } from './types'
 
-export const MenuIcon = (props): React.ReactElement => (
+export const MenuIcon = (props: IIconProps): React.ReactElement => (
   <svg
     width={24}
     height={24}
@@ -12,6 +13,7 @@ export const MenuIcon = (props): React.ReactElement => (
     strokeLinejoin="round"
     {...props}
   >
+    <title>Menu</title>
     <path d="M3 12h18M3 6h18M3 18h18" />
   </svg>
 )
