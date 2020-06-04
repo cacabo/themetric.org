@@ -3,7 +3,6 @@ import styled, { createGlobalStyle } from 'styled-components'
 
 import { Header } from './Header'
 import { Footer } from './Footer'
-import './Layout.css'
 import {
   HEADER_HEIGHT,
   PHONE,

@@ -1,7 +1,9 @@
 const path = require('path')
 
+const { POSTS_PER_PAGE } = require(path.resolve('./src/constants/misc.ts'))
 const AuthorTemplate = path.resolve('./src/templates/Author.tsx')
 const ArticleTemplate = path.resolve('./src/templates/Article.tsx')
+const ArticlesTemplate = path.resolve('./src/templates/Articles.tsx')
 
 if (!AuthorTemplate) {
   throw new Error('AuthorTemplate not found')
@@ -79,6 +81,21 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     }),
   )
+
+  const numArticles = articles.length
+  const numArticlesPages = Math.ceil(numArticles / POSTS_PER_PAGE)
+  Array.from({ length: numArticlesPages }).forEach((_, i) => {
+    createPage({
+      path: i === 0 ? `/articles` : `/articles/${i + 1}`,
+      component: ArticlesTemplate,
+      context: {
+        limit: POSTS_PER_PAGE,
+        skip: i * POSTS_PER_PAGE,
+        numPages: numArticlesPages,
+        currentPage: i + 1,
+      },
+    })
+  })
 
   // createTagPages(tags, createPage)
   // createPostPages(posts, createPage)

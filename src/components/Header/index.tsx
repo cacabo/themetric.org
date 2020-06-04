@@ -8,16 +8,17 @@ import { Shade, Container } from '../../shared'
 
 import {
   maxWidth,
-  PHONE,
   HEADER_CONTENT_HEIGHT,
   HEADER_PADDING,
   HEADER_Z_INDEX,
   MOBILE_HEADER_HEIGHT,
   SHORT_ANIMATION_DURATION,
   HEADER_HEIGHT,
+  TABLET,
 } from '../../constants/measurements'
 import { BLACK_ALPHA, BLACK } from '../../constants/colors'
 import { Social } from './Social'
+import { Search } from './Search'
 
 const getScrollTop = (): number =>
   window.pageYOffset !== undefined
@@ -46,13 +47,13 @@ const StyledNav = styled.nav<IWrapperProps>(
       ${HEADER_CONTENT_HEIGHT} + ${HEADER_PADDING} + ${HEADER_PADDING}
     );
     background: ${BLACK};
-    box-shadow: 0 1px 4px ${BLACK_ALPHA(0.2)};
+    box-shadow: 0 1px 4px ${BLACK_ALPHA(0.5)};
 
-    ${maxWidth(PHONE)} {
+    ${maxWidth(TABLET)} {
       min-height: 0;
       max-height: ${active ? '100vh' : MOBILE_HEADER_HEIGHT};
       overflow: hidden;
-      box-shadow: 0 1px 8px ${BLACK_ALPHA(0.2)};
+      box-shadow: 0 1px 8px ${BLACK_ALPHA(0.5)};
     }
   `,
 )
@@ -61,7 +62,7 @@ const StyledContainer = styled(Container)<{}>`
   display: flex;
   flex-direction: row;
 
-  ${maxWidth(PHONE)} {
+  ${maxWidth(TABLET)} {
     display: block;
   }
 `
@@ -86,7 +87,7 @@ interface IActiveState {
   isActive: boolean
 }
 
-export const Header = ({ fixed }: IHeaderProps): React.ReactElement => {
+export const Header = ({ fixed = false }: IHeaderProps): React.ReactElement => {
   const [{ prevScrollTop, shouldShowFixed }, setFixedState] = useState<
     IFixedState
   >({
@@ -170,6 +171,7 @@ export const Header = ({ fixed }: IHeaderProps): React.ReactElement => {
         <StyledContainer>
           <Logo />
           <Social />
+          <Search fixed={fixed} />
           <Bars handleClick={toggle} />
           <Links active={isActive} />
         </StyledContainer>

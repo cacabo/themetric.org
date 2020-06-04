@@ -23,6 +23,7 @@ import { AuthorPreview } from '../components/Article/AuthorPreview'
 import { IAuthorPreview, IArticle, IArticlePreview } from '../types'
 import { M4 } from '../constants/measurements'
 import { ShareArticle } from '../components/Article/ShareArticle'
+import { ArticleComments } from '../components/Article/ArticleComments'
 
 interface IArticleTemplateProps {
   data: {
@@ -49,6 +50,7 @@ const ArticleTemplate = ({
       localImage: {
         childImageSharp: { fluid },
       },
+      slug,
       html,
       // codeinjection_head,
       // codeinjection_foot,
@@ -133,6 +135,10 @@ const ArticleTemplate = ({
           <P lighter>More reading</P>
           {prev && prev.node && <ArticlePreview {...prev.node} />}
           {next && next.node && <ArticlePreview {...next.node} />}
+
+          <HR />
+          <P lighter>Comments</P>
+          <ArticleComments title={title} slug={slug} />
         </footer>
       </WideContainer>
     </Layout>

@@ -1,3 +1,11 @@
+# The Metric
+
+Web application for The Metric
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8e48634c-3066-49a4-a099-b27251163d3f/deploy-status)](https://app.netlify.com/sites/metric/deploys)
+
+---
+
 ### Todo
 
 - [ ] Dropdowns in navbar
@@ -6,7 +14,6 @@
 - [ ] [Search](https://www.gatsbyjs.org/packages/gatsby-plugin-flexsearch/)
   - [ ] Search bar in nav bar
   - [ ] Page for search
-- [ ] Pagination
 - [ ] TODO stubs in code
 - [ ] Homepage, featured posts
 - [ ] Remote images to Gatsby image
@@ -14,12 +21,13 @@
 - [ ] Hosting on Netlify
 - [ ] Figure out how to store roles on author objects
 - [ ] Webhook for rebuilding website in response to changes
-- [ ] Comments via Disqus
 - [ ] Tags section on homepage
 - [ ] 3-4 secondary features on homepage
 - [ ] Styled-system
 - [ ] Shadow on navbar
 - [ ] Port over all content to ghost
+- [x] Pagination for articles
+- [x] Comments via Disqus
 - [x] Google Analytics
 - [x] Make Ghost API key be in env
 - [x] RSS feed
@@ -40,4 +48,4 @@
 Down the line
 
 - [ ] Favicon for dark mode browser
-- [ ] Mailing list?
+- [ ] Mailing list

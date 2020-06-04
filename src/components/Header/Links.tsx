@@ -5,7 +5,7 @@ import { Link } from 'gatsby'
 import {
   maxWidth,
   minWidth,
-  PHONE,
+  TABLET,
   DESKTOP,
   SHORT_ANIMATION_DURATION,
   HEADER_CONTENT_HEIGHT,
@@ -27,7 +27,7 @@ const LinksWrapper = styled.div<ILinksProps>`
   display: flex;
   justify-content: flex-end;
 
-  ${maxWidth(PHONE)} {
+  ${maxWidth(TABLET)} {
     height: auto;
     flex: none;
     display: block;
@@ -42,7 +42,7 @@ const LinksWrapper = styled.div<ILinksProps>`
 const Spacer = styled.div<{}>`
   display: none;
 
-  ${maxWidth(PHONE)} {
+  ${maxWidth(TABLET)} {
     display: block;
     width: 100%;
     height: 0.5rem;
@@ -70,7 +70,7 @@ const StyledLink = styled(Link)<{}>`
     margin-left: calc(1rem + 1.25vw);
   }
 
-  ${maxWidth(PHONE)} {
+  ${maxWidth(TABLET)} {
     margin-bottom: 0;
     width: 100%;
     text-align: center;

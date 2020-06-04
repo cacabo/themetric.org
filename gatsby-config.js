@@ -148,5 +148,12 @@ module.exports = {
         defer: false,
       },
     },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [`Inter\:400,500,700`, `Palanquin+Dark`],
+        display: 'swap',
+      },
+    },
   ],
 }

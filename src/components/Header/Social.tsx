@@ -11,7 +11,7 @@ import { WHITE } from '../../constants/colors'
 import {
   SHORT_ANIMATION_DURATION,
   maxWidth,
-  PHONE,
+  TABLET,
   M2,
 } from '../../constants/measurements'
 
@@ -32,7 +32,7 @@ const SocialWrapper = s.div`
     }
   }
 
-  ${maxWidth(PHONE)} {
+  ${maxWidth(TABLET)} {
     width: 100%;
     text-align: center;
     margin-top: ${M2};

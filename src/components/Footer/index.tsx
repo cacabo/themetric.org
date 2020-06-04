@@ -2,9 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Row, Col, P, Container } from '../../shared'
-import { BLACK, WHITE } from '../../constants/colors'
+import { BLACK, WHITE, WHITE_ALPHA } from '../../constants/colors'
 import { Link } from 'gatsby'
-import { M2, minWidth, PHONE, maxWidth } from '../../constants/measurements'
+import { M2, M4, minWidth, TABLET } from '../../constants/measurements'
 import {
   FACEBOOK_LINK,
   HOME_ROUTE,
@@ -23,13 +23,27 @@ const FooterTag = styled.footer<{}>`
   width: 100%;
   background: ${BLACK};
   color: ${WHITE};
-  padding: calc(1rem + 1.25vh) 0;
+  padding: calc(${M2} + 1.25vh) 0;
+
+  ${minWidth(TABLET)} {
+    padding: calc(${M4} + 1.25vh) 0;
+  }
+`
+
+const LogoWrapper = styled.div<{}>`
+  width: 100%;
+  text-align: center;
+  margin-top: ${M4};
+  padding-top: ${M4};
+  border-top: 1px solid ${WHITE_ALPHA(0.2)};
 `
 
 const Logo = styled.img<{}>`
   height: 2.5rem;
   width: auto;
   user-select: none;
+  display: inline-block;
+  margin-bottom: 0;
 `
 
 const StyledLink = styled.a<{}>`
@@ -67,17 +81,9 @@ const ExternalLink = ({
 const SectionHeader = styled(P)<{}>`
   opacity: 0.8;
   font-weight: bold;
-
-  ${minWidth(PHONE)} {
-    margin-top: calc(2.5rem - 12.2px);
-  }
-
-  ${maxWidth(PHONE)} {
-    margin-top: 2rem;
-  }
 `
 
-// TODO icons?
+// TODO icons for social?
 
 const links: string[][] = [
   ['Home', HOME_ROUTE],
@@ -90,7 +96,6 @@ export const Footer = (): React.ReactElement => (
     <Container>
       <Row margin={M2}>
         <Col sm={12} md={12} lg={4} margin={M2}>
-          <Logo src={logoPath} alt="The Metric logo" />
           <P white opacity={0.8}>
             Measuring what&apos;s happening around the world through your voice
           </P>
@@ -162,6 +167,9 @@ export const Footer = (): React.ReactElement => (
           </P>
         </Col>
       </Row>
+      <LogoWrapper>
+        <Logo src={logoPath} alt="The Metric logo" />
+      </LogoWrapper>
     </Container>
   </FooterTag>
 )

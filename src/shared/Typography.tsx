@@ -189,3 +189,8 @@ export const TextList = ({ children }: ITextListProps): React.ReactElement => (
     ))}
   </>
 )
+
+export const DisabledSpan = s.span`
+  cursor: not-allowed;
+  opacity: 0.8;
+`

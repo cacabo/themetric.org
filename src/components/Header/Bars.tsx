@@ -5,6 +5,7 @@ import {
   minWidth,
   PHONE,
   SHORT_ANIMATION_DURATION,
+  TABLET,
 } from '../../constants/measurements'
 import { WHITE } from '../../constants/colors'
 import { MenuIcon } from '../../shared'
@@ -22,12 +23,16 @@ const Wrapper = s.div<{}>`
     opacity: 0.5;
   }
 
-  ${minWidth(PHONE)} {
+  ${minWidth(TABLET)} {
     display: none;
   }
 `
 
-export const Bars = ({ handleClick }): React.ReactElement => (
+interface IBarsProps {
+  handleClick: () => void
+}
+
+export const Bars = ({ handleClick }: IBarsProps): React.ReactElement => (
   <Wrapper onClick={handleClick}>
     <MenuIcon
       style={{

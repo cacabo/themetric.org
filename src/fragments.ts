@@ -39,7 +39,7 @@ export const ArticleFragment = graphql`
       }
     }
     excerpt
-    published_at(formatString: "MMM DD, YYYY")
+    published_at(formatString: "MMM D, YYYY")
     reading_time
     tags {
       id
@@ -62,7 +62,7 @@ export const ArticlePreviewFragment = graphql`
     slug
     title
     excerpt
-    published_at(formatString: "MMM DD, YYYY")
+    published_at(formatString: "MMM D, YYYY")
     reading_time
     tags {
       id
