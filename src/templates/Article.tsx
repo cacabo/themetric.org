@@ -50,8 +50,8 @@ const ArticleTemplate = ({
         childImageSharp: { fluid },
       },
       html,
-      codeinjection_head,
-      codeinjection_foot,
+      // codeinjection_head,
+      // codeinjection_foot,
       excerpt,
       reading_time: readingTime,
       published_at: publishedAt,
@@ -61,8 +61,8 @@ const ArticleTemplate = ({
   } = data
   const { next, prev } = pageContext
 
-  const htmlContent =
-    (codeinjection_head || '') + html + (codeinjection_foot || '')
+  const htmlContent = html
+  // (codeinjection_head || '') + html + (codeinjection_foot || '')
 
   return (
     <Layout>

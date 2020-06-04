@@ -17,6 +17,7 @@ import {
   HEADER_HEIGHT,
 } from '../../constants/measurements'
 import { BLACK_ALPHA, BLACK } from '../../constants/colors'
+import { Social } from './Social'
 
 const getScrollTop = (): number =>
   window.pageYOffset !== undefined
@@ -168,6 +169,7 @@ export const Header = ({ fixed }: IHeaderProps): React.ReactElement => {
       >
         <StyledContainer>
           <Logo />
+          <Social />
           <Bars handleClick={toggle} />
           <Links active={isActive} />
         </StyledContainer>

@@ -1,8 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: `The Metric`,
-    description: `TODO`,
+    description: `Measuring What's Happening Around the World through Your Voice`,
     author: `Cameron Cabo <cameroncabo@gmail.com>`,
+    siteUrl: 'https://www.themetric.org',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -51,8 +52,62 @@ module.exports = {
     },
     `gatsby-plugin-typescript`,
     `gatsby-plugin-styled-components`,
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allGhostPost } }) =>
+              allGhostPost.edges.map(
+                ({ node: { slug, title, published_at, excerpt, html } }) => {
+                  const url = site.siteMetadata.siteUrl + '/articles/' + slug
+                  // categories string[] for tags
+                  // author string for author(s)
+                  return Object.assign(
+                    {},
+                    {
+                      title,
+                      description: excerpt,
+                      date: published_at,
+                      url,
+                      guid: url,
+                      custom_elements: [{ 'content:encoded': html }],
+                    },
+                  )
+                },
+              ),
+            query: `
+              {
+                allGhostPost(sort: { order: DESC, fields: [published_at] }) {
+                  edges {
+                    node {
+                      slug
+                      title
+                      published_at
+                      excerpt
+                      html
+                    }
+                  }
+                }
+              }
+            `,
+            output: '/rss.xml',
+            title: 'The Metric',
+          },
+        ],
+      },
+    },
   ],
 }

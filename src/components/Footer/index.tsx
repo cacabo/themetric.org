@@ -14,6 +14,7 @@ import {
   CAMERON_LINK,
   TWITTER_LINK,
   LINKEDIN_LINK,
+  RSS_ROUTE,
 } from '../../constants/routes'
 
 const logoPath = require('../../images/svg/logo-white.svg') as string // tslint:disable-line
@@ -145,6 +146,15 @@ export const Footer = (): React.ReactElement => (
               rel="noopener noreferrer"
             >
               LinkedIn
+            </ExternalLink>
+          </P>
+          <P mb1>
+            <ExternalLink
+              href={RSS_ROUTE}
+              target="_BLANK"
+              rel="noopener noreferrer"
+            >
+              RSS feed
             </ExternalLink>
           </P>
           <P mb0>

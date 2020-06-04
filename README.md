@@ -4,6 +4,8 @@
 - [ ] Topic page (regions, other topics)
 - [ ] Region page
 - [ ] [Search](https://www.gatsbyjs.org/packages/gatsby-plugin-flexsearch/)
+  - [ ] Search bar in nav bar
+  - [ ] Page for search
 - [ ] Pagination
 - [ ] TODO stubs in code
 - [ ] Homepage, featured posts
@@ -16,11 +18,12 @@
 - [ ] Comments via Disqus
 - [ ] Tags section on homepage
 - [ ] 3-4 secondary features on homepage
-- [ ] Mailing list?
-- [ ] Social icons in navbar
-- [ ] RSS feed?
-  - [ ] Gatsby feed
+- [ ] Styled-system
+- [ ] Shadow on navbar
 - [ ] Make Ghost API key be in env
+- [ ] Port over all content to ghost
+- [x] RSS feed
+- [x] Social icons in navbar
 - [x] Links to share on article show page
 - [x] Hide navbar on scroll down, show on scroll up
 - [x] Port from tslint to eslint
@@ -37,3 +40,4 @@
 Down the line
 
 - [ ] Favicon for dark mode
+- [ ] Mailing list?

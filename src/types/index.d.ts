@@ -58,8 +58,8 @@ export interface IArticle {
     }
   }
   html: string
-  codeinjection_head: string
-  codeinjection_foot: string
+  // codeinjection_head: string
+  // codeinjection_foot: string
   excerpt: string
   reading_time: number
   published_at: string

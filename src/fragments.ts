@@ -30,8 +30,6 @@ export const ArticleFragment = graphql`
     slug
     title
     html
-    codeinjection_head
-    codeinjection_foot
     feature_image
     localImage {
       childImageSharp {
