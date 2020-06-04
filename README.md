@@ -11,7 +11,6 @@
 - [ ] Homepage, featured posts
 - [ ] Remote images to Gatsby image
 - [ ] Show users (members of The Metric org) who have no posts (like Cameron)
-- [ ] Google Analytics
 - [ ] Hosting on Netlify
 - [ ] Figure out how to store roles on author objects
 - [ ] Webhook for rebuilding website in response to changes
@@ -21,6 +20,7 @@
 - [ ] Styled-system
 - [ ] Shadow on navbar
 - [ ] Port over all content to ghost
+- [x] Google Analytics
 - [x] Make Ghost API key be in env
 - [x] RSS feed
 - [x] Social icons in navbar
@@ -39,5 +39,5 @@
 
 Down the line
 
-- [ ] Favicon for dark mode
+- [ ] Favicon for dark mode browser
 - [ ] Mailing list?
