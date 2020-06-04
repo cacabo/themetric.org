@@ -4,3 +4,7 @@ export const SYSTEM_FONT =
 export const SERIF_FONT = `Inter, ${SYSTEM_FONT}`
 export const BODY_FONT = `Inter, ${SYSTEM_FONT}`
 export const DISPLAY_FONT = `Palanquin Dark, ${SYSTEM_FONT}`
+
+export const NORMAL_FONT_WEIGHT = 400
+export const MEDIUM_FONT_WEIGHT = 500
+export const BOLD_FONT_WEIGHT = 700

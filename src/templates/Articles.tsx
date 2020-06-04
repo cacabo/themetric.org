@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 
 import { Layout } from '../components/Layout'
 import { Meta } from '../components/Meta'
@@ -7,9 +7,6 @@ import { ArticlePreviews } from '../components/Article/ArticlePreviews'
 import { WideContainer, Spacer } from '../shared'
 import { IArticlePreview } from '../types'
 import { ArticlesPagination } from '../components/Article/ArticlesPagination'
-
-// TODO pagination
-// TODO types
 
 interface IArticleTemplateProps {
   data: {

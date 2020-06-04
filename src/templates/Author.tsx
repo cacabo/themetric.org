@@ -42,13 +42,15 @@ const ProfileImage = s.div<{ src: string }>`
   }
 `
 
-// TODO posts by this author
+// TODO paginate posts by the author? Click to load more?
 
 interface IAuthorTemplateProps {
   data: {
     ghostAuthor: IAuthor
     allGhostPost: {
-      edges
+      edges: Array<{
+        node: IArticlePreview
+      }>
     }
   }
 }

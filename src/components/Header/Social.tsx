@@ -19,6 +19,9 @@ const SocialWrapper = s.div`
   width: auto;
   margin-top: 8px;
 
+  // Don't influence height of the navbar
+  margin-bottom: -8px;
+
   a {
     margin-left: 16px;
     opacity: 0.5;

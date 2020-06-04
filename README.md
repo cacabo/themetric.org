@@ -8,7 +8,6 @@ Web application for The Metric
 
 ### Todo
 
-- [ ] Dropdowns in navbar
 - [ ] Topic page (regions, other topics)
 - [ ] Region page
 - [ ] [Search](https://www.gatsbyjs.org/packages/gatsby-plugin-flexsearch/)
@@ -22,10 +21,12 @@ Web application for The Metric
 - [ ] Figure out how to store roles on author objects
 - [ ] Webhook for rebuilding website in response to changes
 - [ ] Tags section on homepage
+- [ ] Page for each tag with pagination
 - [ ] 3-4 secondary features on homepage
 - [ ] Styled-system
-- [ ] Shadow on navbar
-- [ ] Port over all content to ghost
+- [ ] Port over all content to Ghost
+- [x] Dropdowns in navbar
+- [x] Shadow on navbar
 - [x] Pagination for articles
 - [x] Comments via Disqus
 - [x] Google Analytics
@@ -49,3 +50,4 @@ Down the line
 
 - [ ] Favicon for dark mode browser
 - [ ] Mailing list
+- [ ] Icons for regions

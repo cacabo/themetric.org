@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import { Header } from './Header'
 import { Footer } from './Footer'
@@ -11,6 +11,7 @@ import {
 } from '../constants/measurements'
 import { SYSTEM_FONT, BODY_FONT } from '../constants/fonts'
 import { BLUE, TRANSLUCENT_BLUE } from '../constants/colors'
+import { theme } from '../constants/theme'
 
 const noPadding = `
   padding-left: 0;
@@ -537,6 +538,7 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Main = styled.main<{}>`
+  width: 100vw;
   min-height: calc(100vh - ${HEADER_HEIGHT});
 
   ${maxWidth(PHONE)} {
@@ -549,11 +551,10 @@ interface ILayoutProps {
 }
 
 export const Layout = ({ children }: ILayoutProps): React.ReactElement => (
-  <>
+  <ThemeProvider theme={theme}>
     <GlobalStyle />
     <Header />
-    <Header fixed />
     <Main>{children}</Main>
     <Footer />
-  </>
+  </ThemeProvider>
 )

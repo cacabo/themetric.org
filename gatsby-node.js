@@ -1,17 +1,17 @@
 const path = require('path')
 
-const { POSTS_PER_PAGE } = require(path.resolve('./src/constants/misc.ts'))
-const AuthorTemplate = path.resolve('./src/templates/Author.tsx')
-const ArticleTemplate = path.resolve('./src/templates/Article.tsx')
-const ArticlesTemplate = path.resolve('./src/templates/Articles.tsx')
+const { POSTS_PER_PAGE, REGIONS } = require(path.resolve(
+  './src/constants/misc.ts',
+))
 
-if (!AuthorTemplate) {
-  throw new Error('AuthorTemplate not found')
-}
+const regions = new Set(REGIONS)
 
-if (!ArticleTemplate) {
-  throw new Error('ArticleTemplate not found')
-}
+const getTemplatePath = (name) => path.resolve(`./src/templates/${name}.tsx`)
+const AuthorTemplate = getTemplatePath('Author')
+const ArticleTemplate = getTemplatePath('Article')
+const ArticlesTemplate = getTemplatePath('Articles')
+const RegionTemplate = getTemplatePath('Region')
+const TagTemplate = getTemplatePath('Tag')
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -21,6 +21,7 @@ exports.createPages = async ({ graphql, actions }) => {
     data: {
       allGhostAuthor: { edges: authors },
       allGhostPost: { edges: articles },
+      allGhostTag: { nodes: tags },
     },
   } = await graphql(`
     query {
@@ -32,6 +33,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+
       allGhostPost(sort: { order: DESC, fields: published_at }) {
         edges {
           node {
@@ -53,6 +55,12 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             feature_image
           }
+        }
+      }
+
+      allGhostTag {
+        nodes {
+          slug
         }
       }
     }
@@ -97,21 +105,26 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  // createTagPages(tags, createPage)
-  // createPostPages(posts, createPage)
+  REGIONS.forEach((region) => {
+    createPage({
+      path: `/regions/${region}`,
+      component: RegionTemplate,
+      context: {
+        region,
+      },
+    })
+  })
 
-  // // Create pagination for the index page.
-  // paginate({
-  //   createPage,
-  //   items: posts,
-  //   itemsPerPage: postsPerPage,
-  //   component: BlogIndexTemplate,
-  //   pathPrefix: ({ pageNumber }) => {
-  //     if (pageNumber === 0) {
-  //       return `/blog`
-  //     } else {
-  //       return `/blog/page`
-  //     }
-  //   },
-  // })
+  // TODO other filtering of tags that are for display not for categorization
+  const filteredTags = tags
+    .map(({ slug }) => slug)
+    .filter((slug) => !regions.has(slug))
+
+  filteredTags.forEach((tag) => {
+    createPage({
+      path: `/tags/${tag}`,
+      component: TagTemplate,
+      context: { tag },
+    })
+  })
 }

@@ -4,7 +4,13 @@ import styled from 'styled-components'
 import { Row, Col, P, Container } from '../../shared'
 import { BLACK, WHITE, WHITE_ALPHA } from '../../constants/colors'
 import { Link } from 'gatsby'
-import { M2, M4, minWidth, TABLET } from '../../constants/measurements'
+import {
+  M2,
+  M4,
+  minWidth,
+  TABLET,
+  maxWidth,
+} from '../../constants/measurements'
 import {
   FACEBOOK_LINK,
   HOME_ROUTE,
@@ -15,7 +21,9 @@ import {
   TWITTER_LINK,
   LINKEDIN_LINK,
   RSS_ROUTE,
+  REGION_ROUTE,
 } from '../../constants/routes'
+import { REGIONS, ERegionSlug } from '../../constants/regions'
 
 const logoPath = require('../../images/svg/logo-white.svg') as string // tslint:disable-line
 
@@ -81,6 +89,10 @@ const ExternalLink = ({
 const SectionHeader = styled(P)<{}>`
   opacity: 0.8;
   font-weight: bold;
+
+  ${maxWidth(TABLET)} {
+    margin-top: calc(${M2} + 1.25vh);
+  }
 `
 
 // TODO icons for social?
@@ -112,7 +124,8 @@ export const Footer = (): React.ReactElement => (
             &hearts; in Philadelphia and around the world.
           </P>
         </Col>
-        <Col sm={12} md={12} offsetLg={1} lg={3} margin={M2}>
+
+        <Col sm={12} md={12} offsetLg={1} lg={7 / 3} margin={M2}>
           <SectionHeader white mb2>
             Navigation
           </SectionHeader>
@@ -122,46 +135,43 @@ export const Footer = (): React.ReactElement => (
             </P>
           ))}
         </Col>
-        <Col sm={12} md={12} lg={3} margin={M2}>
+
+        <Col sm={12} md={12} lg={7 / 3} margin={M2}>
+          <SectionHeader white mb2>
+            Regions
+          </SectionHeader>
+          {(Object.keys(REGIONS) as ERegionSlug[]).map(
+            (slug): React.ReactElement => (
+              <P key={slug} mb1>
+                <InternalLink to={REGION_ROUTE(slug)}>
+                  {REGIONS[slug]}
+                </InternalLink>
+              </P>
+            ),
+          )}
+        </Col>
+
+        <Col sm={12} md={12} lg={7 / 3} margin={M2}>
           <SectionHeader white mb2>
             Keep in Touch
           </SectionHeader>
-          <P mb1>
-            <ExternalLink
-              href={FACEBOOK_LINK}
-              target="_BLANK"
-              rel="noopener noreferrer"
-            >
-              Facebook
-            </ExternalLink>
-          </P>
-          <P mb1>
-            <ExternalLink
-              href={TWITTER_LINK}
-              target="_BLANK"
-              rel="noopener noreferrer"
-            >
-              Twitter
-            </ExternalLink>
-          </P>
-          <P mb1>
-            <ExternalLink
-              href={LINKEDIN_LINK}
-              target="_BLANK"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </ExternalLink>
-          </P>
-          <P mb1>
-            <ExternalLink
-              href={RSS_ROUTE}
-              target="_BLANK"
-              rel="noopener noreferrer"
-            >
-              RSS feed
-            </ExternalLink>
-          </P>
+          {[
+            [FACEBOOK_LINK, 'Facebook'],
+            [TWITTER_LINK, 'Twitter'],
+            [LINKEDIN_LINK, 'LinkedIn'],
+            [RSS_ROUTE, 'RSS feed'],
+          ].map(([link, text]) => (
+            <P mb1 key={link}>
+              <ExternalLink
+                href={link}
+                target="_BLANK"
+                rel="noopener noreferrer"
+              >
+                {text}
+              </ExternalLink>
+            </P>
+          ))}
+
           <P mb0>
             <InternalLink to={CONTACT_ROUTE}>Contact us</InternalLink>
           </P>

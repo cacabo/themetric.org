@@ -6,6 +6,7 @@ import {
   SHORT_ANIMATION_DURATION,
   maxWidth,
   TABLET,
+  PHONE,
 } from '../../constants/measurements'
 import {
   BORDER,
@@ -41,7 +42,8 @@ const Input = s.input<{ active: boolean }>`
   color: ${(props): string => (props.active ? BLACK : WHITE_ALPHA(0.64))};
   transition: all ${SHORT_ANIMATION_DURATION}ms ease;
   font-size: 16px;
-  margin-top: -0.5px;
+  margin-top: -1px;
+  margin-bottom: -1px;
 
   &:hover {
     background: ${(props): string => (props.active ? WHITE : WHITE_ALPHA(0.4))};
@@ -60,6 +62,10 @@ const Input = s.input<{ active: boolean }>`
   ${maxWidth(TABLET)} {
     margin-left: 0;
     margin-top: ${M2};
+  }
+
+  ${maxWidth(PHONE)} {
+    width: 100%;
   }
 `
 

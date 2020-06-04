@@ -43,9 +43,13 @@ export const GRAY_3 = '#8A9BA8'
 export const GRAY_4 = '#A7B6C2'
 export const GRAY_5 = '#BFCCD6'
 
+export const LIGHT_GRAY_1 = '#CED9E0'
+export const LIGHT_GRAY_2 = '#D8E1E8'
+export const LIGHT_GRAY_3 = '#E1E8ED'
+export const LIGHT_GRAY_4 = '#EBF1F5'
+export const LIGHT_GRAY_5 = '#F5F8FA'
+
 export const BLACK_ALPHA = (alpha: number): string => `rgba(0, 0, 0, ${alpha})`
-export const LIGHT_GRAY = '#efefef'
-export const LIGHT_GRAY_ALPHA = 'rgba(239, 239, 239, 0.75)'
 export const SHADE = 'rgba(0, 0, 0, 0.1)'
 export const BORDER = 'rgba(0, 0, 0, 0.1)'
 export const WHITE = '#FFFFFF'

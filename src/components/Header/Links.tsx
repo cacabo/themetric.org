@@ -18,9 +18,10 @@ import { HOME_ROUTE, ABOUT_ROUTE, ARTICLES_ROUTE } from '../../constants/routes'
 
 interface ILinksProps {
   active: boolean
+  toggleArticlesLinksActive: () => void
 }
 
-const LinksWrapper = styled.div<ILinksProps>`
+const LinksWrapper = styled.div<{ active: boolean }>`
   flex: 1;
   height: ${HEADER_CONTENT_HEIGHT};
   align-items: center;
@@ -84,10 +85,12 @@ const StyledLink = styled(Link)<{}>`
 const links: string[][] = [
   ['Home', HOME_ROUTE],
   ['About', ABOUT_ROUTE],
-  ['Articles', ARTICLES_ROUTE],
 ]
 
-export const Links = ({ active }: ILinksProps): React.ReactElement => (
+export const Links = ({
+  active,
+  toggleArticlesLinksActive,
+}: ILinksProps): React.ReactElement => (
   <LinksWrapper active={active}>
     <Spacer />
     {links.map(([text, link]) => (
@@ -95,5 +98,8 @@ export const Links = ({ active }: ILinksProps): React.ReactElement => (
         {text}
       </StyledLink>
     ))}
+    <StyledLink as="a" onClick={toggleArticlesLinksActive}>
+      Articles
+    </StyledLink>
   </LinksWrapper>
 )

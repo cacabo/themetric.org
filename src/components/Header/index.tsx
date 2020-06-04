@@ -19,6 +19,7 @@ import {
 import { BLACK_ALPHA, BLACK } from '../../constants/colors'
 import { Social } from './Social'
 import { Search } from './Search'
+import { ArticlesLinks } from './ArticlesLinks'
 
 const getScrollTop = (): number =>
   window.pageYOffset !== undefined
@@ -42,7 +43,7 @@ const StyledNav = styled.nav<IWrapperProps>(
     transition: all ${SHORT_ANIMATION_DURATION}ms ease;
     left: 0;
     z-index: ${HEADER_Z_INDEX};
-    width: 100%;
+    width: 100vw;
     min-height: calc(
       ${HEADER_CONTENT_HEIGHT} + ${HEADER_PADDING} + ${HEADER_PADDING}
     );
@@ -75,6 +76,7 @@ const NavSpace = styled.div`
 
 interface IHeaderProps {
   fixed?: boolean
+  toggleArticlesLinksActive: () => void
 }
 
 interface IFixedState {
@@ -87,7 +89,10 @@ interface IActiveState {
   isActive: boolean
 }
 
-export const Header = ({ fixed = false }: IHeaderProps): React.ReactElement => {
+const Nav = ({
+  fixed = false,
+  toggleArticlesLinksActive,
+}: IHeaderProps): React.ReactElement => {
   const [{ prevScrollTop, shouldShowFixed }, setFixedState] = useState<
     IFixedState
   >({
@@ -173,7 +178,10 @@ export const Header = ({ fixed = false }: IHeaderProps): React.ReactElement => {
           <Social />
           <Search fixed={fixed} />
           <Bars handleClick={toggle} />
-          <Links active={isActive} />
+          <Links
+            active={isActive}
+            toggleArticlesLinksActive={toggleArticlesLinksActive}
+          />
         </StyledContainer>
       </StyledNav>
       {!fixed && <NavSpace />}
@@ -181,6 +189,27 @@ export const Header = ({ fixed = false }: IHeaderProps): React.ReactElement => {
         tabIndex={-1}
         zIndex={HEADER_Z_INDEX - 1}
         show={isActive}
+        onClick={toggle}
+      />
+    </>
+  )
+}
+
+export const Header = (): React.ReactElement => {
+  const [isArticlesLinksActive, setIsArticlesLinksActive] = useState<boolean>(
+    false,
+  )
+  const toggle = (): void => setIsArticlesLinksActive(!isArticlesLinksActive)
+
+  return (
+    <>
+      <Nav toggleArticlesLinksActive={toggle} />
+      <Nav toggleArticlesLinksActive={toggle} fixed />
+      <ArticlesLinks show={isArticlesLinksActive} toggle={toggle} />
+      <Shade
+        tabIndex={-1}
+        zIndex={HEADER_Z_INDEX + 1}
+        show={isArticlesLinksActive}
         onClick={toggle}
       />
     </>

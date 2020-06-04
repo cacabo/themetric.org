@@ -15,8 +15,6 @@ import { AUTHOR_ROUTE, ARTICLE_ROUTE, TAG_ROUTE } from '../../constants/routes'
 
 type IArticlePreviewProps = IArticlePreview
 
-// TODO pagination
-
 const Wrapper = s.div`
   ${minWidth(TABLET)} {
     margin-bottom: 4vh;
