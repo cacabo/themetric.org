@@ -11,7 +11,13 @@ import {
   maxWidth,
   PHONE,
 } from '../../constants/measurements'
-import { AUTHOR_ROUTE, ARTICLE_ROUTE, TAG_ROUTE } from '../../constants/routes'
+import {
+  AUTHOR_ROUTE,
+  ARTICLE_ROUTE,
+  TAG_ROUTE,
+  REGION_ROUTE,
+} from '../../constants/routes'
+import { ERegionSlug } from '../../constants/regions'
 
 type IArticlePreviewProps = IArticlePreview
 
@@ -91,7 +97,14 @@ export const ArticlePreview = ({
           {authors && authors.length && tags && tags.length && ' in '}
           <TextList>
             {tags.map(({ name, slug: tagSlug }) => (
-              <Link to={TAG_ROUTE(tagSlug)} key={`tag-${tagSlug}`}>
+              <Link
+                to={
+                  Object.values(ERegionSlug).includes(tagSlug as ERegionSlug)
+                    ? REGION_ROUTE(tagSlug as ERegionSlug)
+                    : TAG_ROUTE(tagSlug)
+                }
+                key={`tag-${tagSlug}`}
+              >
                 {name}
               </Link>
             ))}

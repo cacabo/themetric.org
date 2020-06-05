@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Row, Col, P, Container } from '../../shared'
+import { Row, Col, P, ContainerFluid } from '../../shared'
 import { BLACK, WHITE, WHITE_ALPHA } from '../../constants/colors'
 import { Link } from 'gatsby'
 import {
@@ -25,7 +25,7 @@ import {
 } from '../../constants/routes'
 import { REGIONS, ERegionSlug } from '../../constants/regions'
 
-const logoPath = require('../../images/svg/logo-white.svg') as string // tslint:disable-line
+const logoPath = require('../../images/svg/logo-white.svg') as string
 
 const FooterTag = styled.footer<{}>`
   width: 100%;
@@ -105,7 +105,7 @@ const links: string[][] = [
 
 export const Footer = (): React.ReactElement => (
   <FooterTag>
-    <Container>
+    <ContainerFluid>
       <Row margin={M2}>
         <Col sm={12} md={12} lg={4} margin={M2}>
           <P white opacity={0.8}>
@@ -180,6 +180,6 @@ export const Footer = (): React.ReactElement => (
       <LogoWrapper>
         <Logo src={logoPath} alt="The Metric logo" />
       </LogoWrapper>
-    </Container>
+    </ContainerFluid>
   </FooterTag>
 )

@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import { Links } from './Links'
 import { Bars } from './Bars'
 import { Logo } from './Logo'
-import { Shade, Container } from '../../shared'
+import { Shade, ContainerFluid } from '../../shared'
 
 import {
   maxWidth,
@@ -59,7 +59,7 @@ const StyledNav = styled.nav<IWrapperProps>(
   `,
 )
 
-const StyledContainer = styled(Container)<{}>`
+const StyledContainer = styled(ContainerFluid)<{}>`
   display: flex;
   flex-direction: row;
 

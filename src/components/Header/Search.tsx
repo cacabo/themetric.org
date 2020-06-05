@@ -10,6 +10,7 @@ import {
   M1,
   LONG_ANIMATION_DURATION,
   HEADER_HEIGHT,
+  DESKTOP,
 } from '../../constants/measurements'
 import {
   BORDER,
@@ -39,6 +40,11 @@ const Wrapper = s.div<{ active: boolean }>`
   margin-left: ${M2};
   position: relative;
   width: ${(props): string => (props.active ? '20rem' : '16rem')};
+
+  ${maxWidth(DESKTOP)} {
+    flex: 1;
+    width: 100%;
+  }
 
   ${maxWidth(TABLET)} {
     width: 100%;
@@ -299,12 +305,18 @@ export const Search = ({ fixed }: { fixed: boolean }): React.ReactElement => {
     }
   }
 
-  const handleBlur = (e: React.FocusEvent<HTMLDivElement>): void => {
+  /**
+   * Adapted from https://gist.github.com/pstoica/4323d3e6e37e8a23dd59
+   *
+   * @param {React.FocusEvent} event
+   * @returns {void}
+   */
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>): void => {
     if (!active) {
       return
     }
 
-    const { currentTarget } = e
+    const { currentTarget } = event
 
     // Check the newly focused element in the next tick of the event loop
     setTimeout(() => {
@@ -312,7 +324,8 @@ export const Search = ({ fixed }: { fixed: boolean }): React.ReactElement => {
       if (!currentTarget.contains(document.activeElement)) {
         updateState({ active: false })
       } else {
-        e.preventDefault()
+        // Do not blur
+        event.preventDefault()
       }
     }, 0)
   }

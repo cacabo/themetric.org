@@ -10,6 +10,7 @@ import {
   M2,
   M3,
   M4,
+  DESKTOP,
 } from '../constants/measurements'
 
 const percent = (numCols: number): string => (numCols / 12) * 100 + '%'
@@ -24,8 +25,8 @@ interface IContainerTagProps {
 }
 
 export const Container = s.div<IContainerTagProps>`
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding-right: ${M2};
+  padding-left: ${M2};
   width: 100%;
   display: block;
   background: ${({ background }): string => background || 'transparent'};
@@ -36,6 +37,19 @@ export const Container = s.div<IContainerTagProps>`
   }
 
   ${minWidth(TABLET)} {
+    padding-right: calc(1rem + 5%);
+    padding-left: calc(1rem + 5%);
+  }
+`
+
+export const ContainerFluid = s.div<IContainerTagProps>`
+  padding-right: ${M2};
+  padding-left: ${M2};
+  width: 100%;
+  display: block;
+  background: ${({ background }): string => background || 'transparent'};
+
+  ${minWidth(DESKTOP)} {
     padding-right: calc(1rem + 5%);
     padding-left: calc(1rem + 5%);
   }

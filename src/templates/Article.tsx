@@ -81,7 +81,7 @@ const ArticleTemplate = ({
             </P>
             {tags && tags.length && (
               <P sm lighter mb1>
-                {'Posted in '}
+                {'In '}
                 <TextList>
                   {tags.map(({ name, slug: tagSlug }) => (
                     <Link to={TAG_ROUTE(tagSlug)} key={tagSlug}>

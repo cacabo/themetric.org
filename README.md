@@ -10,14 +10,11 @@ Web application for The Metric
 
 Shorter term
 
-- [ ] Invalid DOM nesting (http://localhost:8000/articles/what-remains-on-the-horizon-president-mnangagwas-first-100-days)
-- [ ] Full width nav and footer on tablet (container doesn't help)
+- [ ] TODO stubs in code
+- [ ] Add `region` field to tag object?
 - [ ] Topic page (regions, other topics)
 - [ ] Region page
-- [ ] [Search](https://www.gatsbyjs.org/packages/gatsby-plugin-flexsearch/)
-  - [ ] Search bar in nav bar
-  - [ ] Page for search
-- [ ] TODO stubs in code
+- [ ] Sizing, mobile responsiveness of search bar
 - [ ] Homepage, featured posts
   - [ ] Secondary level of featured posts
   - [ ] Other posts
@@ -31,7 +28,8 @@ Shorter term
 - [ ] Tags section on homepage (maybe only show some of the most popular)
 - [ ] Styled-system
 - [ ] Port over all existing content to Ghost
-- [ ] Fix linking for tags which are regions
+- [x] Fix invalid DOM nesting for author thumbnails
+- [x] Fix linking for tags which are regions
 - [x] Pagination for tags
 - [x] Hosting on Netlify
 - [x] Dropdowns in navbar
@@ -54,11 +52,13 @@ Shorter term
 - [x] 404 page
 - [x] Style links
 - [x] Author page
+- [x] Full width nav and footer on tablet
+- [x] [Search](https://www.gatsbyjs.org/packages/gatsby-plugin-flexsearch/)
 
 Longer term
 
 - [ ] Favicon for dark mode browser
 - [ ] Mailing list
 - [ ] Icons for regions
-- [ ] TypeScript https://gist.github.com/clarkdave/53cc050fa58d9a70418f8a76982dd6c8
+- [ ] TypeScript in `gatsby-node` https://gist.github.com/clarkdave/53cc050fa58d9a70418f8a76982dd6c8
 - [ ] Highlight matching words in search results

@@ -58,6 +58,7 @@ export interface IArticlePreview {
 
 export interface IArticle {
   title: string
+  slug: string
   feature_image?: string
   localImage: {
     childImageSharp: {

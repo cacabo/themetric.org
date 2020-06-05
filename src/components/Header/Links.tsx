@@ -12,9 +12,7 @@ import {
 } from '../../constants/measurements'
 import { WHITE } from '../../constants/colors'
 import { DISPLAY_FONT } from '../../constants/fonts'
-import { HOME_ROUTE, ABOUT_ROUTE, ARTICLES_ROUTE } from '../../constants/routes'
-
-// TODO facebook, linkedin, search, articles dropdown
+import { HOME_ROUTE, ABOUT_ROUTE } from '../../constants/routes'
 
 interface ILinksProps {
   active: boolean
@@ -22,7 +20,7 @@ interface ILinksProps {
 }
 
 const LinksWrapper = styled.div<{ active: boolean }>`
-  flex: 1;
+  margin-left: auto;
   height: ${HEADER_CONTENT_HEIGHT};
   align-items: center;
   display: flex;

@@ -5,6 +5,7 @@ import { BORDER, WHITE, DARK_GRAY_4, GRAY_1, GRAY_3 } from '../constants/colors'
 
 export interface ITextProps {
   center?: boolean
+  inline?: boolean
   color?: string
   sm?: boolean
   lg?: boolean
@@ -66,6 +67,7 @@ export const Text = s.p<ITextProps>(
     lighter,
     lightest,
     condensedLineHeight,
+    inline,
   }): FlattenSimpleInterpolation => css`
     line-height: ${condensedLineHeight ? 1.25 : 1.45};
     color: ${color || 'inherit'};
@@ -79,9 +81,10 @@ export const Text = s.p<ITextProps>(
     ${mb2 && `margin-bottom: ${M2};`}
     ${mb3 && `margin-bottom: ${M3};`}
     ${mb4 && `margin-bottom: ${M4};`}
-    ${light && `color: ${DARK_GRAY_4};`} // TODO don't use opacity here
+    ${light && `color: ${DARK_GRAY_4};`}
     ${lighter && `color: ${GRAY_1};`}
     ${lightest && `color: ${GRAY_3};`}
+    ${inline && 'display: inline-block; width: auto;'}
   `,
 )
 
@@ -178,6 +181,15 @@ interface ITextListProps {
   children: React.ReactElement[]
 }
 
+/**
+ * Level of abstraction on top of some kinda messy string concatenation
+ *
+ * If there is just 1 child, render the child
+ *
+ * If there are two children, render "{1} and {2}"
+ *
+ * Else render "{1}, {2}, {...}, and {n}"
+ */
 export const TextList = ({ children }: ITextListProps): React.ReactElement => (
   <>
     {children.map((child, idx) => (

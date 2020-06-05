@@ -36,7 +36,7 @@ const Thumbnail = styled.div<{ src: string }>`
 //   margin-bottom: 0;
 // `
 
-const AuthorText = styled(P)`
+const AuthorText = styled.span`
   margin-right: ${M2};
   display: flex;
   align-items: center;
@@ -69,14 +69,16 @@ export const Authors = ({ authors }: IAuthorsProps): React.ReactElement => {
   return (
     <BylineContainer>
       {authors.map(({ slug, profile_image, name }) => (
-        <AuthorText key={slug} sm>
+        <AuthorText key={slug}>
           {profile_image && (
             <ThumbnailLink to={AUTHOR_ROUTE(slug)}>
               {/* <Thumbnail fluid={getMemberImage(localImage)} /> */}
               <Thumbnail src={profile_image} />
             </ThumbnailLink>
           )}
-          <Link to={AUTHOR_ROUTE(slug)}>{name}</Link>
+          <P mb0 inline sm>
+            <Link to={AUTHOR_ROUTE(slug)}>{name}</Link>
+          </P>
         </AuthorText>
       ))}
     </BylineContainer>
