@@ -17,13 +17,16 @@ Shorter term
   - [ ] Page for search
 - [ ] TODO stubs in code
 - [ ] Homepage, featured posts
+  - [ ] Secondary level of featured posts
+  - [ ] Other posts
 - [ ] Remote images to Gatsby image
 - [ ] Show users (members of The Metric org) who have no posts (like Cameron)
+  - [ ] Manually create GhostAuthor object?
 - [ ] Figure out how to store roles on author objects
+  - [ ] Parse as part of location
+  - [ ] Perhaps https://www.gatsbyjs.org/docs/node-apis/#createSchemaCustomization
 - [ ] Webhook for rebuilding website in response to changes
-- [ ] Tags section on homepage
-- [ ] Page for each tag with pagination
-- [ ] 3-4 secondary features on homepage
+- [ ] Tags section on homepage (maybe only show some of the most popular)
 - [ ] Styled-system
 - [ ] Port over all existing content to Ghost
 - [ ] Fix linking for tags which are regions

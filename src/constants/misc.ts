@@ -1,5 +1,5 @@
 module.exports = {
-  POSTS_PER_PAGE: 2,
+  POSTS_PER_PAGE: 10,
 
   /**
    * HACK/NOTE only use this for gatsby-node contexts
