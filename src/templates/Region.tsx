@@ -13,9 +13,7 @@ import { REGION_PAGE_ROUTE } from '../constants/routes'
 interface IRegionTemplateProps {
   data: {
     allGhostPost: {
-      edges: Array<{
-        node: IArticlePreview
-      }>
+      nodes: IArticlePreview[]
     }
   }
   pageContext: {
@@ -31,9 +29,8 @@ const RegionTemplate = ({
   const regionName: ERegionName = REGIONS[region]
 
   const {
-    allGhostPost: { edges: articleNodes },
+    allGhostPost: { nodes: articles },
   } = data
-  const articles = articleNodes.map(({ node }) => node)
 
   return (
     <Layout>
@@ -71,10 +68,8 @@ export const regionsPageQuery = graphql`
       limit: $limit
       skip: $skip
     ) {
-      edges {
-        node {
-          ...ArticlePreview
-        }
+      nodes {
+        ...ArticlePreview
       }
     }
   }

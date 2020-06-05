@@ -12,9 +12,7 @@ import { ARTICLES_PAGE_ROUTE } from '../constants/routes'
 interface IArticleTemplateProps {
   data: {
     allGhostPost: {
-      edges: Array<{
-        node: IArticlePreview
-      }>
+      nodes: IArticlePreview[]
     }
   }
   pageContext: IPaginationPageContext
@@ -25,10 +23,8 @@ const ArticlesTemplate = ({
   pageContext,
 }: IArticleTemplateProps): React.ReactElement => {
   const {
-    allGhostPost: { edges: articleNodes },
+    allGhostPost: { nodes: articles },
   } = data
-
-  const articles = articleNodes.map(({ node }) => node)
   const { numPages, currentPage } = pageContext
 
   return (
@@ -53,10 +49,8 @@ export const articlesPageQuery = graphql`
       limit: $limit
       skip: $skip
     ) {
-      edges {
-        node {
-          ...ArticlePreview
-        }
+      nodes {
+        ...ArticlePreview
       }
     }
   }

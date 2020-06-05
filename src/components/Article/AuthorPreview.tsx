@@ -5,7 +5,15 @@ import s from 'styled-components'
 import { IAuthorPreview } from '../../types'
 import { AUTHOR_ROUTE } from '../../constants/routes'
 import { M2 } from '../../constants/measurements'
-import { Card, Flex, H4, P, IconWrapper, MapPinIcon } from '../../shared'
+import {
+  Card,
+  Flex,
+  H4,
+  P,
+  IconWrapper,
+  MapPinIcon,
+  BriefcaseIcon,
+} from '../../shared'
 
 const ProfileImage = s.div<{ src: string }>`
   background-image: url(${({ src }): string => src});
@@ -23,7 +31,8 @@ export const AuthorPreview = ({
   slug,
   profile_image,
   name,
-  location,
+  loc,
+  role,
 }: IAuthorPreview): React.ReactElement => (
   <Link to={AUTHOR_ROUTE(slug)} style={{ width: '100%', marginBottom: M2 }}>
     <Card hoverable clickable shaded mb0>
@@ -31,12 +40,20 @@ export const AuthorPreview = ({
         {profile_image && <ProfileImage src={profile_image} />}
         <div>
           <H4 mb0>{name}</H4>
-          {location && (
-            <P mb0 sm lighter>
+          {role && (
+            <P mb0 sm lighter inline>
+              <IconWrapper>
+                <BriefcaseIcon />
+              </IconWrapper>
+              {role}
+            </P>
+          )}
+          {loc && (
+            <P mb0 sm lighter inline style={{ marginLeft: role ? M2 : '0' }}>
               <IconWrapper>
                 <MapPinIcon />
               </IconWrapper>
-              {location}
+              {loc}
             </P>
           )}
         </div>

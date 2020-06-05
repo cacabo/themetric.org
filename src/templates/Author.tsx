@@ -18,11 +18,23 @@ import {
   ResponsiveSpacer,
   Spacer,
   HR,
+  BriefcaseIcon,
 } from '../shared'
 import { ArticlePreviews } from '../components/Article/ArticlePreviews'
 import { IAuthor, IArticlePreview } from '../types'
 import { ABOUT_ROUTE } from '../constants/routes'
-import { M2, TABLET, minWidth } from '../constants/measurements'
+import { M2, minWidth, M4, PHONE } from '../constants/measurements'
+
+const Header = s.div`
+  display: block;
+  width: 100%;
+
+  ${minWidth(PHONE)} {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+`
 
 const ProfileImage = s.div<{ src: string }>`
   background-image: url(${({ src }): string => src});
@@ -30,15 +42,15 @@ const ProfileImage = s.div<{ src: string }>`
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 50%;
-  margin-bottom: ${M2};
+  margin-bottom: ${M4};
   width: 6rem;
   height: 6rem;
 
-  ${minWidth(TABLET)} {
-    float: right;
-    margin-left: ${M2};
-    width: 5.5rem;
-    height: 5.5rem;
+  ${minWidth(PHONE)} {
+    margin-right: calc(${M2} + 1.25vw);
+    width: 8rem;
+    height: 8rem;
+    margin-bottom: 0;
   }
 `
 
@@ -48,9 +60,7 @@ interface IAuthorTemplateProps {
   data: {
     ghostAuthor: IAuthor
     allGhostPost: {
-      edges: Array<{
-        node: IArticlePreview
-      }>
+      nodes: IArticlePreview[]
     }
   }
 }
@@ -60,17 +70,16 @@ const AuthorTemplate = ({ data }: IAuthorTemplateProps): React.ReactElement => {
     ghostAuthor: {
       bio,
       facebook,
-      location,
+      loc,
+      role,
       name,
       postCount,
       profile_image,
       twitter,
       website,
     },
-    allGhostPost: { edges: articleNodes },
+    allGhostPost: { nodes: articles },
   } = data
-
-  const articles: IArticlePreview[] = articleNodes.map(({ node }) => node)
 
   return (
     <Layout>
@@ -79,18 +88,30 @@ const AuthorTemplate = ({ data }: IAuthorTemplateProps): React.ReactElement => {
         <ResponsiveSpacer hiddenOnMobile />
         <Spacer />
 
-        {profile_image && <ProfileImage src={profile_image} />}
-        <H1 mb2>{name}</H1>
-        <P>{bio}</P>
+        <Header>
+          {profile_image && <ProfileImage src={profile_image} />}
+          <div style={{ flex: 1 }}>
+            <H1 mb2>{name}</H1>
+            <P mb0>{bio}</P>
+          </div>
+        </Header>
 
         <HR />
 
-        {location && (
+        {role && (
+          <P lighter mb2 sm>
+            <IconWrapper>
+              <BriefcaseIcon />
+            </IconWrapper>
+            {role}
+          </P>
+        )}
+        {loc && (
           <P lighter mb2 sm>
             <IconWrapper>
               <MapPinIcon />
             </IconWrapper>
-            {location}
+            {loc}
           </P>
         )}
         {website && (
@@ -164,10 +185,8 @@ export const pageQuery = graphql`
       sort: { order: DESC, fields: [published_at] }
       filter: { authors: { elemMatch: { slug: { eq: $slug } } } }
     ) {
-      edges {
-        node {
-          ...ArticlePreview
-        }
+      nodes {
+        ...ArticlePreview
       }
     }
   }

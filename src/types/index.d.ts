@@ -14,7 +14,8 @@ export interface IAuthor {
   slug: string
   bio?: string
   facebook?: string
-  location?: string
+  loc?: string
+  role?: string
   name: string
   postCount: number
   profile_image?: string
@@ -26,7 +27,8 @@ export interface IAuthorPreview {
   id: string
   slug: string
   name: string
-  location?: string
+  loc?: string
+  role?: string
   profile_image?: string
 }
 

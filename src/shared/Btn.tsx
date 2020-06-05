@@ -6,7 +6,7 @@ import {
   BLUE,
   WHITE,
   TRANSLUCENT_BLUE,
-  DARK_BLUE,
+  DEEP_BLUE,
   RED,
   DARK_RED,
   OUTLINE,
@@ -72,12 +72,12 @@ const getKindStyles = (kind?: EBtnKind, disabled?: boolean): string => {
   return `
     background: ${BLUE};
     color: ${WHITE} !important;
-    border-color: ${DARK_BLUE};
+    border-color: ${DEEP_BLUE};
 
     &:hover,
     &:active,
     &:focus {
-      background: ${disabled ? BLUE : DARK_BLUE};
+      background: ${disabled ? BLUE : DEEP_BLUE};
     }`
 }
 

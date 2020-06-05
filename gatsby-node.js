@@ -13,48 +13,106 @@ const ArticlesTemplate = getTemplatePath('Articles')
 const RegionTemplate = getTemplatePath('Region')
 const TagTemplate = getTemplatePath('Tag')
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createFieldExtension, createTypes } = actions
+
+  createFieldExtension({
+    name: 'isRegion',
+    extend: () => ({
+      resolve: (source) => regions.has(source.slug),
+    }),
+  })
+  createTypes(`
+    type GhostTag implements Node {
+      isRegion: Boolean @isRegion
+    }
+  `)
+
+  createFieldExtension({
+    name: 'role',
+    extend: () => ({
+      resolve: (source) => {
+        const { location } = source
+        const index = location ? location.indexOf('|') : -1
+        if (index < 0) {
+          // Default role
+          return 'Contributor'
+        }
+
+        const role = location.substring(index + 1).trim()
+        return role
+      },
+    }),
+  })
+  createFieldExtension({
+    name: 'loc',
+    extend: () => ({
+      resolve: (source) => {
+        const { location } = source
+        if (!location) {
+          return ''
+        }
+
+        const index = location.indexOf('|')
+        if (index < 0) {
+          return location.trim()
+        }
+
+        const loc = location.substring(0, index).trim()
+        return loc
+      },
+    }),
+  })
+  createTypes(`
+    type GhostAuthor implements Node {
+      role: String @role
+      loc: String @loc
+    }
+    type GhostPostAuthors implements Node {
+      role: String @role
+      loc: String @loc
+    }
+  `)
+}
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
   const {
     errors: ghostErrors,
     data: {
-      allGhostAuthor: { edges: authors },
-      allGhostPost: { edges: articles },
+      allGhostAuthor: { nodes: authors },
+      allGhostPost: { nodes: articles },
       allGhostTag: { nodes: tags },
     },
   } = await graphql(`
     query {
       allGhostAuthor {
-        edges {
-          node {
-            id
-            slug
-          }
+        nodes {
+          id
+          slug
         }
       }
 
       allGhostPost(sort: { order: DESC, fields: published_at }) {
-        edges {
-          node {
+        nodes {
+          id
+          slug
+          title
+          excerpt
+          published_at(formatString: "MMM DD, YYYY")
+          reading_time
+          tags {
             id
             slug
-            title
-            excerpt
-            published_at(formatString: "MMM DD, YYYY")
-            reading_time
-            tags {
-              id
-              slug
-              name
-            }
-            authors {
-              id
-              slug
-              name
-            }
-            feature_image
+            name
           }
+          authors {
+            id
+            slug
+            name
+          }
+          feature_image
         }
       }
 
@@ -74,7 +132,7 @@ exports.createPages = async ({ graphql, actions }) => {
     throw new Error(ghostErrors)
   }
 
-  await authors.map(({ node: { slug } }) =>
+  await authors.map(({ slug }) =>
     createPage({
       path: `/authors/${slug}`,
       component: AuthorTemplate,
@@ -82,7 +140,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }),
   )
 
-  await articles.map(({ node: { slug } }, idx) =>
+  await articles.map(({ slug }, idx) =>
     createPage({
       path: `/articles/${slug}`,
       component: ArticleTemplate,

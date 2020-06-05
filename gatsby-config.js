@@ -75,17 +75,15 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allGhostPost } }) =>
-              allGhostPost.edges.map(
+              allGhostPost.nodes.map(
                 ({
-                  node: {
-                    slug,
-                    title,
-                    published_at,
-                    excerpt,
-                    html,
-                    tags,
-                    authors,
-                  },
+                  slug,
+                  title,
+                  published_at,
+                  excerpt,
+                  html,
+                  tags,
+                  authors,
                 }) => {
                   const url = site.siteMetadata.siteUrl + '/articles/' + slug
                   const categories = tags.map(({ name }) => name)
@@ -109,19 +107,17 @@ module.exports = {
             query: `
               {
                 allGhostPost(sort: { order: DESC, fields: [published_at] }) {
-                  edges {
-                    node {
-                      slug
-                      title
-                      published_at
-                      excerpt
-                      html
-                      tags {
-                        name
-                      }
-                      authors {
-                        name
-                      }
+                  nodes {
+                    slug
+                    title
+                    published_at
+                    excerpt
+                    html
+                    tags {
+                      name
+                    }
+                    authors {
+                      name
                     }
                   }
                 }

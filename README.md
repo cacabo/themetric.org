@@ -10,24 +10,25 @@ Web application for The Metric
 
 Shorter term
 
+- [ ] Decide on final names for regions
 - [ ] TODO stubs in code
-- [ ] Add `region` field to tag object?
-- [ ] Topic page (regions, other topics)
-- [ ] Region page
+- [ ] Paginate author page
+- [ ] Responsive font sizing on article page
 - [ ] Sizing, mobile responsiveness of search bar
 - [ ] Homepage, featured posts
   - [ ] Secondary level of featured posts
   - [ ] Other posts
-- [ ] Remote images to Gatsby image
+- [ ] Remote images to `gatsby-image`
 - [ ] Show users (members of The Metric org) who have no posts (like Cameron)
   - [ ] Manually create GhostAuthor object?
-- [ ] Figure out how to store roles on author objects
-  - [ ] Parse as part of location
-  - [ ] Perhaps https://www.gatsbyjs.org/docs/node-apis/#createSchemaCustomization
 - [ ] Webhook for rebuilding website in response to changes
 - [ ] Tags section on homepage (maybe only show some of the most popular)
 - [ ] Styled-system
 - [ ] Port over all existing content to Ghost
+- [x] Figure out how to store roles on author objects
+  - [x] Parse as part of location
+  - [x] Perhaps https://www.gatsbyjs.org/docs/node-apis/#createSchemaCustomization
+- [x] Add `isRegion` field to tag object
 - [x] Fix invalid DOM nesting for author thumbnails
 - [x] Fix linking for tags which are regions
 - [x] Pagination for tags

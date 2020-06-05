@@ -26,10 +26,12 @@ import {
   ARTICLES_ROUTE,
   HOME_ROUTE,
   REGION_ROUTE,
+  TAG_ROUTE,
 } from '../../constants/routes'
-import { Link } from 'gatsby'
+import { Link, useStaticQuery, graphql } from 'gatsby'
 import { MEDIUM_FONT_WEIGHT } from '../../constants/fonts'
 import { REGIONS, ERegionSlug } from '../../constants/regions'
+import { ITag } from '../../types'
 
 const Wrapper = s.div<{ show: boolean }>`
   position: fixed;
@@ -117,7 +119,9 @@ const Close = s.a`
   }
 `
 
-// escape to close
+// TODO escape to close
+// TODO tab through links
+// TODO outline on links with tab through
 
 export const ArticlesLinks = ({
   show,
@@ -126,6 +130,24 @@ export const ArticlesLinks = ({
   show: boolean
   toggle: () => void
 }): React.ReactElement => {
+  const {
+    allGhostTag: { nodes },
+  } = useStaticQuery(graphql`
+    query queryPopularGhostTags {
+      allGhostTag(
+        filter: { isRegion: { eq: false } }
+        sort: { fields: count___posts, order: DESC }
+        limit: 10
+      ) {
+        nodes {
+          id
+          name
+          slug
+        }
+      }
+    }
+  `)
+
   useEffect(() => {
     // Disable scroll on body when the navbar is active
     if (show) {
@@ -156,7 +178,11 @@ export const ArticlesLinks = ({
         ),
       )}
       <SectionHeader sm>Tags</SectionHeader>
-      <StyledLink to="#">TODO</StyledLink>
+      {nodes.map(({ id, name, slug }: ITag) => (
+        <StyledLink to={TAG_ROUTE(slug)} key={id}>
+          {name}
+        </StyledLink>
+      ))}
     </Wrapper>
   )
 }

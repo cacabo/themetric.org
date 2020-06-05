@@ -5,7 +5,8 @@ export const AuthorPreviewFragment = graphql`
     id
     slug
     name
-    location
+    loc
+    role
     profile_image
   }
 `
@@ -16,7 +17,8 @@ export const AuthorFragment = graphql`
     slug
     bio
     facebook
-    location
+    loc
+    role
     name
     postCount
     profile_image
@@ -51,7 +53,8 @@ export const ArticleFragment = graphql`
       name
       slug
       profile_image
-      location
+      loc
+      role
     }
   }
 `

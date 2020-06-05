@@ -15,9 +15,7 @@ interface ITagTemplateProps {
       name: string
     }
     allGhostPost: {
-      edges: Array<{
-        node: IArticlePreview
-      }>
+      nodes: IArticlePreview[]
     }
   }
   pageContext: {
@@ -32,10 +30,8 @@ const TagTemplate = ({
   const { tag, numPages, currentPage } = pageContext
   const {
     ghostTag: { name: tagName },
-    allGhostPost: { edges: articleNodes },
+    allGhostPost: { nodes: articles },
   } = data
-
-  const articles = articleNodes.map(({ node }) => node)
 
   return (
     <Layout>
@@ -67,10 +63,8 @@ export const tagPageQuery = graphql`
       limit: $limit
       skip: $skip
     ) {
-      edges {
-        node {
-          ...ArticlePreview
-        }
+      nodes {
+        ...ArticlePreview
       }
     }
   }

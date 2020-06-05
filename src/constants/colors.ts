@@ -1,6 +1,4 @@
-// TODO replace solin colors below with these with metric colors...
-// export const BLUE = '#209CEE'
-// export const BLUE_DARK = '#0068AC'
+// Secondary colors
 export const LILAC = '#E7ECFF'
 export const PURPLE = '#B1C1FB'
 export const TEAL = '#18A2B8'
@@ -16,13 +14,13 @@ export const RED_BORDER = 'rgba(245, 112, 128, 0.25)'
 export const GOLD = '#9F6000'
 export const POLLEN = '#FFF5CC'
 
+// TODO replace solin colors below with these with metric colors...
+
 // Blues
 export const OUTLINE = 'rgba(0, 123, 255, 0.25)'
-export const BLUE = '#418fde'
-export const DARK_BLUE = '#2671bd'
-export const NAVY = '#00288c'
-export const MIDNIGHT = '#071729'
-export const LIGHT_BLUE = '#c7e3ff'
+export const BLUE = '#209CEE'
+export const DEEP_BLUE = '#148cdb'
+export const DARK_BLUE = '#0068AC'
 export const SKY = '#e6f2ff'
 export const SNOW = '#f0f2f5'
 export const YELLOW = '#ffd400'
