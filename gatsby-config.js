@@ -160,5 +160,35 @@ module.exports = {
         display: 'swap',
       },
     },
+    {
+      resolve: `gatsby-plugin-lunr`,
+      options: {
+        languages: [
+          {
+            name: 'en',
+          },
+        ],
+        /**
+         * Fields to index. If store === true value will be stored in index file.
+         * Attributes for custom indexing logic. See https://lunrjs.com/docs/lunr.Builder.html
+         * for details
+         */
+        fields: [
+          { name: 'slug', store: true },
+          { name: 'title', store: true, attributes: { boost: 20 } },
+          { name: 'html', store: false },
+          { name: 'excerpt', store: true, attributes: { boost: 10 } },
+        ],
+        // How to resolve each field's value for a supported node type
+        resolvers: {
+          GhostPost: {
+            slug: (node) => node.slug,
+            title: (node) => node.title,
+            html: (node) => node.html,
+            excerpt: (node) => node.excerpt,
+          },
+        },
+      },
+    },
   ],
 }

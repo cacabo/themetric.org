@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import s, { css } from 'styled-components'
 import {
   WHITE,
-  BORDER,
   GRAY_2,
   GRAY_3,
   BLACK,
@@ -18,6 +17,8 @@ import {
   M2,
   SHORT_ANIMATION_DURATION,
   M1,
+  minWidth,
+  TABLET,
 } from '../../constants/measurements'
 import { disableBodyScroll, enableBodyScroll } from '../../helpers/misc'
 import { H3, XIcon, P } from '../../shared'
@@ -43,13 +44,26 @@ const Wrapper = s.div<{ show: boolean }>`
   right: ${(props): string => (props.show ? '0' : '-100vw')};
   z-index: ${HEADER_Z_INDEX + 2};
   border-left: 1px solid ${DARK_GRAY_3};
+
+  ${minWidth(TABLET)} {
+    width: calc(24rem + 5vw);
+  }
 `
 
 const sharedStyles = css`
+  padding-top: ${M1};
+  padding-bottom: ${M1};
   padding-left: ${M2};
   padding-right: ${M2};
   border-bottom: 1px solid ${DARK_GRAY_3};
   width: 100%;
+
+  ${minWidth(TABLET)} {
+    padding-top: calc(${M1} + 0.625vh);
+    padding-bottom: calc(${M1} + 0.625vh);
+    padding-left: calc(${M2} + 0.625vw);
+    padding-right: calc(${M2} + 0.625vw);
+  }
 `
 
 const Header = s.div`
@@ -57,13 +71,13 @@ const Header = s.div`
   display: flex;
   width: 100%;
   align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
   ${sharedStyles}
 `
 
 const SectionHeader = s(P)`
   background: ${DARK_GRAY_2};
-  padding-top: ${M1};
-  padding-bottom: ${M1};
   margin-bottom: 0;
   font-weight: ${MEDIUM_FONT_WEIGHT};
   color: ${WHITE_ALPHA(0.8)};
@@ -74,8 +88,6 @@ const StyledLink = s(Link)`
   background: ${BLACK};
   color: ${WHITE_ALPHA(0.8)};
   display: inline-block;
-  padding-top: ${M1};
-  padding-bottom: ${M1};
   transition: background ${SHORT_ANIMATION_DURATION}ms ease,
               color ${SHORT_ANIMATION_DURATION}ms ease;
   ${sharedStyles}

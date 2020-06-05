@@ -23,6 +23,7 @@
     "gatsby-plugin-feed": "^2.5.4",
     "gatsby-plugin-google-analytics": "^2.3.3",
     "gatsby-plugin-google-fonts": "^1.0.1",
+    "gatsby-plugin-lunr": "^1.5.2",
     "gatsby-plugin-manifest": "^2.2.31",
     "gatsby-plugin-offline": "^3.0.27",
     "gatsby-plugin-react-helmet": "^3.1.16",
@@ -42,6 +43,7 @@
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
+    "@types/lunr": "^2.3.3",
     "@types/node": "^13.1.7",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",

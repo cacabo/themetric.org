@@ -30,6 +30,7 @@ export const ArticleFragment = graphql`
     slug
     title
     html
+    excerpt
     feature_image
     localImage {
       childImageSharp {
@@ -38,7 +39,6 @@ export const ArticleFragment = graphql`
         }
       }
     }
-    excerpt
     published_at(formatString: "MMM D, YYYY")
     reading_time
     tags {

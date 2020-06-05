@@ -10,6 +10,8 @@ Web application for The Metric
 
 Shorter term
 
+- [ ] Invalid DOM nesting (http://localhost:8000/articles/what-remains-on-the-horizon-president-mnangagwas-first-100-days)
+- [ ] Full width nav and footer on tablet (container doesn't help)
 - [ ] Topic page (regions, other topics)
 - [ ] Region page
 - [ ] [Search](https://www.gatsbyjs.org/packages/gatsby-plugin-flexsearch/)
@@ -59,3 +61,4 @@ Longer term
 - [ ] Mailing list
 - [ ] Icons for regions
 - [ ] TypeScript https://gist.github.com/clarkdave/53cc050fa58d9a70418f8a76982dd6c8
+- [ ] Highlight matching words in search results

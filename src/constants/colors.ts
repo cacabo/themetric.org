@@ -50,8 +50,8 @@ export const LIGHT_GRAY_4 = '#EBF1F5'
 export const LIGHT_GRAY_5 = '#F5F8FA'
 
 export const BLACK_ALPHA = (alpha: number): string => `rgba(0, 0, 0, ${alpha})`
-export const SHADE = 'rgba(0, 0, 0, 0.1)'
-export const BORDER = 'rgba(0, 0, 0, 0.1)'
+export const SHADE = BLACK_ALPHA(0.1)
+export const BORDER = BLACK_ALPHA(0.1)
 export const WHITE = '#FFFFFF'
 export const WHITE_ALPHA = (alpha: number): string =>
   `rgba(255, 255, 255, ${alpha})`

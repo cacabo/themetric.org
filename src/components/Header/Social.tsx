@@ -15,6 +15,8 @@ import {
   M2,
 } from '../../constants/measurements'
 
+// TODO handle outline on icons
+
 const SocialWrapper = s.div`
   width: auto;
   margin-top: 8px;
