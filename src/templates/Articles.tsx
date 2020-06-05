@@ -5,8 +5,9 @@ import { Layout } from '../components/Layout'
 import { Meta } from '../components/Meta'
 import { ArticlePreviews } from '../components/Article/ArticlePreviews'
 import { WideContainer, Spacer } from '../shared'
-import { IArticlePreview } from '../types'
+import { IArticlePreview, IPaginationPageContext } from '../types'
 import { ArticlesPagination } from '../components/Article/ArticlesPagination'
+import { ARTICLES_PAGE_ROUTE } from '../constants/routes'
 
 interface IArticleTemplateProps {
   data: {
@@ -16,12 +17,7 @@ interface IArticleTemplateProps {
       }>
     }
   }
-  pageContext: {
-    limit: number
-    skip: number
-    numPages: number
-    currentPage: number
-  }
+  pageContext: IPaginationPageContext
 }
 
 const ArticlesTemplate = ({
@@ -40,15 +36,18 @@ const ArticlesTemplate = ({
       <Meta title="Articles" />
       <Spacer />
       <WideContainer>
-        <ArticlePreviews articles={articles} />
-        <ArticlesPagination {...{ numPages, currentPage }} />
+        <ArticlePreviews {...{ articles }} />
+        <ArticlesPagination
+          {...{ numPages, currentPage }}
+          routeGenerator={ARTICLES_PAGE_ROUTE}
+        />
       </WideContainer>
     </Layout>
   )
 }
 
 export const articlesPageQuery = graphql`
-  query blogListQuery($skip: Int!, $limit: Int!) {
+  query articlesPageQuery($skip: Int!, $limit: Int!) {
     allGhostPost(
       sort: { order: DESC, fields: [published_at] }
       limit: $limit

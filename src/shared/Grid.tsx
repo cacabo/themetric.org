@@ -182,7 +182,7 @@ const ColContainer = s.div<IColProps>`
   ${({ flex }): string => (flex ? 'display: flex; flex: 1;' : '')}
 
   ${({ margin }): string =>
-    margin && `margin-left: ${margin}; margin-right: ${margin};`}
+    margin ? `margin-left: ${margin}; margin-right: ${margin};` : ''}
 `
 
 export const Col = ({
@@ -257,8 +257,8 @@ export const ThinContainer = ({
   </Container>
 )
 
-export const Hero = s.div`
-  padding: 12.5vh 0;
+export const Hero = s.div<{ short?: boolean }>`
+  padding: ${(props): string => (props.short ? '8vh 0' : '12vh 0')};
   width: 100%;
   display: block;
 `

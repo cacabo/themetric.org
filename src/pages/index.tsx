@@ -5,6 +5,7 @@ import { Layout } from '../components/Layout'
 import { Meta } from '../components/Meta'
 import { Hero, H1, WideContainer, Pill, PillsWrapper } from '../shared'
 import { REGIONS, ERegionSlug } from '../constants/regions'
+import { REGION_ROUTE } from '../constants/routes'
 
 const IndexPage = (): React.ReactElement => (
   <Layout>
@@ -17,7 +18,7 @@ const IndexPage = (): React.ReactElement => (
       <PillsWrapper>
         {(Object.keys(REGIONS) as ERegionSlug[]).map(
           (slug): React.ReactElement => (
-            <Pill to={slug} key={slug}>
+            <Pill to={REGION_ROUTE(slug)} key={slug}>
               {REGIONS[slug]}
             </Pill>
           ),

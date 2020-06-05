@@ -1,3 +1,10 @@
+export interface IPaginationPageContext {
+  limit: number
+  skip: number
+  numPages: number
+  currentPage: number
+}
+
 /**
  * Authors
  */

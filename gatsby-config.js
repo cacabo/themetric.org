@@ -1,3 +1,8 @@
+// GHOST_API_KEY is needed for the site to function properly
+if (!process.env.GHOST_API_KEY) {
+  throw Error('Missing GHOST_API_KEY in env')
+}
+
 module.exports = {
   siteMetadata: {
     title: `The Metric`,

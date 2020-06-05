@@ -61,11 +61,15 @@ exports.createPages = async ({ graphql, actions }) => {
       allGhostTag {
         nodes {
           slug
+          count {
+            posts
+          }
         }
       }
     }
   `)
 
+  // Something went wrong
   if (ghostErrors) {
     throw new Error(ghostErrors)
   }
@@ -90,29 +94,58 @@ exports.createPages = async ({ graphql, actions }) => {
     }),
   )
 
-  const numArticles = articles.length
-  const numArticlesPages = Math.ceil(numArticles / POSTS_PER_PAGE)
-  Array.from({ length: numArticlesPages }).forEach((_, i) => {
-    createPage({
-      path: i === 0 ? `/articles` : `/articles/${i + 1}`,
-      component: ArticlesTemplate,
-      context: {
-        limit: POSTS_PER_PAGE,
-        skip: i * POSTS_PER_PAGE,
-        numPages: numArticlesPages,
-        currentPage: i + 1,
-      },
+  const generatePaginatedPages = (
+    numArticles,
+    baseRoute,
+    template,
+    context = {},
+  ) => {
+    if (
+      (!numArticles && numArticles !== 0) ||
+      typeof numArticles !== 'number'
+    ) {
+      throw Error('Num articles must be a number')
+    }
+
+    if (!baseRoute || !baseRoute.startsWith('/')) {
+      throw Error('baseRoute should be a route of the form "/articles"')
+    }
+
+    const numArticlesPages =
+      numArticles === 0 ? 1 : Math.ceil(numArticles / POSTS_PER_PAGE)
+    Array.from({ length: numArticlesPages }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? baseRoute : `${baseRoute}/${i + 1}`,
+        component: template,
+        context: {
+          ...context,
+          limit: POSTS_PER_PAGE,
+          skip: i * POSTS_PER_PAGE,
+          numPages: numArticlesPages,
+          currentPage: i + 1,
+        },
+      })
     })
+  }
+
+  // Map from tag slugs to counts
+  const tagToCountDict = {}
+  tags.forEach(({ slug, count: { posts } }) => {
+    tagToCountDict[slug] = posts
   })
 
+  const getNumArticlesForTag = (tag) => tagToCountDict[tag] || 0
+
+  generatePaginatedPages(articles.length, '/articles', ArticlesTemplate)
+
   REGIONS.forEach((region) => {
-    createPage({
-      path: `/regions/${region}`,
-      component: RegionTemplate,
-      context: {
-        region,
-      },
-    })
+    const numArticlesInRegion = getNumArticlesForTag(region)
+    generatePaginatedPages(
+      numArticlesInRegion,
+      `/regions/${region}`,
+      RegionTemplate,
+      { region },
+    )
   })
 
   // TODO other filtering of tags that are for display not for categorization
@@ -121,10 +154,9 @@ exports.createPages = async ({ graphql, actions }) => {
     .filter((slug) => !regions.has(slug))
 
   filteredTags.forEach((tag) => {
-    createPage({
-      path: `/tags/${tag}`,
-      component: TagTemplate,
-      context: { tag },
+    const numArticlesForTag = getNumArticlesForTag(tag)
+    generatePaginatedPages(numArticlesForTag, `/tags/${tag}`, TagTemplate, {
+      tag,
     })
   })
 }

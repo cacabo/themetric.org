@@ -8,6 +8,8 @@ Web application for The Metric
 
 ### Todo
 
+Shorter term
+
 - [ ] Topic page (regions, other topics)
 - [ ] Region page
 - [ ] [Search](https://www.gatsbyjs.org/packages/gatsby-plugin-flexsearch/)
@@ -17,14 +19,16 @@ Web application for The Metric
 - [ ] Homepage, featured posts
 - [ ] Remote images to Gatsby image
 - [ ] Show users (members of The Metric org) who have no posts (like Cameron)
-- [ ] Hosting on Netlify
 - [ ] Figure out how to store roles on author objects
 - [ ] Webhook for rebuilding website in response to changes
 - [ ] Tags section on homepage
 - [ ] Page for each tag with pagination
 - [ ] 3-4 secondary features on homepage
 - [ ] Styled-system
-- [ ] Port over all content to Ghost
+- [ ] Port over all existing content to Ghost
+- [ ] Fix linking for tags which are regions
+- [x] Pagination for tags
+- [x] Hosting on Netlify
 - [x] Dropdowns in navbar
 - [x] Shadow on navbar
 - [x] Pagination for articles
@@ -46,8 +50,9 @@ Web application for The Metric
 - [x] Style links
 - [x] Author page
 
-Down the line
+Longer term
 
 - [ ] Favicon for dark mode browser
 - [ ] Mailing list
 - [ ] Icons for regions
+- [ ] TypeScript https://gist.github.com/clarkdave/53cc050fa58d9a70418f8a76982dd6c8

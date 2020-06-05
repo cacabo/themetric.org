@@ -42,7 +42,7 @@ const Wrapper = s.div<{ show: boolean }>`
   transition: right ${LONG_ANIMATION_DURATION}ms ease;
   right: ${(props): string => (props.show ? '0' : '-100vw')};
   z-index: ${HEADER_Z_INDEX + 2};
-  border-left: 1px solid ${BORDER};
+  border-left: 1px solid ${DARK_GRAY_3};
 `
 
 const sharedStyles = css`
@@ -66,7 +66,7 @@ const SectionHeader = s(P)`
   padding-bottom: ${M1};
   margin-bottom: 0;
   font-weight: ${MEDIUM_FONT_WEIGHT};
-  color: ${WHITE};
+  color: ${WHITE_ALPHA(0.8)};
   ${sharedStyles}
 `
 

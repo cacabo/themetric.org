@@ -1,4 +1,4 @@
-// TODO replace solin colors below with these
+// TODO replace solin colors below with these with metric colors...
 // export const BLUE = '#209CEE'
 // export const BLUE_DARK = '#0068AC'
 export const LILAC = '#E7ECFF'

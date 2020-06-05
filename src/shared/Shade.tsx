@@ -38,7 +38,12 @@ const StyledShade = s.div<IStyledShadeProps>(
   `,
 )
 
-export const Shade = ({ show, ...rest }: IShadeProps): React.ReactElement => {
+export const Shade = ({
+  show,
+  zIndex,
+  tabIndex,
+  onClick,
+}: IShadeProps): React.ReactElement => {
   const [isNewlyMounted, setIsNewlyMounted] = useState<boolean>(true)
 
   useEffect(() => {
@@ -46,5 +51,11 @@ export const Shade = ({ show, ...rest }: IShadeProps): React.ReactElement => {
     if (show) setIsNewlyMounted(false)
   }, [show, isNewlyMounted])
 
-  return <StyledShade show={show} isNewlyMounted={isNewlyMounted} {...rest} />
+  return (
+    <StyledShade
+      show={show}
+      isNewlyMounted={isNewlyMounted}
+      {...{ zIndex, tabIndex, onClick }}
+    />
+  )
 }

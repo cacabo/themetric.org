@@ -15,8 +15,10 @@ import {
   Col,
   WideContainer,
   ResponsiveSpacer,
+  BtnLink,
+  Center,
 } from '../shared'
-import { FACEBOOK_LINK } from '../constants/routes'
+import { FACEBOOK_LINK, HOME_ROUTE } from '../constants/routes'
 import { M2 } from '../constants/measurements'
 import { AuthorPreview } from '../components/Article/AuthorPreview'
 import { IAuthorPreview } from '../types'
@@ -118,6 +120,10 @@ const AboutPage = (): React.ReactElement => {
             ),
           )}
         </Row>
+        <Spacer />
+        <Center>
+          <BtnLink to={HOME_ROUTE}>Back to home</BtnLink>
+        </Center>
         <Spacer />
       </WideContainer>
     </Layout>
