@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { Link } from 'gatsby'
 import s from 'styled-components'
+import Img from 'gatsby-image'
 
 import { IArticlePreview } from '../../types'
-import { P, Row, Col, H3, BackgroundImage, TextList } from '../../shared'
+import { P, Row, Col, H3, BackgroundImg, TextList } from '../../shared'
 import {
   M2,
   minWidth,
@@ -36,13 +37,13 @@ const ImageLink = s(Link)`
   }
 `
 
-const DesktopImage = s(BackgroundImage)`
+const DesktopImage = s(BackgroundImg)`
   ${maxWidth(TABLET)} {
     display: none;
   }
 `
 
-const MobileImage = s.img`
+const MobileImage = s(Img)`
   width: 100%;
   height: auto;
   flex: none;
@@ -57,63 +58,73 @@ const MobileImage = s.img`
   }
 `
 
+// TODO remove use of feature_image
+// TODO gatsby-background-image
+
 export const ArticlePreview = ({
   title,
   slug,
   excerpt,
   feature_image,
+  localImage,
   authors,
   tags,
   published_at,
   reading_time,
-}: IArticlePreviewProps): React.ReactElement => (
-  <Wrapper>
-    <Row margin={M2} mb4>
-      {feature_image && (
-        <Col margin={M2} sm={12} md={5} flex>
-          <ImageLink to={ARTICLE_ROUTE(slug)}>
-            <DesktopImage src={feature_image} />
-            <MobileImage src={feature_image} alt={title} />
-          </ImageLink>
-        </Col>
-      )}
-      <Col margin={M2} sm={12} md={7}>
-        <Link to={ARTICLE_ROUTE(slug)}>
-          <H3 mb1>{title}</H3>
-        </Link>
-        <Link to={ARTICLE_ROUTE(slug)}>
-          <P mb4 light>
-            {excerpt}
+}: IArticlePreviewProps): React.ReactElement => {
+  const { fluid } = localImage?.childImageSharp || {}
+  return (
+    <Wrapper>
+      <Row margin={M2} mb4>
+        {feature_image && fluid && (
+          <Col margin={M2} sm={12} md={5} flex>
+            <ImageLink to={ARTICLE_ROUTE(slug)}>
+              <DesktopImage fluid={fluid} />
+              <MobileImage fluid={fluid} />
+            </ImageLink>
+          </Col>
+        )}
+        <Col margin={M2} sm={12} md={7}>
+          <Link to={ARTICLE_ROUTE(slug)}>
+            <H3 mb1>{title}</H3>
+          </Link>
+          <Link to={ARTICLE_ROUTE(slug)}>
+            <P mb4 light>
+              {excerpt}
+            </P>
+          </Link>
+          <P sm lighter mb1>
+            <TextList>
+              {authors.map(({ name, slug: authorSlug }) => (
+                <Link
+                  to={AUTHOR_ROUTE(authorSlug)}
+                  key={`author-${authorSlug}`}
+                >
+                  {name}
+                </Link>
+              ))}
+            </TextList>
+            {authors && authors.length && tags && tags.length && ' in '}
+            <TextList>
+              {tags.map(({ name, slug: tagSlug }) => (
+                <Link
+                  to={
+                    Object.values(ERegionSlug).includes(tagSlug as ERegionSlug)
+                      ? REGION_ROUTE(tagSlug as ERegionSlug)
+                      : TAG_ROUTE(tagSlug)
+                  }
+                  key={`tag-${tagSlug}`}
+                >
+                  {name}
+                </Link>
+              ))}
+            </TextList>
           </P>
-        </Link>
-        <P sm lighter mb1>
-          <TextList>
-            {authors.map(({ name, slug: authorSlug }) => (
-              <Link to={AUTHOR_ROUTE(authorSlug)} key={`author-${authorSlug}`}>
-                {name}
-              </Link>
-            ))}
-          </TextList>
-          {authors && authors.length && tags && tags.length && ' in '}
-          <TextList>
-            {tags.map(({ name, slug: tagSlug }) => (
-              <Link
-                to={
-                  Object.values(ERegionSlug).includes(tagSlug as ERegionSlug)
-                    ? REGION_ROUTE(tagSlug as ERegionSlug)
-                    : TAG_ROUTE(tagSlug)
-                }
-                key={`tag-${tagSlug}`}
-              >
-                {name}
-              </Link>
-            ))}
-          </TextList>
-        </P>
-        <P sm lightest mb0>
-          {published_at} &#183; {reading_time} mins
-        </P>
-      </Col>
-    </Row>
-  </Wrapper>
-)
+          <P sm lightest mb0>
+            {published_at} &#183; {reading_time} mins
+          </P>
+        </Col>
+      </Row>
+    </Wrapper>
+  )
+}

@@ -13,9 +13,59 @@ const ArticlesTemplate = getTemplatePath('Articles')
 const RegionTemplate = getTemplatePath('Region')
 const TagTemplate = getTemplatePath('Tag')
 
+/**
+ * Manually create "authors" who have no posts in Ghost
+ *
+ * This is necessary since the Ghost API does not return users who exist in
+ * Ghost yet who have not authored any posts
+ */
+exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
+  const { createNode } = actions
+
+  const cameronData = {
+    bio: 'Driven developer, designer, and product builder.',
+    cover_image: null,
+    facebook: 'https://www.facebook.com/cam.cabo',
+    facebookUsername: 'cam.cabo',
+    ghostId: '',
+    loc: 'Los Angeles',
+    location: '',
+    meta_title: null,
+    meta_description: null,
+    name: 'Cameron Cabo',
+    postCount: 0,
+    profile_image:
+      'https://ghost.themetric.org/content/images/2020/03/prof.jpg',
+    role: 'Web Developer',
+    url: 'http://ghost.themetric.org/author/cameron/',
+    twitter: 'https://www.twitter.com/cameroncabo',
+    twitterUsername: 'cameroncabo',
+    slug: 'cameron',
+    website: 'https://www.cameroncabo.com',
+  }
+
+  const nodeContent = JSON.stringify(cameronData)
+  const nodeMeta = {
+    id: createNodeId(`cameron-data`),
+    parent: null,
+    children: [],
+    internal: {
+      type: `GhostAuthorManual`,
+      mediaType: `text/html`,
+      content: nodeContent,
+      contentDigest: createContentDigest(cameronData),
+    },
+  }
+  const node = Object.assign({}, cameronData, nodeMeta)
+  createNode(node)
+}
+
 exports.createSchemaCustomization = ({ actions }) => {
   const { createFieldExtension, createTypes } = actions
 
+  /**
+   * Additional types for GhostTag
+   */
   createFieldExtension({
     name: 'isRegion',
     extend: () => ({
@@ -28,6 +78,9 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
   `)
 
+  /**
+   * Additional types for GhostAuthor
+   */
   createFieldExtension({
     name: 'role',
     extend: () => ({
@@ -63,14 +116,44 @@ exports.createSchemaCustomization = ({ actions }) => {
       },
     }),
   })
+  const parseUsername = (str) => {
+    if (!str) return ''
+    const index = str ? str.lastIndexOf('/') : -1
+    if (index < 0) {
+      return str.trim()
+    }
+    return str.substring(index + 1).trim()
+  }
+  createFieldExtension({
+    name: 'facebookUsername',
+    extend: () => ({
+      resolve: (source) => {
+        const { facebook } = source
+        return parseUsername(facebook)
+      },
+    }),
+  })
+  createFieldExtension({
+    name: 'twitterUsername',
+    extend: () => ({
+      resolve: (source) => {
+        const { twitter } = source
+        return parseUsername(twitter)
+      },
+    }),
+  })
   createTypes(`
     type GhostAuthor implements Node {
       role: String @role
       loc: String @loc
+      facebookUsername: String @facebookUsername
+      twitterUsername: String @twitterUsername
     }
     type GhostPostAuthors implements Node {
       role: String @role
       loc: String @loc
+      facebookUsername: String @facebookUsername
+      twitterUsername: String @twitterUsername
     }
   `)
 }
@@ -82,12 +165,20 @@ exports.createPages = async ({ graphql, actions }) => {
     errors: ghostErrors,
     data: {
       allGhostAuthor: { nodes: authors },
+      allGhostAuthorManual: { nodes: authorsManual },
       allGhostPost: { nodes: articles },
       allGhostTag: { nodes: tags },
     },
   } = await graphql(`
     query {
       allGhostAuthor {
+        nodes {
+          id
+          slug
+        }
+      }
+
+      allGhostAuthorManual {
         nodes {
           id
           slug
@@ -140,17 +231,27 @@ exports.createPages = async ({ graphql, actions }) => {
     }),
   )
 
-  await articles.map(({ slug }, idx) =>
+  await authorsManual.map(({ slug }) =>
+    createPage({
+      path: `/authors/${slug}`,
+      component: AuthorTemplate,
+      context: { slug },
+    }),
+  )
+
+  await articles.map(({ slug, authors }, idx) => {
+    const authorSlugs = authors.map(({ slug }) => slug)
     createPage({
       path: `/articles/${slug}`,
       component: ArticleTemplate,
       context: {
         slug,
+        authorSlugs,
         next: articles[idx - 1 < 0 ? articles.length - 1 : idx - 1],
         prev: articles[idx + 1 >= articles.length ? 0 : idx + 1],
       },
-    }),
-  )
+    })
+  })
 
   const generatePaginatedPages = (
     numArticles,

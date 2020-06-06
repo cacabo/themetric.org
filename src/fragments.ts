@@ -7,7 +7,30 @@ export const AuthorPreviewFragment = graphql`
     name
     loc
     role
-    profile_image
+    localImage {
+      childImageSharp {
+        fluid(maxWidth: 128) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`
+
+export const AuthorManualPreviewFragment = graphql`
+  fragment AuthorManualPreview on GhostAuthorManual {
+    id
+    slug
+    name
+    loc
+    role
+    localImage {
+      childImageSharp {
+        fluid(maxWidth: 128) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
   }
 `
 
@@ -17,13 +40,47 @@ export const AuthorFragment = graphql`
     slug
     bio
     facebook
+    facebookUsername
     loc
     role
     name
     postCount
     profile_image
     twitter
+    twitterUsername
     website
+    localImage {
+      childImageSharp {
+        fluid(maxWidth: 248) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`
+
+export const AuthorManualFragment = graphql`
+  fragment AuthorManual on GhostAuthorManual {
+    id
+    slug
+    bio
+    facebook
+    facebookUsername
+    loc
+    role
+    name
+    postCount
+    profile_image
+    twitter
+    twitterUsername
+    website
+    localImage {
+      childImageSharp {
+        fluid(maxWidth: 248) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
   }
 `
 
@@ -48,14 +105,6 @@ export const ArticleFragment = graphql`
       name
       slug
     }
-    authors {
-      id
-      name
-      slug
-      profile_image
-      loc
-      role
-    }
   }
 `
 
@@ -78,5 +127,12 @@ export const ArticlePreviewFragment = graphql`
       name
     }
     feature_image
+    localImage {
+      childImageSharp {
+        fluid(maxWidth: 548) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
   }
 `

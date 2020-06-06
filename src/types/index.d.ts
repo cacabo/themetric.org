@@ -1,3 +1,11 @@
+import { FluidObject } from 'gatsby-image'
+
+export interface IGatsbyImage {
+  childImageSharp: {
+    fluid: FluidObject
+  }
+}
+
 export interface IPaginationPageContext {
   limit: number
   skip: number
@@ -14,13 +22,16 @@ export interface IAuthor {
   slug: string
   bio?: string
   facebook?: string
+  facebookUsername?: string
   loc?: string
   role?: string
   name: string
   postCount: number
   profile_image?: string
   twitter?: string
+  twitterUsername?: string
   website?: string
+  localImage?: IGatsbyImage
 }
 
 export interface IAuthorPreview {
@@ -29,7 +40,7 @@ export interface IAuthorPreview {
   name: string
   loc?: string
   role?: string
-  profile_image?: string
+  localImage?: IGatsbyImage
 }
 
 /**
@@ -52,6 +63,7 @@ export interface IArticlePreview {
   excerpt?: string
   slug: string
   feature_image?: string
+  localImage?: IGatsbyImage
   published_at: string
   reading_time: number
   authors: IAuthorPreview[]
@@ -62,17 +74,10 @@ export interface IArticle {
   title: string
   slug: string
   feature_image?: string
-  localImage: {
-    childImageSharp: {
-      fluid: IFluidObject
-    }
-  }
+  localImage?: IGatsbyImage
   html: string
-  // codeinjection_head: string
-  // codeinjection_foot: string
   excerpt: string
   reading_time: number
   published_at: string
   tags: ITag[]
-  authors: IAuthorPreview[]
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import BackgroundImage from 'gatsby-background-image'
 
 import { Layout } from '../components/Layout'
 import { Meta } from '../components/Meta'
@@ -17,6 +16,7 @@ import {
   ResponsiveSpacer,
   BtnLink,
   Center,
+  BackgroundImg,
 } from '../shared'
 import { FACEBOOK_LINK, HOME_ROUTE } from '../constants/routes'
 import { M2 } from '../constants/measurements'
@@ -29,6 +29,7 @@ const AboutPage = (): React.ReactElement => {
       childImageSharp: { fluid },
     },
     allGhostAuthor: { nodes: authors },
+    allGhostAuthorManual: { nodes: authorsManual },
   } = useStaticQuery(graphql`
     query {
       earth: file(relativePath: { eq: "earth.jpeg" }) {
@@ -43,14 +44,23 @@ const AboutPage = (): React.ReactElement => {
           ...AuthorPreview
         }
       }
+      allGhostAuthorManual(sort: { order: DESC, fields: name }) {
+        nodes {
+          ...AuthorManualPreview
+        }
+      }
     }
   `)
+  const allAuthors: IAuthorPreview[] = [
+    ...(authors as IAuthorPreview[]),
+    ...(authorsManual as IAuthorPreview[]),
+  ].sort(({ name: a }, { name: b }) => (a < b ? -1 : a > b ? 1 : 0))
 
   return (
     <Layout>
       <Meta title="About" />
 
-      <BackgroundImage fluid={fluid}>
+      <BackgroundImg fluid={fluid}>
         <MediumContainer>
           <Hero>
             <H1 center white>
@@ -59,7 +69,7 @@ const AboutPage = (): React.ReactElement => {
             </H1>
           </Hero>
         </MediumContainer>
-      </BackgroundImage>
+      </BackgroundImg>
 
       <Spacer xl />
 
@@ -112,7 +122,7 @@ const AboutPage = (): React.ReactElement => {
       <Spacer />
       <WideContainer>
         <Row margin={M2}>
-          {authors.map(
+          {allAuthors.map(
             (a: IAuthorPreview): React.ReactElement => (
               <Col key={a.slug} margin={M2} sm={12} md={6} flex>
                 <AuthorPreview {...a} />

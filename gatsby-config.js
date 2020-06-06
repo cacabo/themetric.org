@@ -55,6 +55,20 @@ module.exports = {
         imagePath: 'feature_image',
       },
     },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'GhostAuthor',
+        imagePath: 'profile_image',
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'GhostAuthorManual',
+        imagePath: 'profile_image',
+      },
+    },
     `gatsby-plugin-typescript`,
     `gatsby-plugin-styled-components`,
     {

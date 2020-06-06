@@ -6784,12 +6784,12 @@ gatsby-admin@^0.1.61:
     urql "^1.9.7"
     yup "^0.29.1"
 
-gatsby-background-image@^0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/gatsby-background-image/-/gatsby-background-image-0.10.2.tgz#b220dcacb34636e26bb77e557b09c5a5bbac2c8b"
-  integrity sha512-yXw8dD2GbjclUxUPFiX3GaCUbvkreH/UGXxe4Atrl595WssA5HzNHCvSO/QMmfMIn+CkQVQH+YIrw7UUWg8/vQ==
+gatsby-background-image@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/gatsby-background-image/-/gatsby-background-image-1.1.1.tgz#491ae4966fe573d67d34bb04f765b51bbf5f74ed"
+  integrity sha512-W56ETGF6zz35JlXZPmRq0HWuuYQ2wFFDC/DDHyRWuZ/uRSwpg9ZTOHiTW9EQI5Si9FSfD8U5ePnW+do/ToZPtA==
   dependencies:
-    "@babel/runtime" "^7.8.4"
+    "@babel/runtime" "^7.9.2"
     filter-invalid-dom-props "^2.0.0"
     global "^4.4.0"
     short-uuid "^3.1.1"
@@ -7006,10 +7006,10 @@ gatsby-plugin-react-helmet@^3.1.16:
   dependencies:
     "@babel/runtime" "^7.10.2"
 
-gatsby-plugin-remote-images@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-remote-images/-/gatsby-plugin-remote-images-2.1.0.tgz#28b6ae0fb2cfdaa88b6e5b631d73fc817afdb3ee"
-  integrity sha512-HR1Ik7WK0Fr4hYD6zsOGPlbGGJTSVehBj7LkXsG03Bkjof4XxsUMgGRSz5YDu+KTQMPnd7fJkOWe037AkJ80Kw==
+gatsby-plugin-remote-images@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-remote-images/-/gatsby-plugin-remote-images-1.0.7.tgz#e5e725813e9d2c2b06836947764374d70f8a3a69"
+  integrity sha512-vi3FJJlCxegSxLp4PNYyDvLgysnJLFkymruJxefyXYJyDYmSDHw2+p9pDO10iapKtt1RW+YuYUvRYD1bDP7E/g==
   dependencies:
     gatsby-source-filesystem "^2.0.11"
     lodash "^4.17.11"
@@ -8544,6 +8544,11 @@ internal-slot@^1.0.2:
     es-abstract "^1.17.0-next.1"
     has "^1.0.3"
     side-channel "^1.0.2"
+
+intersection-observer@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.10.0.tgz#4d11d63c1ff67e21e62987be24d55218da1a1a69"
+  integrity sha512-fn4bQ0Xq8FTej09YC/jqKZwtijpvARlRp6wxL5WTA6yPe2YWSJ5RJh7Nm79rK2qB0wr6iDQzH60XGq5V/7u8YQ==
 
 into-stream@^3.1.0:
   version "3.1.0"

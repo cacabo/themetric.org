@@ -28,6 +28,9 @@ import { ArticleComments } from '../components/Article/ArticleComments'
 interface IArticleTemplateProps {
   data: {
     ghostPost: IArticle
+    allGhostAuthor: {
+      nodes: IAuthorPreview[]
+    }
   }
   pageContext: {
     next?: {
@@ -46,25 +49,20 @@ const ArticleTemplate = ({
   const {
     ghostPost: {
       title,
-      feature_image, // TODO use this for metadata
-      localImage: {
-        childImageSharp: { fluid },
-      },
+      feature_image,
+      localImage: { childImageSharp: { fluid = undefined } = {} } = {},
       slug,
       html,
-      // codeinjection_head,
-      // codeinjection_foot,
       excerpt,
       reading_time: readingTime,
       published_at: publishedAt,
       tags,
-      authors,
     },
+    allGhostAuthor: { nodes: authors },
   } = data
   const { next, prev } = pageContext
 
   const htmlContent = html
-  // (codeinjection_head || '') + html + (codeinjection_foot || '')
 
   return (
     <Layout>
@@ -146,9 +144,14 @@ const ArticleTemplate = ({
 }
 
 export const pageQuery = graphql`
-  query($slug: String!) {
+  query($slug: String!, $authorSlugs: [String!]!) {
     ghostPost(slug: { eq: $slug }) {
       ...Article
+    }
+    allGhostAuthor(filter: { slug: { in: $authorSlugs } }) {
+      nodes {
+        ...AuthorPreview
+      }
     }
   }
 `

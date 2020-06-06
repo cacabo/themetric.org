@@ -5,7 +5,7 @@ import { IAuthorPreview } from '../../types'
 
 import { AUTHOR_ROUTE } from '../../constants/routes'
 import { M1, M2, maxWidth } from '../../constants/measurements'
-import { P } from '../../shared'
+import { P, BackgroundImg } from '../../shared'
 
 const THUMBNAIL_SIZE = '40px'
 
@@ -17,24 +17,12 @@ const ThumbnailLink = styled(Link)`
   border-bottom: none !important;
 `
 
-const Thumbnail = styled.div<{ src: string }>`
-  background-image: url(${({ src }): string => src});
+const Thumbnail = styled(BackgroundImg)`
   width: ${THUMBNAIL_SIZE};
   height: ${THUMBNAIL_SIZE};
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
   margin-bottom: 0;
+  overflow: hidden;
 `
-
-// const Thumbnail = styled(BackgroundImage)`
-//   width: ${THUMBNAIL_SIZE};
-//   height: ${THUMBNAIL_SIZE};
-//   background-position: center;
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   margin-bottom: 0;
-// `
 
 const AuthorText = styled.span`
   margin-right: ${M2};
@@ -68,19 +56,21 @@ export const Authors = ({ authors }: IAuthorsProps): React.ReactElement => {
 
   return (
     <BylineContainer>
-      {authors.map(({ slug, profile_image, name }) => (
-        <AuthorText key={slug}>
-          {profile_image && (
-            <ThumbnailLink to={AUTHOR_ROUTE(slug)}>
-              {/* <Thumbnail fluid={getMemberImage(localImage)} /> */}
-              <Thumbnail src={profile_image} />
-            </ThumbnailLink>
-          )}
-          <P mb0 inline sm>
-            <Link to={AUTHOR_ROUTE(slug)}>{name}</Link>
-          </P>
-        </AuthorText>
-      ))}
+      {authors.map(({ slug, localImage, name }) => {
+        const fluid = localImage?.childImageSharp?.fluid
+        return (
+          <AuthorText key={slug}>
+            {fluid && (
+              <ThumbnailLink to={AUTHOR_ROUTE(slug)}>
+                <Thumbnail fluid={fluid} />
+              </ThumbnailLink>
+            )}
+            <P mb0 inline sm>
+              <Link to={AUTHOR_ROUTE(slug)}>{name}</Link>
+            </P>
+          </AuthorText>
+        )
+      })}
     </BylineContainer>
   )
 }

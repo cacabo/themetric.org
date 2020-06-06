@@ -19,10 +19,15 @@ import {
   Spacer,
   HR,
   BriefcaseIcon,
+  BackgroundImg,
 } from '../shared'
 import { ArticlePreviews } from '../components/Article/ArticlePreviews'
 import { IAuthor, IArticlePreview } from '../types'
-import { ABOUT_ROUTE } from '../constants/routes'
+import {
+  ABOUT_ROUTE,
+  TWITTER_PAGE_LINK,
+  FACEBOOK_PAGE_LINK,
+} from '../constants/routes'
 import { M2, minWidth, M4, PHONE } from '../constants/measurements'
 
 const Header = s.div`
@@ -36,12 +41,9 @@ const Header = s.div`
   }
 `
 
-const ProfileImage = s.div<{ src: string }>`
-  background-image: url(${({ src }): string => src});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+const ProfileImage = s(BackgroundImg)`
   border-radius: 50%;
+  overflow: hidden;
   margin-bottom: ${M4};
   width: 6rem;
   height: 6rem;
@@ -58,7 +60,8 @@ const ProfileImage = s.div<{ src: string }>`
 
 interface IAuthorTemplateProps {
   data: {
-    ghostAuthor: IAuthor
+    ghostAuthor?: IAuthor
+    ghostAuthorManual?: IAuthor
     allGhostPost: {
       nodes: IArticlePreview[]
     }
@@ -67,19 +70,25 @@ interface IAuthorTemplateProps {
 
 const AuthorTemplate = ({ data }: IAuthorTemplateProps): React.ReactElement => {
   const {
-    ghostAuthor: {
-      bio,
-      facebook,
-      loc,
-      role,
-      name,
-      postCount,
-      profile_image,
-      twitter,
-      website,
-    },
+    ghostAuthor,
+    ghostAuthorManual,
     allGhostPost: { nodes: articles },
   } = data
+
+  const {
+    bio,
+    facebookUsername,
+    loc,
+    role,
+    name,
+    postCount,
+    // profile_image,
+    twitterUsername,
+    website,
+    localImage,
+  } = (ghostAuthor || ghostAuthorManual) as IAuthor
+
+  const fluid = localImage?.childImageSharp?.fluid
 
   return (
     <Layout>
@@ -89,7 +98,7 @@ const AuthorTemplate = ({ data }: IAuthorTemplateProps): React.ReactElement => {
         <Spacer />
 
         <Header>
-          {profile_image && <ProfileImage src={profile_image} />}
+          {fluid && <ProfileImage fluid={fluid} />}
           <div style={{ flex: 1 }}>
             <H1 mb2>{name}</H1>
             <P mb0>{bio}</P>
@@ -124,31 +133,31 @@ const AuthorTemplate = ({ data }: IAuthorTemplateProps): React.ReactElement => {
             </a>
           </P>
         )}
-        {facebook && (
+        {facebookUsername && (
           <P lighter mb2 sm>
             <IconWrapper>
               <FacebookIcon />
             </IconWrapper>
             <a
-              href={`https://www.facebook.com/${facebook}`}
+              href={FACEBOOK_PAGE_LINK(facebookUsername)}
               target="_BLANK"
               rel="noopener noreferrer"
             >
-              {facebook}
+              {facebookUsername}
             </a>
           </P>
         )}
-        {twitter && (
+        {twitterUsername && (
           <P lighter mb2 sm>
             <IconWrapper>
               <TwitterIcon />
             </IconWrapper>
             <a
-              href={`https://www.twitter.com/${twitter}`}
+              href={TWITTER_PAGE_LINK(twitterUsername)}
               target="_BLANK"
               rel="noopener noreferrer"
             >
-              {twitter}
+              {twitterUsername}
             </a>
           </P>
         )}
@@ -179,6 +188,10 @@ export const pageQuery = graphql`
   query($slug: String!) {
     ghostAuthor(slug: { eq: $slug }) {
       ...Author
+    }
+
+    ghostAuthorManual(slug: { eq: $slug }) {
+      ...AuthorManual
     }
 
     allGhostPost(

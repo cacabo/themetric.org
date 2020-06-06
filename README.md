@@ -10,6 +10,8 @@ Web application for The Metric
 
 Shorter term
 
+- [ ] Send author slugs as context
+- [ ] Scroll when tab or arrow to search results that are out of view
 - [ ] Decide on final names for regions
 - [ ] TODO stubs in code
 - [ ] Paginate author page
@@ -18,13 +20,15 @@ Shorter term
 - [ ] Homepage, featured posts
   - [ ] Secondary level of featured posts
   - [ ] Other posts
-- [ ] Remote images to `gatsby-image`
-- [ ] Show users (members of The Metric org) who have no posts (like Cameron)
-  - [ ] Manually create GhostAuthor object?
 - [ ] Webhook for rebuilding website in response to changes
 - [ ] Tags section on homepage (maybe only show some of the most popular)
 - [ ] Styled-system
 - [ ] Port over all existing content to Ghost
+- [x] Remote images to `gatsby-image`
+- [x] Show users (members of The Metric org) who have no posts (like Cameron)
+  - [x] Manually create GhostAuthor object?
+  - [x] Page for manual authors
+- [x] Parse out facebook and twitter usernames from author objects
 - [x] Figure out how to store roles on author objects
   - [x] Parse as part of location
   - [x] Perhaps https://www.gatsbyjs.org/docs/node-apis/#createSchemaCustomization
