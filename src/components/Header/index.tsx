@@ -92,11 +92,6 @@ interface IFixedState {
   shouldShowFixed: boolean
 }
 
-interface IActiveState {
-  isNewlyMounted: boolean
-  isActive: boolean
-}
-
 const Nav = ({
   fixed = false,
   setArticlesSidebarActive,
@@ -108,12 +103,7 @@ const Nav = ({
     prevScrollTop: 0,
     shouldShowFixed: false,
   })
-  const [{ isActive, isNewlyMounted }, setActiveState] = useState<IActiveState>(
-    {
-      isNewlyMounted: true,
-      isActive: false,
-    },
-  )
+  const [isActive, setIsActive] = useState<boolean>(false)
 
   const { width } = useWindowSize()
   const shouldRenderSearch = width > TABLET_WIDTH
@@ -167,16 +157,7 @@ const Nav = ({
     }
   })
 
-  const toggle = (): void => {
-    if (isNewlyMounted) {
-      return setActiveState({ isNewlyMounted: false, isActive: !isActive })
-    }
-
-    return setActiveState({
-      isNewlyMounted,
-      isActive: !isActive,
-    })
-  }
+  const toggle = (): void => setIsActive(!isActive)
 
   return (
     <>

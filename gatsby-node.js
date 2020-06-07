@@ -193,6 +193,17 @@ exports.createPages = async ({ graphql, actions }) => {
           excerpt
           published_at(formatString: "MMM DD, YYYY")
           reading_time
+          localImage {
+            childImageSharp {
+              fluid(maxWidth: 548) {
+                src
+                srcSet
+                aspectRatio
+                sizes
+                base64
+              }
+            }
+          }
           tags {
             id
             slug

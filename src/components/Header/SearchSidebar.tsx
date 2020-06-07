@@ -5,6 +5,7 @@ import { ISearchResult, getSearchResults } from '../../helpers/misc'
 import { ARTICLE_ROUTE } from '../../constants/routes'
 import { SHORT_ANIMATION_DURATION } from '../../constants/measurements'
 
+// TODO abstract this out to a helper component
 const fadeIn = keyframes`
   from {
     opacity: 0;

@@ -33,12 +33,8 @@ interface IArticleTemplateProps {
     }
   }
   pageContext: {
-    next?: {
-      node?: IArticlePreview
-    }
-    prev?: {
-      node?: IArticlePreview
-    }
+    next?: IArticlePreview
+    prev?: IArticlePreview
   }
 }
 
@@ -131,8 +127,8 @@ const ArticleTemplate = ({
 
           <HR />
           <P lighter>More reading</P>
-          {prev && prev.node && <ArticlePreview {...prev.node} />}
-          {next && next.node && <ArticlePreview {...next.node} />}
+          {prev && <ArticlePreview {...prev} />}
+          {next && <ArticlePreview {...next} />}
 
           <HR />
           <P lighter>Comments</P>

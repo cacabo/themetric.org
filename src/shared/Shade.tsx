@@ -30,6 +30,9 @@ const StyledShade = s.div<IStyledShadeProps>(
     z-index: ${zIndex};
     text-align: center;
 
+    // This fixes the flickering animation issue on first show
+    ${isNewlyMounted && 'display: none;'}
+    
     animation-name: ${isNewlyMounted ? '' : show ? fadeIn : fadeOut};
 
     animation-duration: ${LONG_ANIMATION_DURATION}ms;
