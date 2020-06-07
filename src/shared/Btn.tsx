@@ -9,7 +9,6 @@ import {
   DEEP_BLUE,
   RED,
   DARK_RED,
-  OUTLINE,
 } from '../constants/colors'
 import {
   maxWidth,
@@ -17,6 +16,7 @@ import {
   BORDER_RADIUS,
   SHORT_ANIMATION_DURATION,
 } from '../constants/measurements'
+import { outlineStyles } from '../constants/theme'
 
 export enum EBtnKind {
   Primary,
@@ -123,8 +123,7 @@ const Btn = ({
   }
 
   &:focus {
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem ${OUTLINE};
+    ${outlineStyles}
   }
 
   ${maxWidth(PHONE)} {
@@ -154,7 +153,7 @@ const BtnLinkLink = s(Link)`
     box-shadow: none;
 
     button {
-      box-shadow: 0 0 0 0.2rem ${OUTLINE};
+      ${outlineStyles}
     }
   }
 `

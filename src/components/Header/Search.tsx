@@ -16,7 +16,6 @@ import {
 import {
   BORDER,
   BLUE,
-  OUTLINE,
   WHITE,
   WHITE_ALPHA,
   BLACK,
@@ -25,13 +24,14 @@ import {
 } from '../../constants/colors'
 import { Link, navigate } from 'gatsby'
 import { ARTICLE_ROUTE } from '../../constants/routes'
-import { P, Spacer } from '../../shared'
+import { P, Spacer, Input } from '../../shared'
 import {
   ARROW_DOWN_KEY,
   ARROW_UP_KEY,
   ENTER_KEY,
   ESCAPE_KEY,
 } from '../../constants/keys'
+import { getSearchResults, ISearchResult } from '../../helpers/misc'
 
 /**
  * TODO share state between nav bars?
@@ -94,36 +94,19 @@ const ResultsList = s.ul<{ active: boolean }>`
   `}
 `
 
-const Input = s.input<{ active: boolean }>`
+const StyledInput = s(Input)<{ active: boolean }>`
   border-radius: ${(props): string =>
     props.active
       ? `${BORDER_RADIUS_LG} ${BORDER_RADIUS_LG} 0 0`
       : BORDER_RADIUS_LG};
-  box-shadow: none;
-  border-width: 2px;
-  border-style: solid;
-  border-color: ${BORDER};
   padding: 4px ${M2};
   background: ${(props): string => (props.active ? WHITE : WHITE_ALPHA(0.25))};
   color: ${(props): string => (props.active ? BLACK : WHITE_ALPHA(0.64))};
-  width: 100%;
-  transition: all ${SHORT_ANIMATION_DURATION}ms ease;
-  font-size: 16px;
   margin-top: -1px;
   margin-bottom: -1px;
 
   &:hover {
     background: ${(props): string => (props.active ? WHITE : WHITE_ALPHA(0.4))};
-  }
-
-  &:focus,
-  &:active {
-    border-color: ${BLUE};
-  }
-
-  &:focus {
-    outline: 0;
-    box-shadow: 0 0 0 2px ${OUTLINE};
   }
 
   ${maxWidth(TABLET)} {
@@ -176,26 +159,13 @@ const ListItem = s.li<{ active: boolean }>`
   }
 `
 
-declare global {
-  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
-  interface Window {
-    __LUNR__: any
-  }
-}
-
-interface ISearchState {
+export interface ISearchState {
   active: boolean
   query: string
   activeResultIdx: number
 }
 
-interface ISearchResult {
-  excerpt: string
-  slug: string
-  title: string
-}
-
-export const Search = ({ fixed }: { fixed: boolean }): React.ReactElement => {
+export const Search = (): React.ReactElement => {
   const [{ active, query, activeResultIdx }, setState] = useState<ISearchState>(
     {
       active: false,
@@ -225,22 +195,7 @@ export const Search = ({ fixed }: { fixed: boolean }): React.ReactElement => {
       return
     }
 
-    // eslint-disable-next-line no-underscore-dangle
-    if (!query || !window.__LUNR__) {
-      setResults([])
-      return
-    }
-
-    // eslint-disable-next-line no-underscore-dangle
-    const lunrIndex = window.__LUNR__.en
-
-    const searchResults: lunr.Index.Result[] = (lunrIndex.index as lunr.Index).search(
-      query,
-    )
-    const newResults = searchResults.map(
-      ({ ref }: { ref: string }): ISearchResult =>
-        (lunrIndex.store as Record<string, ISearchResult>)[ref],
-    )
+    const newResults = getSearchResults(query)
 
     if (newResults.length === 0) {
       if (activeResultIdx !== 0) {
@@ -340,8 +295,7 @@ export const Search = ({ fixed }: { fixed: boolean }): React.ReactElement => {
   return (
     <>
       <Wrapper active={active} onBlur={handleBlur} ref={wrapperRef}>
-        <Input
-          id={fixed ? 'fixed-search' : 'search'}
+        <StyledInput
           active={active}
           onFocus={(): void => updateState({ active: true })}
           placeholder="Search..."

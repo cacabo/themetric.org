@@ -15,11 +15,14 @@ import {
   SHORT_ANIMATION_DURATION,
   HEADER_HEIGHT,
   TABLET,
+  TABLET_WIDTH,
 } from '../../constants/measurements'
 import { BLACK_ALPHA, BLACK } from '../../constants/colors'
 import { Social } from './Social'
 import { Search } from './Search'
-import { ArticlesLinks } from './ArticlesLinks'
+import { ArticlesSidebar } from './ArticlesSidebar'
+import { SearchSidebar } from './SearchSidebar'
+import { useWindowSize } from '../../hooks/useWindowSize'
 
 const getScrollTop = (): number =>
   window.pageYOffset !== undefined
@@ -80,7 +83,8 @@ const NavSpace = styled.div`
 
 interface IHeaderProps {
   fixed?: boolean
-  toggleArticlesLinksActive: () => void
+  setArticlesSidebarActive: (show: boolean) => void
+  setSearchSidebarActive: (show: boolean) => void
 }
 
 interface IFixedState {
@@ -95,7 +99,8 @@ interface IActiveState {
 
 const Nav = ({
   fixed = false,
-  toggleArticlesLinksActive,
+  setArticlesSidebarActive,
+  setSearchSidebarActive,
 }: IHeaderProps): React.ReactElement => {
   const [{ prevScrollTop, shouldShowFixed }, setFixedState] = useState<
     IFixedState
@@ -109,6 +114,9 @@ const Nav = ({
       isActive: false,
     },
   )
+
+  const { width } = useWindowSize()
+  const shouldRenderSearch = width > TABLET_WIDTH
 
   useEffect(() => {
     if (!fixed) {
@@ -180,11 +188,11 @@ const Nav = ({
         <StyledContainer>
           <Logo />
           <Social />
-          <Search fixed={fixed} />
+          {shouldRenderSearch && <Search />}
           <Bars handleClick={toggle} />
           <Links
             active={isActive}
-            toggleArticlesLinksActive={toggleArticlesLinksActive}
+            {...{ setArticlesSidebarActive, setSearchSidebarActive }}
           />
         </StyledContainer>
       </StyledNav>
@@ -199,23 +207,35 @@ const Nav = ({
   )
 }
 
+// TODO also close navbar on mobile?
+
 export const Header = (): React.ReactElement => {
-  const [isArticlesLinksActive, setIsArticlesLinksActive] = useState<boolean>(
+  const { width } = useWindowSize()
+  const shouldRenderSearchSidebar = width < TABLET_WIDTH
+
+  const [articlesSidebarActive, setArticlesSidebarActive] = useState<boolean>(
     false,
   )
-  const toggle = (): void => setIsArticlesLinksActive(!isArticlesLinksActive)
+  const [searchSidebarActive, setSearchSidebarActive] = useState<boolean>(false)
+  const sharedNavProps = {
+    setArticlesSidebarActive,
+    setSearchSidebarActive,
+  }
 
   return (
     <>
-      <Nav toggleArticlesLinksActive={toggle} />
-      <Nav toggleArticlesLinksActive={toggle} fixed />
-      <ArticlesLinks show={isArticlesLinksActive} toggle={toggle} />
-      <Shade
-        tabIndex={-1}
-        zIndex={HEADER_Z_INDEX + 1}
-        show={isArticlesLinksActive}
-        onClick={toggle}
+      <Nav {...sharedNavProps} />
+      <Nav {...sharedNavProps} fixed />
+      <ArticlesSidebar
+        show={articlesSidebarActive}
+        setShow={setArticlesSidebarActive}
       />
+      {shouldRenderSearchSidebar && (
+        <SearchSidebar
+          show={searchSidebarActive}
+          setShow={setSearchSidebarActive}
+        />
+      )}
     </>
   )
 }

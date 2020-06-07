@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import s, { css } from 'styled-components'
+import { Link } from 'gatsby'
 import {
   WHITE,
   GRAY_2,
@@ -9,7 +10,7 @@ import {
   DARK_GRAY_3,
   WHITE_ALPHA,
   DARK_GRAY_2,
-} from '../../constants/colors'
+} from '../constants/colors'
 import {
   HEADER_Z_INDEX,
   LONG_ANIMATION_DURATION,
@@ -21,25 +22,20 @@ import {
   TABLET,
   maxWidth,
   PHONE,
-} from '../../constants/measurements'
-import { disableBodyScroll, enableBodyScroll } from '../../helpers/misc'
-import { H3, XIcon, P } from '../../shared'
-import {
-  ARTICLES_ROUTE,
-  HOME_ROUTE,
-  REGION_ROUTE,
-  TAG_ROUTE,
-} from '../../constants/routes'
-import { Link } from 'gatsby'
-import { MEDIUM_FONT_WEIGHT } from '../../constants/fonts'
-import { REGIONS, ERegionSlug } from '../../constants/regions'
-import { ITag } from '../../types'
-import { usePopularTags } from '../../hooks/usePopularTags'
+} from '../constants/measurements'
+import { disableBodyScroll, enableBodyScroll } from '../helpers/misc'
+import { MEDIUM_FONT_WEIGHT } from '../constants/fonts'
+import { ESCAPE_KEY } from '../constants/keys'
+import { outlineStyles } from '../constants/theme'
+import { P, H3 } from './Typography'
+import { XIcon } from './Icons'
+import { Shade } from './Shade'
 
 const Wrapper = s.div<{ show: boolean }>`
   position: fixed;
   width: 24rem;
   max-width: 100vw;
+  color: ${WHITE};
   background: ${BLACK};
   height: 100vh;
   overflow-y: scroll;
@@ -85,7 +81,7 @@ const Header = s.div`
   ${sharedStyles}
 `
 
-const SectionHeader = s(P)`
+export const SidebarHeader = s(P)`
   background: ${DARK_GRAY_2};
   margin-bottom: 0;
   font-weight: ${MEDIUM_FONT_WEIGHT};
@@ -93,7 +89,12 @@ const SectionHeader = s(P)`
   ${sharedStyles}
 `
 
-const StyledLink = s(Link)`
+export const SidebarDiv = s.div`
+  ${sharedStyles}
+`
+
+export const SidebarLink = s(Link)`
+  box-sizing: border-box;
   background: ${BLACK};
   color: ${WHITE_ALPHA(0.8)};
   display: inline-block;
@@ -118,62 +119,73 @@ const Close = s.a`
   cursor: pointer;
   color: ${GRAY_2};
   transition: color ${SHORT_ANIMATION_DURATION}ms ease;
+  border-radius: 50%;
 
   &:hover,
   &:active,
   &:focus {
     color: ${GRAY_3};
   }
+
+  &:focus {
+    ${outlineStyles}
+  }
 `
 
-// TODO escape to close
-// TODO tab through links
-// TODO outline on links with tab through
-
-export const ArticlesLinks = ({
+export const Sidebar = ({
   show,
-  toggle,
+  setShow,
+  title,
+  children,
 }: {
   show: boolean
-  toggle: () => void
+  title: string
+  setShow: (show: boolean) => void
+  children: React.ReactNode | React.ReactNodeArray
 }): React.ReactElement => {
-  const tags = usePopularTags()
+  const ref = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
+    const handleEscape = (event: KeyboardEvent): void => {
+      if (event.key === ESCAPE_KEY) {
+        setShow(false)
+      }
+    }
+
     // Disable scroll on body when the navbar is active
     if (show) {
+      const current = ref?.current
+      if (current) {
+        current.focus()
+      }
+
+      document.addEventListener('keydown', handleEscape)
       disableBodyScroll()
     } else {
+      document.removeEventListener('keydown', handleEscape)
       enableBodyScroll()
     }
-  }, [show])
+  }, [show, setShow])
 
   return (
-    <Wrapper show={show}>
-      <Header>
-        <H3 mb0 white>
-          Articles
-        </H3>
-        <Close onClick={toggle}>
-          <XIcon />
-        </Close>
-      </Header>
-      <StyledLink to={HOME_ROUTE}>Home</StyledLink>
-      <StyledLink to={ARTICLES_ROUTE}>All articles</StyledLink>
-      <SectionHeader sm>Regions</SectionHeader>
-      {(Object.keys(REGIONS) as ERegionSlug[]).map(
-        (region): React.ReactElement => (
-          <StyledLink to={REGION_ROUTE(region)} key={region}>
-            {REGIONS[region]}
-          </StyledLink>
-        ),
-      )}
-      <SectionHeader sm>Tags</SectionHeader>
-      {tags.map(({ id, name, slug }: ITag) => (
-        <StyledLink to={TAG_ROUTE(slug)} key={id}>
-          {name}
-        </StyledLink>
-      ))}
-    </Wrapper>
+    <>
+      <Wrapper show={show}>
+        <Header>
+          <H3 mb0 white>
+            {title}
+          </H3>
+          <Close onClick={(): void => setShow(false)} ref={ref} tabIndex={0}>
+            <XIcon />
+          </Close>
+        </Header>
+        {children}
+      </Wrapper>
+      <Shade
+        tabIndex={-1}
+        zIndex={HEADER_Z_INDEX + 1}
+        show={show}
+        onClick={(): void => setShow(false)}
+      />
+    </>
   )
 }

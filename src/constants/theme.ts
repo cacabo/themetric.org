@@ -1,4 +1,6 @@
-import { WHITE, BLACK, BLUE } from './colors'
+import { WHITE, BLACK, BLUE, OUTLINE } from './colors'
+
+export const outlineStyles = `box-shadow: 0 0 0 0.2rem ${OUTLINE}; outline: 0;`
 
 export const theme = {
   fontSizes: [12, 14, 16, 20, 24, 32],

@@ -14,11 +14,6 @@ import { WHITE } from '../../constants/colors'
 import { DISPLAY_FONT } from '../../constants/fonts'
 import { HOME_ROUTE, ABOUT_ROUTE } from '../../constants/routes'
 
-interface ILinksProps {
-  active: boolean
-  toggleArticlesLinksActive: () => void
-}
-
 const LinksWrapper = styled.div<{ active: boolean }>`
   margin-left: auto;
   height: ${HEADER_CONTENT_HEIGHT};
@@ -92,19 +87,28 @@ const links: string[][] = [
   ['About', ABOUT_ROUTE],
 ]
 
+interface ILinksProps {
+  active: boolean
+  setArticlesSidebarActive: (show: boolean) => void
+  setSearchSidebarActive: (show: boolean) => void
+}
+
 export const Links = ({
   active,
-  toggleArticlesLinksActive,
+  setArticlesSidebarActive,
+  setSearchSidebarActive,
 }: ILinksProps): React.ReactElement => (
   <LinksWrapper active={active}>
     <Spacer />
-    <StyledSearchLink as="a">Search</StyledSearchLink>
+    <StyledSearchLink as="a" onClick={(): void => setSearchSidebarActive(true)}>
+      Search
+    </StyledSearchLink>
     {links.map(([text, link]) => (
       <StyledLink to={link} key={link}>
         {text}
       </StyledLink>
     ))}
-    <StyledLink as="a" onClick={toggleArticlesLinksActive}>
+    <StyledLink as="a" onClick={(): void => setArticlesSidebarActive(true)}>
       Articles
     </StyledLink>
   </LinksWrapper>

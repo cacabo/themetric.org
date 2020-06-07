@@ -18,9 +18,12 @@ export const LONG_ANIMATION_DURATION = 400
 
 type TScreenWidth = string
 
-export const DESKTOP: TScreenWidth = '1248px'
-export const TABLET: TScreenWidth = '992px'
-export const PHONE: TScreenWidth = '584px'
+export const DESKTOP_WIDTH = 1248
+export const DESKTOP: TScreenWidth = `${DESKTOP_WIDTH}px`
+export const TABLET_WIDTH = 992
+export const TABLET: TScreenWidth = `${TABLET_WIDTH}px`
+export const PHONE_WIDTH = 584
+export const PHONE: TScreenWidth = `${PHONE_WIDTH}px`
 
 type TMediaQuery = string
 

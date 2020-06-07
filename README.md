@@ -10,6 +10,7 @@ Web application for The Metric
 
 **Shorter term**
 
+- [ ] Toggle should toggle everything (including mobile nav)
 - [ ] useScreenWidth hook for deciding which search to render
 - [ ] Scroll when tab or arrow to search results that are out of view
 - [ ] Decide on final names for regions
@@ -34,6 +35,7 @@ Web application for The Metric
 
 **Completed**
 
+- [x] Toggle doubleclick should not re-toggle
 - [x] Author page don't render all articles at once
 - [x] Send author slugs as context
 - [x] Remote images to `gatsby-image`
