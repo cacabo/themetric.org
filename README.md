@@ -10,6 +10,7 @@ Web application for The Metric
 
 **Shorter term**
 
+- [ ] useScreenWidth hook for deciding which search to render
 - [ ] Scroll when tab or arrow to search results that are out of view
 - [ ] Decide on final names for regions
 - [ ] TODO stubs in code

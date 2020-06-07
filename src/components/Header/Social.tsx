@@ -12,10 +12,10 @@ import {
   SHORT_ANIMATION_DURATION,
   maxWidth,
   TABLET,
-  M2,
+  M4,
 } from '../../constants/measurements'
 
-// TODO handle outline on icons
+// TODO handle outline on icons on focus
 
 const SocialWrapper = s.div`
   width: auto;
@@ -40,7 +40,7 @@ const SocialWrapper = s.div`
   ${maxWidth(TABLET)} {
     width: 100%;
     text-align: center;
-    margin-top: ${M2};
+    margin-top: ${M4};
 
     a {
       margin-right: 12px;

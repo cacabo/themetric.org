@@ -3,7 +3,6 @@ import s from 'styled-components'
 
 import {
   minWidth,
-  PHONE,
   SHORT_ANIMATION_DURATION,
   TABLET,
 } from '../../constants/measurements'

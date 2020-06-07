@@ -11,6 +11,7 @@ import {
   LONG_ANIMATION_DURATION,
   HEADER_HEIGHT,
   DESKTOP,
+  minWidth,
 } from '../../constants/measurements'
 import {
   BORDER,
@@ -25,17 +26,22 @@ import {
 import { Link, navigate } from 'gatsby'
 import { ARTICLE_ROUTE } from '../../constants/routes'
 import { P, Spacer } from '../../shared'
-import { ARROW_DOWN, ARROW_UP, ENTER, ESCAPE } from '../../constants/keys'
+import {
+  ARROW_DOWN_KEY,
+  ARROW_UP_KEY,
+  ENTER_KEY,
+  ESCAPE_KEY,
+} from '../../constants/keys'
 
 /**
  * TODO share state between nav bars?
  * TODO mobile responsiveness, work well on tablets too
- * TODO wider width on wider screens
  */
 
 const Wrapper = s.div<{ active: boolean }>`
   margin-left: ${M2};
   position: relative;
+  transition: width ${SHORT_ANIMATION_DURATION}ms ease;
   width: ${(props): string => (props.active ? '20rem' : '16rem')};
 
   ${maxWidth(DESKTOP)} {
@@ -46,6 +52,11 @@ const Wrapper = s.div<{ active: boolean }>`
   ${maxWidth(TABLET)} {
     width: 100%;
     text-align: center;
+    margin-left: 0;
+  }
+
+  ${minWidth(DESKTOP)} {
+    width: ${(props): string => (props.active ? '24rem' : '18rem')};
   }
 `
 
@@ -268,19 +279,19 @@ export const Search = ({ fixed }: { fixed: boolean }): React.ReactElement => {
       return
     }
 
-    if (key === ARROW_DOWN) {
+    if (key === ARROW_DOWN_KEY) {
       if (activeResultIdx + 1 >= results.length) {
         return
       }
 
       updateState({ activeResultIdx: activeResultIdx + 1 })
-    } else if (key === ARROW_UP) {
+    } else if (key === ARROW_UP_KEY) {
       if (activeResultIdx <= 0) {
         return
       }
 
       updateState({ activeResultIdx: activeResultIdx - 1 })
-    } else if (key === ENTER) {
+    } else if (key === ENTER_KEY) {
       event.preventDefault()
       event.stopPropagation()
       const { slug } = results[activeResultIdx] || {}
@@ -296,7 +307,7 @@ export const Search = ({ fixed }: { fixed: boolean }): React.ReactElement => {
       } else {
         navigate(newRoute)
       }
-    } else if (key === ESCAPE) {
+    } else if (key === ESCAPE_KEY) {
       exitSearch()
     }
   }

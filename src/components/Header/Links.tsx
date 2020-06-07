@@ -77,6 +77,13 @@ const StyledLink = styled(Link)<{}>`
     margin: 0.5rem 0;
     line-height: 2rem;
     font-size: 1.2rem;
+    padding: 0.625vh 0;
+  }
+`
+
+const StyledSearchLink = styled(StyledLink)`
+  ${minWidth(TABLET)} {
+    display: none;
   }
 `
 
@@ -91,6 +98,7 @@ export const Links = ({
 }: ILinksProps): React.ReactElement => (
   <LinksWrapper active={active}>
     <Spacer />
+    <StyledSearchLink as="a">Search</StyledSearchLink>
     {links.map(([text, link]) => (
       <StyledLink to={link} key={link}>
         {text}

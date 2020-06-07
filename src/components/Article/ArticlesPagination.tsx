@@ -2,7 +2,6 @@ import React from 'react'
 import s from 'styled-components'
 import { M2 } from '../../constants/measurements'
 import { Link } from 'gatsby'
-import { ARTICLES_PAGE_ROUTE } from '../../constants/routes'
 import { GRAY_4 } from '../../constants/colors'
 import { P, HR, Flex, DisabledSpan } from '../../shared'
 

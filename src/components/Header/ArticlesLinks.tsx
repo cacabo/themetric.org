@@ -19,6 +19,8 @@ import {
   M1,
   minWidth,
   TABLET,
+  maxWidth,
+  PHONE,
 } from '../../constants/measurements'
 import { disableBodyScroll, enableBodyScroll } from '../../helpers/misc'
 import { H3, XIcon, P } from '../../shared'
@@ -47,6 +49,10 @@ const Wrapper = s.div<{ show: boolean }>`
   right: ${(props): string => (props.show ? '0' : '-100vw')};
   z-index: ${HEADER_Z_INDEX + 2};
   border-left: 1px solid ${DARK_GRAY_3};
+
+  ${maxWidth(PHONE)} {
+    width: 100%;
+  }
 
   ${minWidth(TABLET)} {
     width: calc(24rem + 5vw);
