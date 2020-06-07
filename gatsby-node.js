@@ -27,7 +27,7 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
     cover_image: null,
     facebook: 'https://www.facebook.com/cam.cabo',
     facebookUsername: 'cam.cabo',
-    ghostId: '',
+    ghostId: 'cameron',
     loc: 'Los Angeles',
     location: '',
     meta_title: null,
@@ -46,7 +46,7 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
 
   const nodeContent = JSON.stringify(cameronData)
   const nodeMeta = {
-    id: createNodeId(`cameron-data`),
+    id: createNodeId(cameronData.ghostId),
     parent: null,
     children: [],
     internal: {
@@ -170,7 +170,7 @@ exports.createPages = async ({ graphql, actions }) => {
       allGhostTag: { nodes: tags },
     },
   } = await graphql(`
-    query {
+    query gatsbyNodeQuery {
       allGhostAuthor {
         nodes {
           id

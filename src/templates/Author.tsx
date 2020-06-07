@@ -13,22 +13,19 @@ import {
   TwitterIcon,
   ArchiveIcon,
   MapPinIcon,
-  BtnLink,
   Center,
   ResponsiveSpacer,
   Spacer,
   HR,
   BriefcaseIcon,
   BackgroundImg,
+  BtnAnchor,
 } from '../shared'
 import { ArticlePreviews } from '../components/Article/ArticlePreviews'
 import { IAuthor, IArticlePreview } from '../types'
-import {
-  ABOUT_ROUTE,
-  TWITTER_PAGE_LINK,
-  FACEBOOK_PAGE_LINK,
-} from '../constants/routes'
+import { TWITTER_PAGE_LINK, FACEBOOK_PAGE_LINK } from '../constants/routes'
 import { M2, minWidth, M4, PHONE } from '../constants/measurements'
+import { useState } from 'react'
 
 const Header = s.div`
   display: block;
@@ -56,7 +53,7 @@ const ProfileImage = s(BackgroundImg)`
   }
 `
 
-// TODO paginate posts by the author? Click to load more?
+const POSTS_PER_PAGE = 10
 
 interface IAuthorTemplateProps {
   data: {
@@ -82,13 +79,23 @@ const AuthorTemplate = ({ data }: IAuthorTemplateProps): React.ReactElement => {
     role,
     name,
     postCount,
-    // profile_image,
     twitterUsername,
     website,
     localImage,
   } = (ghostAuthor || ghostAuthorManual) as IAuthor
 
   const fluid = localImage?.childImageSharp?.fluid
+
+  const [articlesToShow, setArticlesToShow] = useState<IArticlePreview[]>(
+    articles.slice(0, POSTS_PER_PAGE),
+  )
+
+  const loadMoreArticles = (): void => {
+    const newNumArticlesToShow: number = articlesToShow.length + POSTS_PER_PAGE
+    setArticlesToShow(articles.slice(0, newNumArticlesToShow))
+  }
+
+  const areMoreArticlesToShow: boolean = articles.length > articlesToShow.length
 
   return (
     <Layout>
@@ -170,13 +177,13 @@ const AuthorTemplate = ({ data }: IAuthorTemplateProps): React.ReactElement => {
 
         <HR />
 
-        <ArticlePreviews articles={articles} />
+        <ArticlePreviews articles={articlesToShow} />
 
-        <Spacer />
-
-        <Center>
-          <BtnLink to={ABOUT_ROUTE}>More about The Metric</BtnLink>
-        </Center>
+        {areMoreArticlesToShow && (
+          <Center>
+            <BtnAnchor onClick={loadMoreArticles}>Load more articles</BtnAnchor>
+          </Center>
+        )}
 
         <Spacer />
       </WideContainer>

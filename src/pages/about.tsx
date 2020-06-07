@@ -22,39 +22,25 @@ import { FACEBOOK_LINK, HOME_ROUTE } from '../constants/routes'
 import { M2 } from '../constants/measurements'
 import { AuthorPreview } from '../components/Article/AuthorPreview'
 import { IAuthorPreview } from '../types'
+import { useAuthors } from '../hooks/useAuthors'
 
 const AboutPage = (): React.ReactElement => {
   const {
     earth: {
       childImageSharp: { fluid },
     },
-    allGhostAuthor: { nodes: authors },
-    allGhostAuthorManual: { nodes: authorsManual },
   } = useStaticQuery(graphql`
-    query {
+    query aboutPage {
       earth: file(relativePath: { eq: "earth.jpeg" }) {
         childImageSharp {
-          fluid(maxWidth: 2000) {
+          fluid(maxWidth: 1024) {
             ...GatsbyImageSharpFluid
           }
         }
       }
-      allGhostAuthor(sort: { order: DESC, fields: name }) {
-        nodes {
-          ...AuthorPreview
-        }
-      }
-      allGhostAuthorManual(sort: { order: DESC, fields: name }) {
-        nodes {
-          ...AuthorManualPreview
-        }
-      }
     }
   `)
-  const allAuthors: IAuthorPreview[] = [
-    ...(authors as IAuthorPreview[]),
-    ...(authorsManual as IAuthorPreview[]),
-  ].sort(({ name: a }, { name: b }) => (a < b ? -1 : a > b ? 1 : 0))
+  const authors = useAuthors()
 
   return (
     <Layout>
@@ -76,7 +62,7 @@ const AboutPage = (): React.ReactElement => {
       <MediumContainer>
         <H3 center>More About Us</H3>
         <P>
-          The Metric is a youth led platform that aims to create an inclusive
+          The Metric is a youth-led platform that aims to create an inclusive
           space for atypical stories. We support contributors from around the
           world to share their unique perspectives and stories that may not be
           heard outside of their local communities. A central question that
@@ -122,7 +108,7 @@ const AboutPage = (): React.ReactElement => {
       <Spacer />
       <WideContainer>
         <Row margin={M2}>
-          {allAuthors.map(
+          {authors.map(
             (a: IAuthorPreview): React.ReactElement => (
               <Col key={a.slug} margin={M2} sm={12} md={6} flex>
                 <AuthorPreview {...a} />

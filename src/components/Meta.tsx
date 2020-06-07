@@ -1,6 +1,6 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
 const IMAGE = 'https://ccabo.s3-us-west-1.amazonaws.com/metric.png'
 const URL = 'themetric.org'
@@ -24,24 +24,13 @@ export const Meta = ({
   image,
   title = '',
 }: IMetaProps): React.ReactElement => {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-          }
-        }
-      }
-    `,
-  )
+  const {
+    title: siteTitle,
+    description: siteDescription,
+    author,
+  } = useSiteMetadata()
 
-  const metaDescription =
-    description ||
-    site.siteMetadata.description ||
-    "Measuring what's happening around the world through your voice"
+  const metaDescription = description || siteDescription
 
   const metaImage = image || IMAGE
 
@@ -50,8 +39,8 @@ export const Meta = ({
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={'%s | The Metric'}
+      title={title || siteTitle}
+      titleTemplate={title ? `%s | ${siteTitle}` : siteTitle}
       meta={[
         {
           name: 'description',
@@ -95,7 +84,7 @@ export const Meta = ({
         },
         {
           name: 'twitter:creator',
-          content: site.siteMetadata.author,
+          content: author,
         },
         {
           name: 'twitter:title',

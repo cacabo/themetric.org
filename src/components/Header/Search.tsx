@@ -25,15 +25,12 @@ import {
 import { Link, navigate } from 'gatsby'
 import { ARTICLE_ROUTE } from '../../constants/routes'
 import { P, Spacer } from '../../shared'
-import { ARROW_DOWN, ARROW_UP, ENTER, ESCAPE, TAB } from '../../constants/keys'
+import { ARROW_DOWN, ARROW_UP, ENTER, ESCAPE } from '../../constants/keys'
 
 /**
  * TODO share state between nav bars?
  * TODO mobile responsiveness, work well on tablets too
  * TODO wider width on wider screens
- * TODO tabbing through search results to what's next doesn't work when there are
- * more than 0 results
- * TODO maybe don't override tabs?
  */
 
 const Wrapper = s.div<{ active: boolean }>`
@@ -66,7 +63,6 @@ const ResultsList = s.ul<{ active: boolean }>`
   box-shadow: 0 2px 16px ${BLACK_ALPHA(0.3)};
   z-index: -1;
   list-style-type: none;
-  overflow: hidden;
   max-height: calc(100vh - ${HEADER_HEIGHT} - 1rem);
   overflow-y: auto;
   opacity: 1;
@@ -75,12 +71,6 @@ const ResultsList = s.ul<{ active: boolean }>`
 
   li {
     margin-bottom: 0;
-  }
-
-  > :last-child {
-    a {
-      border-bottom-width: 0;
-    }
   }
 
   ${(props): string =>
@@ -140,6 +130,18 @@ const StyledLink = s(Link)`
   width: 100%;
   padding: ${M1} ${M2};
   cursor: pointer;
+  width: 100%;
+
+  &:focus {
+    width: calc(100% - 4px);
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    padding: calc(${M1} - 2px) calc(${M2} - 2px);
+    outline: 0;
+    box-shadow: 0 0 0 2px ${BLUE};
+    background: ${LIGHT_GRAY_4};
+  }
 `
 
 const ListItem = s.li<{ active: boolean }>`
@@ -153,6 +155,14 @@ const ListItem = s.li<{ active: boolean }>`
   }
 
   border-bottom: 1px solid ${BORDER};
+
+  &:last-child {
+    border-bottom-width: 0;
+
+    a {
+      border-radius: 0 0 ${BORDER_RADIUS_LG} ${BORDER_RADIUS_LG};
+    }
+  }
 `
 
 declare global {
@@ -288,20 +298,6 @@ export const Search = ({ fixed }: { fixed: boolean }): React.ReactElement => {
       }
     } else if (key === ESCAPE) {
       exitSearch()
-    } else if (key === TAB) {
-      if (event.shiftKey) {
-        if (activeResultIdx !== 0) {
-          event.preventDefault()
-          event.stopPropagation()
-          updateState({ activeResultIdx: activeResultIdx - 1 })
-        }
-      } else {
-        if (activeResultIdx + 1 < results.length) {
-          event.preventDefault()
-          event.stopPropagation()
-          updateState({ activeResultIdx: activeResultIdx + 1 })
-        }
-      }
     }
   }
 
@@ -357,6 +353,7 @@ export const Search = ({ fixed }: { fixed: boolean }): React.ReactElement => {
                     updateState({ activeResultIdx: idx })
                   }
                   onClick={(): void => exitSearch()}
+                  tabIndex={active ? 0 : -1}
                 >
                   <P bold mb1 sm>
                     {title}

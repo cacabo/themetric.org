@@ -28,10 +28,11 @@ import {
   REGION_ROUTE,
   TAG_ROUTE,
 } from '../../constants/routes'
-import { Link, useStaticQuery, graphql } from 'gatsby'
+import { Link } from 'gatsby'
 import { MEDIUM_FONT_WEIGHT } from '../../constants/fonts'
 import { REGIONS, ERegionSlug } from '../../constants/regions'
 import { ITag } from '../../types'
+import { usePopularTags } from '../../hooks/usePopularTags'
 
 const Wrapper = s.div<{ show: boolean }>`
   position: fixed;
@@ -130,23 +131,7 @@ export const ArticlesLinks = ({
   show: boolean
   toggle: () => void
 }): React.ReactElement => {
-  const {
-    allGhostTag: { nodes },
-  } = useStaticQuery(graphql`
-    query queryPopularGhostTags {
-      allGhostTag(
-        filter: { isRegion: { eq: false } }
-        sort: { fields: count___posts, order: DESC }
-        limit: 10
-      ) {
-        nodes {
-          id
-          name
-          slug
-        }
-      }
-    }
-  `)
+  const tags = usePopularTags()
 
   useEffect(() => {
     // Disable scroll on body when the navbar is active
@@ -178,7 +163,7 @@ export const ArticlesLinks = ({
         ),
       )}
       <SectionHeader sm>Tags</SectionHeader>
-      {nodes.map(({ id, name, slug }: ITag) => (
+      {tags.map(({ id, name, slug }: ITag) => (
         <StyledLink to={TAG_ROUTE(slug)} key={id}>
           {name}
         </StyledLink>

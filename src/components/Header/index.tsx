@@ -72,6 +72,10 @@ const NavSpace = styled.div`
   width: 100%;
   display: block;
   height: ${HEADER_HEIGHT};
+
+  ${maxWidth(TABLET)} {
+    height: ${MOBILE_HEADER_HEIGHT};
+  }
 `
 
 interface IHeaderProps {
