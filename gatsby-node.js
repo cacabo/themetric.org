@@ -318,7 +318,6 @@ exports.createPages = async ({ graphql, actions }) => {
     )
   })
 
-  // TODO other filtering of tags that are for display not for categorization
   const filteredTags = tags
     .map(({ slug }) => slug)
     .filter((slug) => !regions.has(slug))

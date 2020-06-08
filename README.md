@@ -56,9 +56,6 @@ If there are issues with stale content, components, or otherwise odd occurrences
 
 **Shorter term**
 
-- [ ] TODO stubs in code
-- [ ] Responsive font sizing on article page (especially for headers)
-- [ ] Webhook for rebuilding website in response to changes
 - [ ] Port over all existing content to Ghost
 - [ ] Decide on final names for regions
 
@@ -73,6 +70,8 @@ If there are issues with stale content, components, or otherwise odd occurrences
 
 **Completed**
 
+- [x] Webhook for rebuilding website in response to changes
+- [x] Responsive font sizing on article page (especially for headers)
 - [x] Homepage, featured posts
 - [x] Share search state between search components via a reducer
 - [x] Topics page

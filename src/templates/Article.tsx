@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
+import styled from 'styled-components'
 
 import {
   P,
@@ -8,6 +9,7 @@ import {
   H1,
   WideContainer,
   ResponsiveSpacer,
+  Container,
   TextList,
   Spacer,
   HR,
@@ -17,13 +19,24 @@ import { Meta } from '../components/Meta'
 import { TAG_ROUTE } from '../constants/routes'
 import { Authors } from '../components/Article/Authors'
 import { ArticlePreview } from '../components/Article/ArticlePreview'
-
-import './article.css'
 import { AuthorPreview } from '../components/Article/AuthorPreview'
 import { IAuthorPreview, IArticle, IArticlePreview } from '../types'
-import { M4 } from '../constants/measurements'
+import { M4, minWidth, DESKTOP } from '../constants/measurements'
 import { ShareArticle } from '../components/Article/ShareArticle'
 import { ArticleComments } from '../components/Article/ArticleComments'
+import './article.css'
+
+const Title = styled(H1)`
+  ${minWidth(DESKTOP)} {
+    font-size: 3.8vw;
+  }
+`
+
+const Subtitle = styled(P)`
+  ${minWidth(DESKTOP)} {
+    font-size: 1.8vw;
+  }
+`
 
 interface IArticleTemplateProps {
   data: {
@@ -66,13 +79,13 @@ const ArticleTemplate = ({
 
       <article>
         <header style={{ width: '100%' }}>
-          <ResponsiveSpacer hiddenOnMobile />
+          <ResponsiveSpacer sm hiddenOnMobile />
           <Spacer onlyOnMobile />
-          <MediumContainer>
-            <H1 mb2>{title}</H1>
-            <P lg light condensedLineHeight>
+          <WideContainer>
+            <Title mb2>{title}</Title>
+            <Subtitle lg light condensedLineHeight>
               {excerpt}
-            </P>
+            </Subtitle>
             {tags && tags.length && (
               <P sm lighter mb1>
                 {'In '}
@@ -90,11 +103,11 @@ const ArticleTemplate = ({
             </P>
             <Authors authors={authors} />
             <Spacer />
-          </MediumContainer>
+          </WideContainer>
           {fluid && (
-            <WideContainer>
+            <Container>
               <Img fluid={fluid} style={{ width: '100%' }} />
-            </WideContainer>
+            </Container>
           )}
           <Spacer />
         </header>
