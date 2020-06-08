@@ -17,7 +17,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint', 'react-hooks', 'prefer-arrow'],
+  plugins: ['@typescript-eslint', 'react-hooks', 'prefer-arrow', 'jsx-a11y'],
   settings: {
     react: {
       version: 'detect',

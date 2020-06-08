@@ -15,8 +15,6 @@ import {
   M4,
 } from '../../constants/measurements'
 
-// TODO handle outline on icons on focus
-
 const SocialWrapper = s.div`
   width: auto;
   margin-top: 8px;

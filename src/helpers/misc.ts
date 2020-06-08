@@ -1,3 +1,5 @@
+import { ENTER_KEY } from '../constants/keys'
+
 /**
  * Fix current body position so it can't scroll
  */
@@ -46,4 +48,17 @@ export const getSearchResults = (query: string): ISearchResult[] => {
     ({ ref }: { ref: string }): ISearchResult =>
       (lunrIndex.store as Record<string, ISearchResult>)[ref],
   )
+}
+
+/**
+ * Trigger provided callback function if user presses the enter key
+ */
+export const handleEnterKeyPressGenerator = (cb: () => void) => (
+  event: React.KeyboardEvent,
+): void => {
+  if (event.key !== ENTER_KEY) {
+    return
+  }
+
+  cb()
 }

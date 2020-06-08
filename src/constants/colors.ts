@@ -14,8 +14,6 @@ export const RED_BORDER = 'rgba(245, 112, 128, 0.25)'
 export const GOLD = '#9F6000'
 export const POLLEN = '#FFF5CC'
 
-// TODO replace solin colors below with these with metric colors...
-
 // Blues
 export const OUTLINE = 'rgba(0, 123, 255, 0.25)'
 export const BLUE = '#209CEE'

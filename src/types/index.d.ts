@@ -1,4 +1,11 @@
+import React from 'react'
 import { FluidObject } from 'gatsby-image'
+
+export type IChildren = React.ReactNode | React.ReactNodeArray
+
+export interface IChildrenProps {
+  children: IChildren
+}
 
 export interface IGatsbyImage {
   childImageSharp: {

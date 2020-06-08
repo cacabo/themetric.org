@@ -6,23 +6,61 @@ Web application for The Metric
 
 ---
 
+### System Architecture
+
+- The webiste is hosted and collaborated on in [GitHub](https://github.com/cacabo/metric)
+- Content is posted, tagged with topics, and managed in Ghost
+- The Ghost instance is hosted on [Vultr](https://www.vultr.com/)
+  - It can be accessed at [ghost.themetric.org](https://www.ghost.themetric.org)
+- The [themetric.org](https://www.themetric.org) domain is registered and configured on [GoDaddy](https://www.godaddy.com)
+- The website sources content from Ghost and is built as a static website
+- The website is hosted on Netlify, it deploys automatically with each new commit to the master branch
+
+---
+
+### Website Architecture
+
+- Gatsby is a library for building static websites with React
+- TypeScript is a superset of JavaScript for adding static types to variables
+- ESLint is a library for enforcing style and formatting rules
+- Prettier is a library for automatically reformatting code, it works hand and hand with ESLint under our configuration
+- styled-components is a library for writting CSS-in-JS
+
+---
+
+### Getting Started
+
+Clone this repository to your machine. Navigate to the cloned directory in your terminal and run `yarn` to install all dependencies.
+
+Configure your environment to have a `GHOST_API_KEY` for sourcing content from Ghost. For linux users, this can be done via an `env.sh` file of the form:
+
+```text
+export GHOST_API_KEY="..."
+```
+
+Next, source the environment. For the `env.sh` file, this can be done by running `source env.sh`.
+
+To run the website locally, run `yarn dev` and navigate to `localhost:8000` in your browser.
+
+To build a production build, which serves as a good indicator of if a deploy to Netlify will work as expected, run `yarn build`.
+
+---
+
+### Debugging
+
+If there are issues with stale content, components, or otherwise odd occurrences, try running `yarn clean` and re-running the website locally. This deletes the cache of assets and components which Gatsby produces for performance reasons.
+
+---
+
 ### Todo
 
 **Shorter term**
 
-- [ ] Toggle should toggle everything (including mobile nav)
-- [ ] Scroll when tab or arrow to search results that are out of view
-- [ ] Decide on final names for regions
 - [ ] TODO stubs in code
-- [ ] Responsive font sizing on article page
-- [ ] Sizing, mobile responsiveness of search bar
-- [ ] Homepage, featured posts
-  - [ ] Secondary level of featured posts
-  - [ ] Other posts
-- [ ] Styled-system
+- [ ] Responsive font sizing on article page (especially for headers)
 - [ ] Webhook for rebuilding website in response to changes
 - [ ] Port over all existing content to Ghost
-- [ ] Document technical side of things
+- [ ] Decide on final names for regions
 
 **Longer term**
 
@@ -31,9 +69,15 @@ Web application for The Metric
 - [ ] Icons for regions
 - [ ] TypeScript in `gatsby-node` https://gist.github.com/clarkdave/53cc050fa58d9a70418f8a76982dd6c8
 - [ ] Highlight matching words in search results
+- [ ] Tabbing through navigation, don't be able to tab through a navbar which is not visible
 
 **Completed**
 
+- [x] Homepage, featured posts
+- [x] Share search state between search components via a reducer
+- [x] Topics page
+- [x] Mobile search
+- [x] Toggle should toggle everything (including mobile nav)
 - [x] Fix flickering shade animation
 - [x] useWindowSize hook for deciding which search to render
 - [x] Fix "More Reading" section
@@ -74,5 +118,6 @@ Web application for The Metric
 - [x] Style links
 - [x] Author page
 - [x] Full width nav and footer on tablet
+- [x] Document technical side of things
 - [x] [Search](https://www.gatsbyjs.org/packages/gatsby-plugin-flexsearch/)
 - [x] Tags section on homepage (maybe only show some of the most popular)

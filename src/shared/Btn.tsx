@@ -15,8 +15,12 @@ import {
   PHONE,
   BORDER_RADIUS,
   SHORT_ANIMATION_DURATION,
+  M1,
+  M2,
+  M3,
 } from '../constants/measurements'
 import { outlineStyles } from '../constants/theme'
+import { MEDIUM_FONT_WEIGHT } from '../constants/fonts'
 
 export enum EBtnKind {
   Primary,
@@ -93,15 +97,15 @@ const Btn = ({
   border-radius: ${BORDER_RADIUS};
   padding: ${
     size === EBtnSize.LG
-      ? '0.75rem 1rem'
+      ? `${M2} ${M3}`
       : size === EBtnSize.SM
-      ? '0.25rem 0.75rem'
-      : '0.5rem 1rem'
+      ? '0.2rem 0.6rem'
+      : `${M1} ${M2}`
   };
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: ${MEDIUM_FONT_WEIGHT};
   transition: all ${SHORT_ANIMATION_DURATION}ms ease;
 
   margin-bottom: ${marginBottom || '1rem'};
@@ -127,7 +131,7 @@ const Btn = ({
   }
 
   ${maxWidth(PHONE)} {
-    padding: 0.5rem 0.75rem;
+    padding: ${M1} ${M2};
   }
 
   ${disabled && 'opacity: 0.5; cursor: not-allowed; user-select: none;'}

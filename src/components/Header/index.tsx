@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer, Dispatch } from 'react'
 import styled, { css } from 'styled-components'
 
 import { Links } from './Links'
@@ -23,6 +23,12 @@ import { Search } from './Search'
 import { ArticlesSidebar } from './ArticlesSidebar'
 import { SearchSidebar } from './SearchSidebar'
 import { useWindowSize } from '../../hooks/useWindowSize'
+import {
+  searchReducer,
+  initialSearchState,
+  ISearchReducerAction,
+  ISearchReducerState,
+} from './searchReducer'
 
 const getScrollTop = (): number =>
   window.pageYOffset !== undefined
@@ -81,11 +87,14 @@ const NavSpace = styled.div`
   }
 `
 
-interface IHeaderProps {
+type IHeaderProps = {
+  isActive: boolean
+  setIsActive: (isActive: boolean) => void
   fixed?: boolean
   setArticlesSidebarActive: (show: boolean) => void
   setSearchSidebarActive: (show: boolean) => void
-}
+  dispatch: Dispatch<ISearchReducerAction>
+} & ISearchReducerState
 
 interface IFixedState {
   prevScrollTop: number
@@ -93,9 +102,14 @@ interface IFixedState {
 }
 
 const Nav = ({
+  isActive,
+  setIsActive,
   fixed = false,
   setArticlesSidebarActive,
   setSearchSidebarActive,
+  dispatch,
+  query,
+  results,
 }: IHeaderProps): React.ReactElement => {
   const [{ prevScrollTop, shouldShowFixed }, setFixedState] = useState<
     IFixedState
@@ -103,7 +117,6 @@ const Nav = ({
     prevScrollTop: 0,
     shouldShowFixed: false,
   })
-  const [isActive, setIsActive] = useState<boolean>(false)
 
   const { width } = useWindowSize()
   const shouldRenderSearch = width > TABLET_WIDTH
@@ -169,7 +182,7 @@ const Nav = ({
         <StyledContainer>
           <Logo />
           <Social />
-          {shouldRenderSearch && <Search />}
+          {shouldRenderSearch && <Search {...{ dispatch, query, results }} />}
           <Bars handleClick={toggle} />
           <Links
             active={isActive}
@@ -188,9 +201,11 @@ const Nav = ({
   )
 }
 
-// TODO also close navbar on mobile?
-
 export const Header = (): React.ReactElement => {
+  const [searchState, searchStateDispatch] = useReducer(
+    searchReducer,
+    initialSearchState,
+  )
   const { width } = useWindowSize()
   const shouldRenderSearchSidebar = width < TABLET_WIDTH
 
@@ -201,20 +216,38 @@ export const Header = (): React.ReactElement => {
   const sharedNavProps = {
     setArticlesSidebarActive,
     setSearchSidebarActive,
+    dispatch: searchStateDispatch,
+    ...searchState,
+  }
+  const [isActive, setIsActive] = useState<boolean>(false)
+  const [isFixedActive, setIsFixedActive] = useState<boolean>(false)
+
+  const closeHeaderMenu = (): void => {
+    setIsActive(false)
+    setIsFixedActive(false)
   }
 
   return (
     <>
-      <Nav {...sharedNavProps} />
-      <Nav {...sharedNavProps} fixed />
+      <Nav {...sharedNavProps} {...{ isActive, setIsActive }} />
+      <Nav
+        {...sharedNavProps}
+        isActive={isFixedActive}
+        setIsActive={setIsFixedActive}
+        fixed
+      />
       <ArticlesSidebar
         show={articlesSidebarActive}
         setShow={setArticlesSidebarActive}
+        closeHeaderMenu={closeHeaderMenu}
       />
       {shouldRenderSearchSidebar && (
         <SearchSidebar
+          {...searchState}
+          dispatch={searchStateDispatch}
           show={searchSidebarActive}
           setShow={setSearchSidebarActive}
+          closeHeaderMenu={closeHeaderMenu}
         />
       )}
     </>

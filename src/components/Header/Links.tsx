@@ -13,6 +13,7 @@ import {
 import { WHITE } from '../../constants/colors'
 import { DISPLAY_FONT } from '../../constants/fonts'
 import { HOME_ROUTE, ABOUT_ROUTE } from '../../constants/routes'
+import { handleEnterKeyPressGenerator } from '../../helpers/misc'
 
 const LinksWrapper = styled.div<{ active: boolean }>`
   margin-left: auto;
@@ -97,19 +98,38 @@ export const Links = ({
   active,
   setArticlesSidebarActive,
   setSearchSidebarActive,
-}: ILinksProps): React.ReactElement => (
-  <LinksWrapper active={active}>
-    <Spacer />
-    <StyledSearchLink as="a" onClick={(): void => setSearchSidebarActive(true)}>
-      Search
-    </StyledSearchLink>
-    {links.map(([text, link]) => (
-      <StyledLink to={link} key={link}>
-        {text}
+}: ILinksProps): React.ReactElement => {
+  const handleSearchKeyDown = handleEnterKeyPressGenerator(() =>
+    setSearchSidebarActive(true),
+  )
+  const handleArticlesKeyDown = handleEnterKeyPressGenerator(() =>
+    setArticlesSidebarActive(true),
+  )
+
+  return (
+    <LinksWrapper active={active}>
+      <Spacer />
+      <StyledSearchLink
+        as="a"
+        onClick={(): void => setSearchSidebarActive(true)}
+        onKeyDown={handleSearchKeyDown}
+        tabIndex={0}
+      >
+        Search
+      </StyledSearchLink>
+      {links.map(([text, link]) => (
+        <StyledLink to={link} key={link}>
+          {text}
+        </StyledLink>
+      ))}
+      <StyledLink
+        as="a"
+        onClick={(): void => setArticlesSidebarActive(true)}
+        onKeyDown={handleArticlesKeyDown}
+        tabIndex={0}
+      >
+        Articles
       </StyledLink>
-    ))}
-    <StyledLink as="a" onClick={(): void => setArticlesSidebarActive(true)}>
-      Articles
-    </StyledLink>
-  </LinksWrapper>
-)
+    </LinksWrapper>
+  )
+}

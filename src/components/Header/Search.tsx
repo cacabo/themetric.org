@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  Dispatch,
+} from 'react'
 import s from 'styled-components'
 import {
   M2,
@@ -31,12 +37,7 @@ import {
   ENTER_KEY,
   ESCAPE_KEY,
 } from '../../constants/keys'
-import { getSearchResults, ISearchResult } from '../../helpers/misc'
-
-/**
- * TODO share state between nav bars?
- * TODO mobile responsiveness, work well on tablets too
- */
+import { ISearchReducerAction, ISearchReducerState } from './searchReducer'
 
 const Wrapper = s.div<{ active: boolean }>`
   margin-left: ${M2};
@@ -161,18 +162,20 @@ const ListItem = s.li<{ active: boolean }>`
 
 export interface ISearchState {
   active: boolean
-  query: string
   activeResultIdx: number
 }
 
-export const Search = (): React.ReactElement => {
-  const [{ active, query, activeResultIdx }, setState] = useState<ISearchState>(
-    {
-      active: false,
-      query: '',
-      activeResultIdx: 0,
-    },
-  )
+export const Search = ({
+  query,
+  results,
+  dispatch,
+}: {
+  dispatch: Dispatch<ISearchReducerAction>
+} & ISearchReducerState): React.ReactElement => {
+  const [{ active, activeResultIdx }, setState] = useState<ISearchState>({
+    active: false,
+    activeResultIdx: 0,
+  })
   const wrapperRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -180,33 +183,26 @@ export const Search = (): React.ReactElement => {
     (newPartialState: Partial<ISearchState>): void => {
       setState({
         active,
-        query,
         activeResultIdx,
         ...newPartialState,
       })
     },
-    [active, activeResultIdx, query],
+    [active, activeResultIdx],
   )
-
-  const [results, setResults] = useState<ISearchResult[]>([])
 
   useEffect(() => {
     if (typeof window === 'undefined') {
       return
     }
 
-    const newResults = getSearchResults(query)
-
-    if (newResults.length === 0) {
+    if (results.length === 0) {
       if (activeResultIdx !== 0) {
         updateState({ activeResultIdx: 0 })
       }
-    } else if (newResults.length <= activeResultIdx) {
-      updateState({ activeResultIdx: newResults.length - 1 })
+    } else if (results.length <= activeResultIdx) {
+      updateState({ activeResultIdx: results.length - 1 })
     }
-
-    setResults(newResults)
-  }, [activeResultIdx, query, updateState])
+  }, [activeResultIdx, query, results.length, updateState])
 
   const exitSearch = (): void => {
     updateState({ active: false })
@@ -303,7 +299,7 @@ export const Search = (): React.ReactElement => {
           autoComplete="off"
           ref={inputRef}
           onChange={(event): void => {
-            updateState({ query: event.target.value })
+            dispatch({ type: 'QUERY', query: event.target.value })
           }}
           onKeyDown={handleKeyDown}
         />

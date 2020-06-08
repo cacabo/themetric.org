@@ -22,9 +22,11 @@ import { ERegionSlug } from '../../constants/regions'
 
 type IArticlePreviewProps = IArticlePreview
 
-const Wrapper = s.div`
+const Wrapper = s.div<{ marginBottom?: string }>`
+  margin-bottom: ${(props): string => props.marginBottom || '0'};
+  
   ${minWidth(TABLET)} {
-    margin-bottom: 4vh;
+    margin-bottom: ${(props): string => props.marginBottom || '4vh'};
   }
 `
 
@@ -58,9 +60,6 @@ const MobileImage = s(Img)`
   }
 `
 
-// TODO remove use of feature_image
-// TODO gatsby-background-image
-
 export const ArticlePreview = ({
   title,
   slug,
@@ -71,11 +70,12 @@ export const ArticlePreview = ({
   tags,
   published_at,
   reading_time,
-}: IArticlePreviewProps): React.ReactElement => {
+  marginBottom,
+}: { marginBottom?: string } & IArticlePreviewProps): React.ReactElement => {
   const { fluid } = localImage?.childImageSharp || {}
   return (
-    <Wrapper>
-      <Row margin={M2} mb4>
+    <Wrapper marginBottom={marginBottom}>
+      <Row margin={M2} mb4={!marginBottom}>
         {feature_image && fluid && (
           <Col margin={M2} sm={12} md={5} flex>
             <ImageLink to={ARTICLE_ROUTE(slug)}>

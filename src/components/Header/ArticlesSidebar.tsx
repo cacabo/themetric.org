@@ -13,12 +13,17 @@ import { usePopularTags } from '../../hooks/usePopularTags'
 export const ArticlesSidebar = ({
   show,
   setShow,
+  closeHeaderMenu,
 }: {
   show: boolean
   setShow: (show: boolean) => void
+  closeHeaderMenu: () => void
 }): React.ReactElement => {
   const tags = usePopularTags()
-  const close = (): void => setShow(false)
+  const close = (): void => {
+    setShow(false)
+    closeHeaderMenu()
+  }
 
   return (
     <Sidebar show={show} setShow={setShow} title="Articles">

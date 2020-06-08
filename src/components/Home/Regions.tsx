@@ -1,11 +1,13 @@
 import React from 'react'
-import { H1, WideContainer, PillsWrapper, Pill } from '../../shared'
+import { WideContainer, PillsWrapper, Pill, H3 } from '../../shared'
 import { REGIONS, ERegionSlug } from '../../constants/regions'
 import { REGION_ROUTE } from '../../constants/routes'
 
 export const Regions = (): React.ReactElement => (
   <WideContainer>
-    <H1 center>Regions</H1>
+    <H3 bold center>
+      Regions
+    </H3>
     <PillsWrapper>
       {(Object.keys(REGIONS) as ERegionSlug[]).map(
         (slug): React.ReactElement => (

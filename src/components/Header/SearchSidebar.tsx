@@ -1,80 +1,51 @@
-import React, { useState, useEffect } from 'react'
-import styled, { keyframes } from 'styled-components'
-import { Sidebar, SidebarDiv, Input, SidebarLink, P } from '../../shared'
-import { ISearchResult, getSearchResults } from '../../helpers/misc'
+import React, { Dispatch } from 'react'
+import { Sidebar, SidebarDiv, Input, SidebarLink, P, Fade } from '../../shared'
 import { ARTICLE_ROUTE } from '../../constants/routes'
-import { SHORT_ANIMATION_DURATION } from '../../constants/measurements'
+import { ISearchReducerAction, ISearchReducerState } from './searchReducer'
 
-// TODO abstract this out to a helper component
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-`
-
-const SidebarDivWithFadeIn = styled(SidebarDiv)`
-  animation: ${fadeIn} ${SHORT_ANIMATION_DURATION}ms ease;
-`
-
-const NoSearchResults = (): React.ReactElement => {
-  const [show, setShow] = useState<boolean>(false)
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShow(true)
-    }, 200)
-
-    return (): void => clearTimeout(timeout)
-  })
-
-  if (!show) {
-    return <React.Fragment />
-  }
-
-  return (
-    <SidebarDivWithFadeIn>
-      <P mb0 style={{ opacity: 0.64 }}>
+const NoSearchResults = (): React.ReactElement => (
+  <Fade>
+    <SidebarDiv>
+      <P sm mb0 style={{ opacity: 0.64 }}>
         No search results match your query.
       </P>
-    </SidebarDivWithFadeIn>
-  )
-}
+    </SidebarDiv>
+  </Fade>
+)
 
 export const SearchSidebar = ({
   show,
   setShow,
+  closeHeaderMenu,
+  dispatch,
+  query,
+  results,
 }: {
   show: boolean
   setShow: (show: boolean) => void
-}): React.ReactElement => {
-  const [query, setQuery] = useState<string>('')
-  const [results, setResults] = useState<ISearchResult[]>([])
-
-  useEffect(() => {
-    const newResults = getSearchResults(query)
-    setResults(newResults)
-  }, [query])
+  closeHeaderMenu: () => void
+  dispatch: Dispatch<ISearchReducerAction>
+} & ISearchReducerState): React.ReactElement => {
+  const close = (): void => {
+    setShow(false)
+    closeHeaderMenu()
+  }
 
   return (
     <Sidebar show={show} setShow={setShow} title="Search">
       <SidebarDiv>
         <Input
           placeholder="Search..."
+          autoComplete="off"
           value={query}
-          onChange={(e): void => setQuery(e.target.value)}
+          onChange={(e): void =>
+            dispatch({ type: 'QUERY', query: e.target.value })
+          }
         />
       </SidebarDiv>
       {query && !results.length && <NoSearchResults />}
       {results.map(({ excerpt, slug, title }) => (
-        <SidebarLink
-          to={ARTICLE_ROUTE(slug)}
-          key={slug}
-          onClick={(): void => setShow(false)}
-        >
+        <SidebarLink to={ARTICLE_ROUTE(slug)} key={slug} onClick={close}>
           <P mb1 bold>
             {title}
           </P>

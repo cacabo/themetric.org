@@ -1,5 +1,6 @@
 export * from './Btn'
 export * from './Card'
+export * from './Fade'
 export * from './Grid'
 export * from './Icons'
 export * from './Image'
