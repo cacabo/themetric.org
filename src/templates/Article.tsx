@@ -9,7 +9,6 @@ import {
   H1,
   WideContainer,
   ResponsiveSpacer,
-  Container,
   TextList,
   Spacer,
   HR,
@@ -21,7 +20,7 @@ import { Authors } from '../components/Article/Authors'
 import { ArticlePreview } from '../components/Article/ArticlePreview'
 import { AuthorPreview } from '../components/Article/AuthorPreview'
 import { IAuthorPreview, IArticle, IArticlePreview } from '../types'
-import { M4, minWidth, DESKTOP } from '../constants/measurements'
+import { M4, minWidth, DESKTOP, M1 } from '../constants/measurements'
 import { ShareArticle } from '../components/Article/ShareArticle'
 import { ArticleComments } from '../components/Article/ArticleComments'
 import './article.css'
@@ -32,7 +31,7 @@ const Title = styled(H1)`
   }
 `
 
-const Subtitle = styled(P)`
+const Subtitle = styled(P)<{}>`
   ${minWidth(DESKTOP)} {
     font-size: 1.8vw;
   }
@@ -59,10 +58,11 @@ const ArticleTemplate = ({
     ghostPost: {
       title,
       feature_image,
+      featureImageCaption,
       localImage: { childImageSharp: { fluid = undefined } = {} } = {},
       slug,
       html,
-      excerpt,
+      subtitle,
       reading_time: readingTime,
       published_at: publishedAt,
       tags,
@@ -75,7 +75,7 @@ const ArticleTemplate = ({
 
   return (
     <Layout>
-      <Meta title={title} description={excerpt} image={feature_image} />
+      <Meta title={title} description={subtitle} image={feature_image} />
 
       <article>
         <header style={{ width: '100%' }}>
@@ -84,7 +84,7 @@ const ArticleTemplate = ({
           <WideContainer>
             <Title mb2>{title}</Title>
             <Subtitle lg light condensedLineHeight>
-              {excerpt}
+              {subtitle}
             </Subtitle>
             {tags && tags.length && (
               <P sm lighter mb1>
@@ -105,9 +105,14 @@ const ArticleTemplate = ({
             <Spacer />
           </WideContainer>
           {fluid && (
-            <Container>
+            <WideContainer>
               <Img fluid={fluid} style={{ width: '100%' }} />
-            </Container>
+              {featureImageCaption && (
+                <P lightest sm mb0 style={{ marginTop: M1 }}>
+                  {featureImageCaption}
+                </P>
+              )}
+            </WideContainer>
           )}
           <Spacer />
         </header>

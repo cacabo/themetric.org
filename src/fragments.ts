@@ -89,8 +89,9 @@ export const ArticleFragment = graphql`
     slug
     title
     html
-    excerpt
+    subtitle
     feature_image
+    featureImageCaption
     localImage {
       childImageSharp {
         fluid(maxWidth: 1248) {
@@ -113,7 +114,7 @@ export const ArticlePreviewFragment = graphql`
     id
     slug
     title
-    excerpt
+    subtitle
     published_at(formatString: "MMM D, YYYY")
     reading_time
     tags {

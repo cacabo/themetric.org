@@ -1,17 +1,55 @@
 const path = require('path')
 
+// Import constants
 const { POSTS_PER_PAGE, REGIONS } = require(path.resolve(
   './src/constants/misc.ts',
 ))
 
 const regions = new Set(REGIONS)
 
+// Import templates
 const getTemplatePath = (name) => path.resolve(`./src/templates/${name}.tsx`)
 const AuthorTemplate = getTemplatePath('Author')
 const ArticleTemplate = getTemplatePath('Article')
 const ArticlesTemplate = getTemplatePath('Articles')
 const RegionTemplate = getTemplatePath('Region')
 const TagTemplate = getTemplatePath('Tag')
+
+/**
+ * Helper functions
+ */
+
+const parseUsername = (str) => {
+  if (!str) return ''
+  const index = str ? str.lastIndexOf('/') : -1
+  if (index < 0) {
+    return str.trim()
+  }
+  return str.substring(index + 1).trim()
+}
+
+const getBeforePipe = (str) => {
+  if (!str) {
+    return ''
+  }
+
+  const index = str.indexOf('|')
+  if (str < 0) {
+    return str.trim()
+  }
+
+  return str.substring(0, index).trim()
+}
+
+const getAfterPipe = (str, { defaultValue = '' } = {}) => {
+  const index = str ? str.indexOf('|') : -1
+  if (index < 0) {
+    return defaultValue
+  }
+
+  const value = str.substring(index + 1).trim()
+  return value
+}
 
 /**
  * Manually create "authors" who have no posts in Ghost
@@ -34,10 +72,9 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
     meta_description: null,
     name: 'Cameron Cabo',
     postCount: 0,
-    profile_image:
-      'https://ghost.themetric.org/content/images/2020/03/prof.jpg',
+    profile_image: 'https://s3.amazonaws.com/the-metric/2020/03/prof.jpg',
     role: 'Web Developer',
-    url: 'http://ghost.themetric.org/author/cameron/',
+    url: 'https://the-metric.herokuapp.com/author/cameron',
     twitter: 'https://www.twitter.com/cameroncabo',
     twitterUsername: 'cameroncabo',
     slug: 'cameron',
@@ -56,7 +93,7 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
       contentDigest: createContentDigest(cameronData),
     },
   }
-  const node = Object.assign({}, cameronData, nodeMeta)
+  const node = { ...cameronData, ...nodeMeta }
   createNode(node)
 }
 
@@ -79,6 +116,34 @@ exports.createSchemaCustomization = ({ actions }) => {
   `)
 
   /**
+   * Additional types for GhostPost
+   */
+  createFieldExtension({
+    name: 'subtitle',
+    extend: () => ({
+      resolve: (source) => {
+        const { excerpt } = source
+        return getBeforePipe(excerpt)
+      },
+    }),
+  })
+  createFieldExtension({
+    name: 'featureImageCaption',
+    extend: () => ({
+      resolve: (source) => {
+        const { excerpt } = source
+        return getAfterPipe(excerpt)
+      },
+    }),
+  })
+  createTypes(`
+    type GhostPost implements Node {
+      subtitle: String @subtitle
+      featureImageCaption: String @featureImageCaption
+    }
+  `)
+
+  /**
    * Additional types for GhostAuthor
    */
   createFieldExtension({
@@ -86,14 +151,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     extend: () => ({
       resolve: (source) => {
         const { location } = source
-        const index = location ? location.indexOf('|') : -1
-        if (index < 0) {
-          // Default role
-          return 'Contributor'
-        }
-
-        const role = location.substring(index + 1).trim()
-        return role
+        return getAfterPipe(location, { defaultValue: 'Contributor' })
       },
     }),
   })
@@ -102,28 +160,10 @@ exports.createSchemaCustomization = ({ actions }) => {
     extend: () => ({
       resolve: (source) => {
         const { location } = source
-        if (!location) {
-          return ''
-        }
-
-        const index = location.indexOf('|')
-        if (index < 0) {
-          return location.trim()
-        }
-
-        const loc = location.substring(0, index).trim()
-        return loc
+        return getBeforePipe(location)
       },
     }),
   })
-  const parseUsername = (str) => {
-    if (!str) return ''
-    const index = str ? str.lastIndexOf('/') : -1
-    if (index < 0) {
-      return str.trim()
-    }
-    return str.substring(index + 1).trim()
-  }
   createFieldExtension({
     name: 'facebookUsername',
     extend: () => ({
@@ -190,7 +230,7 @@ exports.createPages = async ({ graphql, actions }) => {
           id
           slug
           title
-          excerpt
+          subtitle
           published_at(formatString: "MMM DD, YYYY")
           reading_time
           localImage {

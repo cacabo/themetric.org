@@ -12,6 +12,8 @@ Web application for The Metric
 - Content is posted, tagged with topics, and managed in Ghost
 - The Ghost instance is hosted on [Vultr](https://www.vultr.com/)
   - It can be accessed at [ghost.themetric.org](https://www.ghost.themetric.org)
+  - You can access the Vultr instance via console on the Vultr website. You will need the credentials to log into that account.
+  - Install process was similar to [this guide.](https://ghost.org/docs/install/ubuntu/)
 - The [themetric.org](https://www.themetric.org) domain is registered and configured on [GoDaddy](https://www.godaddy.com)
 - The website sources content from Ghost and is built as a static website
 - The website is hosted on Netlify, it deploys automatically with each new commit to the master branch
@@ -25,6 +27,7 @@ Web application for The Metric
 - ESLint is a library for enforcing style and formatting rules
 - Prettier is a library for automatically reformatting code, it works hand and hand with ESLint under our configuration
 - styled-components is a library for writting CSS-in-JS
+- To get an email from the Ghost instance, you must be an ["Authorized Recipient"](https://help.mailgun.com/hc/en-us/articles/217531258-Authorized-Recipients) in Mailgun
 
 ---
 
@@ -50,13 +53,31 @@ To build a production build, which serves as a good indicator of if a deploy to 
 
 If there are issues with stale content, components, or otherwise odd occurrences, try running `yarn clean` and re-running the website locally. This deletes the cache of assets and components which Gatsby produces for performance reasons.
 
+**Issues with SSL configuration**
+
+Haven't quite been able to debug this...
+
+- https://forum.ghost.org/t/invalid-response-from-acme-challenge-when-setting-up-ssl/10167
+  - This person's issues were due to an odd setup
+- https://forum.ghost.org/t/ghost-setup-ssl-not-working/4779
+  - No one helped this poor soul
+- https://forum.ghost.org/t/problem-setting-up-ssl/9912/10?u=cacabo
+  - Could go at it setting up certbot manually...
+
+Try too many times and you get [rate limited.](https://forum.ghost.org/t/ssl-setup-not-working/4547) Look into the error messages that are output instead of just mindlessly re-trying.
+
+[Updating ACME and running the script did not help.](https://forum.ghost.org/t/lets-encrypt-expiry-bot/9708)
+
+[Similarly, running things manually also didn't work](https://www.digitalocean.com/community/questions/lets-encrypt-ssl-no-renewals-were-attempted?answer=56026)
+
+[Having ports 443 and 80 open does not seem to be related.](https://forum.ghost.org/t/setting-up-ssl/3752/4)
+
 ---
 
 ### Todo
 
 **Shorter term**
 
-- [ ] Port over all existing content to Ghost
 - [ ] Decide on final names for regions
 
 **Longer term**
@@ -70,6 +91,7 @@ If there are issues with stale content, components, or otherwise odd occurrences
 
 **Completed**
 
+- [x] Port over all existing content to Ghost
 - [x] Webhook for rebuilding website in response to changes
 - [x] Responsive font sizing on article page (especially for headers)
 - [x] Homepage, featured posts

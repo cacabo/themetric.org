@@ -306,7 +306,7 @@ export const Search = ({
         <ResultsList active={active}>
           {results.length === 0 && <Spacer />}
           {results.map(
-            ({ excerpt, slug, title }, idx): React.ReactElement => (
+            ({ subtitle, slug, title }, idx): React.ReactElement => (
               <ListItem key={slug} active={idx === activeResultIdx}>
                 <StyledLink
                   to={ARTICLE_ROUTE(slug)}
@@ -320,7 +320,7 @@ export const Search = ({
                     {title}
                   </P>
                   <P xs lighter>
-                    {excerpt}
+                    {subtitle}
                   </P>
                 </StyledLink>
               </ListItem>

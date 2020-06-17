@@ -44,13 +44,13 @@ export const SearchSidebar = ({
         />
       </SidebarDiv>
       {query && !results.length && <NoSearchResults />}
-      {results.map(({ excerpt, slug, title }) => (
+      {results.map(({ subtitle, slug, title }) => (
         <SidebarLink to={ARTICLE_ROUTE(slug)} key={slug} onClick={close}>
           <P mb1 bold>
             {title}
           </P>
           <P mb0 sm style={{ opacity: 0.8 }}>
-            {excerpt}
+            {subtitle}
           </P>
         </SidebarLink>
       ))}

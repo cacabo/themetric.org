@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link } from 'gatsby'
-import s from 'styled-components'
+import styled from 'styled-components'
 
 import { IAuthorPreview } from '../../types'
 import { AUTHOR_ROUTE } from '../../constants/routes'
@@ -16,7 +16,7 @@ import {
   BackgroundImg,
 } from '../../shared'
 
-const ProfileImage = s(BackgroundImg)`
+const ProfileImage = styled(BackgroundImg)`
   margin-bottom: 0;
   width: 68px;
   height: 68px;
@@ -38,7 +38,7 @@ export const AuthorPreview = ({
       <Card hoverable clickable shaded mb0>
         <Flex>
           {fluid && <ProfileImage fluid={fluid} />}
-          <div>
+          <div style={{ flex: 1 }}>
             <H4 mb0>{name}</H4>
             {role && (
               <P mb0 sm lighter inline>

@@ -63,7 +63,7 @@ const MobileImage = s(Img)`
 export const ArticlePreview = ({
   title,
   slug,
-  excerpt,
+  subtitle,
   feature_image,
   localImage,
   authors,
@@ -90,7 +90,7 @@ export const ArticlePreview = ({
           </Link>
           <Link to={ARTICLE_ROUTE(slug)}>
             <P mb4 light>
-              {excerpt}
+              {subtitle}
             </P>
           </Link>
           <P sm lighter mb1>

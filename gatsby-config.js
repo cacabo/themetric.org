@@ -1,6 +1,9 @@
-// GHOST_API_KEY is needed for the site to function properly
+// Needed for the site to function properly
 if (!process.env.GHOST_API_KEY) {
   throw Error('Missing GHOST_API_KEY in env')
+}
+if (!process.env.GHOST_URL) {
+  throw Error('Missing GHOST_URL in env')
 }
 
 module.exports = {
@@ -36,9 +39,9 @@ module.exports = {
     {
       resolve: `gatsby-source-ghost`,
       options: {
-        apiUrl: `	https://ghost.themetric.org`,
+        apiUrl: process.env.GHOST_URL,
         contentApiKey: process.env.GHOST_API_KEY,
-        version: `v3`,
+        version: `v2`,
       },
     },
     {
@@ -94,7 +97,7 @@ module.exports = {
                   slug,
                   title,
                   published_at,
-                  excerpt,
+                  subtitle,
                   html,
                   tags,
                   authors,
@@ -107,7 +110,7 @@ module.exports = {
                     {},
                     {
                       title,
-                      description: excerpt,
+                      description: subtitle,
                       date: published_at,
                       url,
                       guid: url,
@@ -125,7 +128,7 @@ module.exports = {
                     slug
                     title
                     published_at
-                    excerpt
+                    subtitle
                     html
                     tags {
                       name
@@ -187,7 +190,7 @@ module.exports = {
           { name: 'slug', store: true },
           { name: 'title', store: true, attributes: { boost: 20 } },
           { name: 'html', store: false },
-          { name: 'excerpt', store: true, attributes: { boost: 10 } },
+          { name: 'subtitle', store: true, attributes: { boost: 10 } },
         ],
         // How to resolve each field's value for a supported node type
         resolvers: {
@@ -195,7 +198,7 @@ module.exports = {
             slug: (node) => node.slug,
             title: (node) => node.title,
             html: (node) => node.html,
-            excerpt: (node) => node.excerpt,
+            subtitle: (node) => node.subtitle,
           },
         },
       },

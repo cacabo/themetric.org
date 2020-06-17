@@ -53,7 +53,7 @@ export const Featured = (): React.ReactElement => {
   return (
     <FeaturedContainer>
       {(nodes as IArticlePreview[]).map(
-        ({ title, excerpt, slug, id, localImage, authors }) => (
+        ({ title, subtitle, slug, id, localImage, authors }) => (
           <Link to={ARTICLE_ROUTE(slug)} key={id}>
             <BackgroundImg
               fluid={localImage?.childImageSharp?.fluid as FluidObject}
@@ -61,7 +61,7 @@ export const Featured = (): React.ReactElement => {
             >
               <Wrapper>
                 <Title>{title}</Title>
-                <Subtitle mb2>{excerpt}</Subtitle>
+                <Subtitle mb2>{subtitle}</Subtitle>
                 <P sm>{authors.map(({ name }) => name).join(', ')}</P>
               </Wrapper>
             </BackgroundImg>

@@ -67,7 +67,7 @@ export interface ITag {
 export interface IArticlePreview {
   id: string
   title: string
-  excerpt?: string
+  subtitle?: string
   slug: string
   feature_image?: string
   localImage?: IGatsbyImage
@@ -81,9 +81,10 @@ export interface IArticle {
   title: string
   slug: string
   feature_image?: string
+  featureImageCaption?: string
   localImage?: IGatsbyImage
   html: string
-  excerpt: string
+  subtitle: string
   reading_time: number
   published_at: string
   tags: ITag[]

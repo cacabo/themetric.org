@@ -9,7 +9,7 @@ module.exports = {
     'north-america',
     'latin-america',
     'europe',
-    'middle-east-north-africa',
+    'middle-east',
     'africa',
     'asia-oceania',
   ],

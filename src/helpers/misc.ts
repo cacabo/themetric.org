@@ -27,7 +27,7 @@ declare global {
 }
 
 export interface ISearchResult {
-  excerpt: string
+  subtitle: string
   slug: string
   title: string
 }

@@ -156,6 +156,8 @@ export interface IColProps {
   offsetMd?: number
   lg?: number
   offsetLg?: number
+  xl?: number
+  offsetXl?: number
   flex?: boolean
   margin?: string
   children?: ReactNode
@@ -183,6 +185,12 @@ const ColWrapper = s.div<IColProps>`
     ${({ lg }): string => (lg ? `width: ${percent(lg)}; flex: none;` : '')}
     ${({ offsetLg }): string =>
       offsetLg || offsetLg === 0 ? `margin-left: ${percent(offsetLg)};` : ''}
+  }
+
+  ${minWidth(DESKTOP)} {
+    ${({ xl }): string => (xl ? `width: ${percent(xl)}; flex: none;` : '')}
+    ${({ offsetXl }): string =>
+      offsetXl || offsetXl === 0 ? `margin-left: ${percent(offsetXl)};` : ''}
   }
 
   ${({ flex }): string => (flex ? 'display: flex;' : '')}
@@ -238,7 +246,7 @@ export const WideContainer = ({
 }: IContainerProps): ReactElement => (
   <Container {...props}>
     <Row>
-      <Col sm={12} md={10} offsetMd={1} lg={8} offsetLg={2}>
+      <Col sm={12} md={11} offsetMd={0.5} xl={8} offsetXl={2}>
         {children}
       </Col>
     </Row>
@@ -251,7 +259,15 @@ export const MediumContainer = ({
 }: IContainerProps): ReactElement => (
   <Container {...props}>
     <Row>
-      <Col sm={12} md={8} offsetMd={2} lg={6} offsetLg={3}>
+      <Col
+        sm={12}
+        md={10}
+        offsetMd={1}
+        lg={9}
+        offsetLg={1.5}
+        xl={7}
+        offsetXl={2.5}
+      >
         {children}
       </Col>
     </Row>

@@ -4,6 +4,7 @@ import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
 const IMAGE = 'https://ccabo.s3-us-west-1.amazonaws.com/metric.png'
 const URL = 'themetric.org'
+const TWITTER = '@TheMetric_'
 
 type Meta =
   | { name: string; content: any; property?: undefined }
@@ -76,11 +77,11 @@ export const Meta = ({
         },
         {
           name: 'twitter:site',
-          content: URL,
+          content: TWITTER,
         },
         {
           name: 'twitter:card',
-          content: 'summary',
+          content: image ? 'summary_large_image' : 'summary',
         },
         {
           name: 'twitter:creator',
