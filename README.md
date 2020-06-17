@@ -76,21 +76,19 @@ Try too many times and you get [rate limited.](https://forum.ghost.org/t/ssl-set
 
 ### Todo
 
-**Shorter term**
-
-- [ ] Decide on final names for regions
-
-**Longer term**
+**Todo**
 
 - [ ] Favicon for dark mode browser
 - [ ] Mailing list
 - [ ] Icons for regions
-- [ ] TypeScript in `gatsby-node` https://gist.github.com/clarkdave/53cc050fa58d9a70418f8a76982dd6c8
 - [ ] Highlight matching words in search results
-- [ ] Tabbing through navigation, don't be able to tab through a navbar which is not visible
+- [ ] Tabbing through navigation, don't be able to tab through a navbar which is not visible, other accessibility improvements
+- [ ] Accept paypal donations
 
 **Completed**
 
+- [x] TypeScript in `gatsby-node` https://gist.github.com/clarkdave/53cc050fa58d9a70418f8a76982dd6c8
+- [x] Decide on final names for regions
 - [x] Port over all existing content to Ghost
 - [x] Webhook for rebuilding website in response to changes
 - [x] Responsive font sizing on article page (especially for headers)
