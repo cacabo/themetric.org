@@ -8,7 +8,7 @@ Web application for The Metric
 
 ### System Architecture
 
-- The webiste is hosted and collaborated on in [GitHub](https://github.com/cacabo/metric)
+- The website is hosted and collaborated on in [GitHub](https://github.com/cacabo/metric)
 - Content is posted, tagged with topics, and managed in Ghost
 - The [themetric.org](https://www.themetric.org) domain is registered and configured on [GoDaddy](https://www.godaddy.com)
 - The website sources content from Ghost and is built as a static website
@@ -38,7 +38,7 @@ Ghost is a little brittle in terms of what fields it supports. To get around thi
 - TypeScript is a superset of JavaScript for adding static types to variables
 - ESLint is a library for enforcing style and formatting rules
 - Prettier is a library for automatically reformatting code, it works hand and hand with ESLint under our configuration
-- styled-components is a library for writting CSS-in-JS
+- styled-components is a library for writing CSS-in-JS
 - To get an email from the Ghost instance, you must be an ["Authorized Recipient"](https://help.mailgun.com/hc/en-us/articles/217531258-Authorized-Recipients) in Mailgun
 
 ---
