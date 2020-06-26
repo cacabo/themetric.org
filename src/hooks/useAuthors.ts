@@ -25,8 +25,13 @@ export const useAuthors = (): IAuthorPreview[] => {
     }
   `)
 
+  const ids = new Set((authors as IAuthorPreview[]).map(({ slug }) => slug))
+  const filteredAuthorsManual: IAuthorPreview[] = (authorsManual as IAuthorPreview[]).filter(
+    ({ slug }) => !ids.has(slug),
+  )
+
   return [
     ...(authors as IAuthorPreview[]),
-    ...(authorsManual as IAuthorPreview[]),
+    ...filteredAuthorsManual,
   ].sort(({ name: a }, { name: b }) => (a < b ? -1 : a > b ? 1 : 0))
 }
