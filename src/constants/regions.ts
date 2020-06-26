@@ -2,7 +2,7 @@ export enum ERegionSlug {
   NORTH_AMERICA = 'north-america',
   LATIN_AMERICA = 'latin-america',
   EUROPE = 'europe',
-  MIDDLE_EAST_AND_NORTH_AFRICA = 'middle-east-north-africa',
+  MIDDLE_EAST = 'middle-east',
   AFRICA = 'africa',
   ASIA_AND_OCEANIA = 'asia-oceania',
 }
@@ -11,7 +11,7 @@ export enum ERegionName {
   NORTH_AMERICA = 'North America',
   LATIN_AMERICA = 'Latin America',
   EUROPE = 'Europe',
-  MIDDLE_EAST_AND_NORTH_AFRICA = 'Middle East & North Africa',
+  MIDDLE_EAST = 'Middle East',
   AFRICA = 'Africa',
   ASIA_AND_OCEANIA = 'Asia & Oceania',
 }
