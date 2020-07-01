@@ -99,7 +99,7 @@ export const createSchemaCustomization: GatsbyCreateSchemaCustomization = ({
     extend: () => ({
       resolve: (source: ICompleteAuthor): string => {
         const { location } = source
-        return getAfterPipe(location, { defaultValue: 'Contributor' })
+        return getAfterPipe(location, { defaultValue: 'Content Creator' })
       },
     }),
   })

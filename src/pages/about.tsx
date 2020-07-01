@@ -99,11 +99,9 @@ const AboutPage = (): React.ReactElement => {
       <ResponsiveSpacer hiddenOnMobile />
 
       <MediumContainer>
-        <H3 center>Meet the Team</H3>
-        <P mb0>
-          We&apos;re a driven group of students from around the world who are
-          passionate for progress and political awareness.
-        </P>
+        <H3 center mb0>
+          Meet the Team
+        </H3>
       </MediumContainer>
       <Spacer />
       <WideContainer>
