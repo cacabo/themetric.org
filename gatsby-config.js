@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 // Needed for the site to function properly
 if (!process.env.GHOST_API_KEY) {
   throw Error('Missing GHOST_API_KEY in env')
@@ -198,7 +200,12 @@ module.exports = {
             slug: (node) => node.slug,
             title: (node) => node.title,
             html: (node) => node.html,
-            subtitle: (node) => node.subtitle,
+
+            /**
+             * NOTE this runs during or before crateSchemaCustomization so we
+             * have to manually parse out the subtitle
+             */
+            subtitle: (node) => (node.excerpt || '').split('|')[0].trim(),
           },
         },
       },

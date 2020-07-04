@@ -100,7 +100,7 @@ export const ArticleFragment = graphql`
       }
     }
     published_at(formatString: "MMM D, YYYY")
-    reading_time
+    readingTime
     tags {
       id
       name
@@ -116,7 +116,7 @@ export const ArticlePreviewFragment = graphql`
     title
     subtitle
     published_at(formatString: "MMM D, YYYY")
-    reading_time
+    readingTime
     tags {
       id
       slug

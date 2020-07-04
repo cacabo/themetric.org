@@ -72,7 +72,7 @@ export interface IArticlePreview {
   feature_image?: string
   localImage?: IGatsbyImage
   published_at: string
-  reading_time: number
+  readingTime: number
   authors: IAuthorPreview[]
   tags: ITag[]
 }
@@ -85,7 +85,7 @@ export interface IArticle {
   localImage?: IGatsbyImage
   html: string
   subtitle: string
-  reading_time: number
+  readingTime: number
   published_at: string
   tags: ITag[]
 }

@@ -1,3 +1,4 @@
+import readingTime from 'reading-time'
 import { ITag, IArticle, IAuthor } from '../src/types'
 import { REGIONS } from '../src/constants/regions'
 import { GatsbyCreateSchemaCustomization } from './types'
@@ -84,10 +85,24 @@ export const createSchemaCustomization: GatsbyCreateSchemaCustomization = ({
       },
     }),
   })
+  createFieldExtension({
+    name: 'readingTime',
+    extend: () => ({
+      resolve: (source: ICompleteArticle): number => {
+        const { html } = source
+        const time = Math.round(readingTime(html).minutes)
+        if (time <= 0) {
+          return 1
+        }
+        return time
+      },
+    }),
+  })
   createTypes(`
     type GhostPost implements Node {
       subtitle: String @subtitle
       featureImageCaption: String @featureImageCaption
+      readingTime: Int @readingTime
     }
   `)
 

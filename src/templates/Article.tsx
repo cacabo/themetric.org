@@ -63,7 +63,7 @@ const ArticleTemplate = ({
       slug,
       html,
       subtitle,
-      reading_time: readingTime,
+      readingTime,
       published_at: publishedAt,
       tags,
     },

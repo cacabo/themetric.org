@@ -75,7 +75,7 @@ export const createPages: GatsbyCreatePages = async ({ graphql, actions }) => {
           title
           subtitle
           published_at(formatString: "MMM DD, YYYY")
-          reading_time
+          readingTime
           localImage {
             childImageSharp {
               fluid(maxWidth: 548) {

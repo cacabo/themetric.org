@@ -42,7 +42,7 @@ export const VerticalArticlePreview = ({
   authors,
   tags,
   published_at,
-  reading_time,
+  readingTime,
 }: IArticlePreview): React.ReactElement => {
   const { fluid } = localImage?.childImageSharp || {}
   return (
@@ -86,7 +86,7 @@ export const VerticalArticlePreview = ({
         </TextList>
       </P>
       <P sm lightest mb0>
-        {published_at} &#183; {reading_time} mins
+        {published_at} &#183; {readingTime} mins
       </P>
     </div>
   )
