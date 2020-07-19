@@ -7,6 +7,7 @@ export const AuthorPreviewFragment = graphql`
     name
     loc
     role
+    profile_image
     localImage {
       childImageSharp {
         fluid(maxWidth: 128) {
@@ -24,6 +25,7 @@ export const AuthorManualPreviewFragment = graphql`
     name
     loc
     role
+    profile_image
     localImage {
       childImageSharp {
         fluid(maxWidth: 128) {

@@ -18,14 +18,15 @@ import {
   Spacer,
   HR,
   BriefcaseIcon,
-  BackgroundImg,
   BtnAnchor,
+  backgroundStyles,
 } from '../shared'
 import { ArticlePreviews } from '../components/Article/ArticlePreviews'
 import { IAuthor, IArticlePreview } from '../types'
 import { TWITTER_PAGE_LINK, FACEBOOK_PAGE_LINK } from '../constants/routes'
 import { M2, minWidth, M4, PHONE } from '../constants/measurements'
 import { useState } from 'react'
+import BackgroundImage from 'gatsby-background-image'
 
 const Header = s.div`
   display: block;
@@ -38,12 +39,14 @@ const Header = s.div`
   }
 `
 
-const ProfileImage = s(BackgroundImg)`
+const ProfileImage = s.div`
   border-radius: 50%;
   overflow: hidden;
   margin-bottom: ${M4};
   width: 6rem;
   height: 6rem;
+
+  ${backgroundStyles}
 
   ${minWidth(PHONE)} {
     margin-right: calc(${M2} + 1.25vw);
@@ -82,6 +85,7 @@ const AuthorTemplate = ({ data }: IAuthorTemplateProps): React.ReactElement => {
     twitterUsername,
     website,
     localImage,
+    profile_image,
   } = (ghostAuthor || ghostAuthorManual) as IAuthor
 
   const fluid = localImage?.childImageSharp?.fluid
@@ -105,7 +109,12 @@ const AuthorTemplate = ({ data }: IAuthorTemplateProps): React.ReactElement => {
         <Spacer />
 
         <Header>
-          {fluid && <ProfileImage fluid={fluid} />}
+          {fluid && <ProfileImage as={BackgroundImage} fluid={fluid} />}
+          {!fluid && profile_image && (
+            <ProfileImage
+              style={{ backgroundImage: `url(${profile_image})` }}
+            />
+          )}
           <div style={{ flex: 1 }}>
             <H1 mb2>{name}</H1>
             <P mb0>{bio}</P>

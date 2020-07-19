@@ -47,6 +47,7 @@ export interface IAuthorPreview {
   name: string
   loc?: string
   role?: string
+  profile_image?: string
   localImage?: IGatsbyImage
 }
 

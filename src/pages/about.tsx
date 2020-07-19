@@ -100,7 +100,7 @@ const AboutPage = (): React.ReactElement => {
 
       <MediumContainer>
         <H3 center mb0>
-          Meet the Team
+          Our Contributors
         </H3>
       </MediumContainer>
       <Spacer />
