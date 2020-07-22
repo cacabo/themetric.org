@@ -40,13 +40,13 @@ const Header = s.div`
 `
 
 const ProfileImage = s.div`
+  ${backgroundStyles}
+
   border-radius: 50%;
   overflow: hidden;
   margin-bottom: ${M4};
   width: 6rem;
   height: 6rem;
-
-  ${backgroundStyles}
 
   ${minWidth(PHONE)} {
     margin-right: calc(${M2} + 1.25vw);
